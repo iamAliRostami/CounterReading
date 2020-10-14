@@ -21,6 +21,12 @@ public class MyApplication extends Application {
         MultiDex.install(this);
     }
 
+    @Override
+    public void onCreate() {
+        appContext = getApplicationContext();
+        super.onCreate();
+    }
+
     public boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null &&

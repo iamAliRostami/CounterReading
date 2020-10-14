@@ -31,8 +31,8 @@ public class MatOfDMatch extends Mat {
         fromArray(ap);
     }
 
-    public static org.opencv.core.MatOfDMatch fromNativeAddr(long addr) {
-        return new org.opencv.core.MatOfDMatch(addr);
+    public static MatOfDMatch fromNativeAddr(long addr) {
+        return new MatOfDMatch(addr);
     }
 
     public void alloc(int elemNumber) {

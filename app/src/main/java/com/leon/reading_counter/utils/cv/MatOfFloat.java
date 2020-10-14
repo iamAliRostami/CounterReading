@@ -31,8 +31,8 @@ public class MatOfFloat extends Mat {
         fromArray(a);
     }
 
-    public static org.opencv.core.MatOfFloat fromNativeAddr(long addr) {
-        return new org.opencv.core.MatOfFloat(addr);
+    public static MatOfFloat fromNativeAddr(long addr) {
+        return new MatOfFloat(addr);
     }
 
     public void alloc(int elemNumber) {

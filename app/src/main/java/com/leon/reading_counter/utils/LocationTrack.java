@@ -49,7 +49,7 @@ public class LocationTrack extends Service implements LocationListener {
             checkNetwork = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
             if (!checkGPS && !checkNetwork) {
-                Toast.makeText(activity, activity.getString(R.string.services_is_not_availabe), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, activity.getString(R.string.services_is_not_available), Toast.LENGTH_LONG).show();
             } else {
                 this.canGetLocation = true;
                 if (checkGPS) {

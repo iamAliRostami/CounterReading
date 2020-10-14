@@ -4,5 +4,7 @@
     <string name="would_you_want_active_gps">آیا میخواهید جی پی اس را فعال کنید؟</string>
     <string name="yes">بله</string>
     <string name="no">خیر</string>
-    <string name="services_is_not_availabe">سرویس در دسترس  نیست</string>
+    <string name="services_is_not_available">سرویس در دسترس  نیست</string>
+    <string name="canceled">عملیات متوقف شد.</string>
+    <string name="waiting">لطفا صبر کنید…</string>
 </resources>

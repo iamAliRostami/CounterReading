@@ -31,8 +31,8 @@ public class MatOfKeyPoint extends Mat {
         fromArray(a);
     }
 
-    public static org.opencv.core.MatOfKeyPoint fromNativeAddr(long addr) {
-        return new org.opencv.core.MatOfKeyPoint(addr);
+    public static MatOfKeyPoint fromNativeAddr(long addr) {
+        return new MatOfKeyPoint(addr);
     }
 
     public void alloc(int elemNumber) {

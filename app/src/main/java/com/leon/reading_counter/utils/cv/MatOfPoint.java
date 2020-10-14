@@ -31,8 +31,8 @@ public class MatOfPoint extends Mat {
         fromArray(a);
     }
 
-    public static org.opencv.core.MatOfPoint fromNativeAddr(long addr) {
-        return new org.opencv.core.MatOfPoint(addr);
+    public static MatOfPoint fromNativeAddr(long addr) {
+        return new MatOfPoint(addr);
     }
 
     public void alloc(int elemNumber) {
