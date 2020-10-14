@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.leon.reading_counter.databinding.ActivityMainBinding;
-import com.leon.reading_counter.utils.CustomToast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,7 +22,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void initialize() {
-        CustomToast customToast = new CustomToast();
-        customToast.error();
     }
 }
