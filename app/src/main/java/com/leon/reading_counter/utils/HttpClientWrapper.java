@@ -1,19 +1,17 @@
-package com.leon.estimate.Utils;
+package com.leon.reading_counter.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.ConnectivityManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.leon.estimate.Enums.ProgressType;
-import com.leon.estimate.Infrastructure.ICallback;
-import com.leon.estimate.Infrastructure.ICallbackError;
-import com.leon.estimate.Infrastructure.ICallbackIncomplete;
-import com.leon.estimate.R;
-
-import java.util.Objects;
+import com.leon.reading_counter.MyApplication;
+import com.leon.reading_counter.R;
+import com.leon.reading_counter.enums.ProgressType;
+import com.leon.reading_counter.infrastructure.ICallback;
+import com.leon.reading_counter.infrastructure.ICallbackError;
+import com.leon.reading_counter.infrastructure.ICallbackIncomplete;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,8 +31,10 @@ public class HttpClientWrapper {
             progressBar.show(context, context.getString(R.string.waiting));
         } else if (dialogType == ProgressType.SHOW_CANCELABLE.getValue()) {
             progressBar.show(context, context.getString(R.string.waiting), true);
+        } else if (dialogType == ProgressType.SHOW_CANCELABLE_REDIRECT.getValue()) {
+            progressBar.show(context, context.getString(R.string.waiting), true);
         }
-        if (isOnline(context)) {
+        if (MyApplication.isNetworkAvailable(context)) {
             HttpClientWrapper.call.enqueue(new Callback<T>() {
                 @Override
                 public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
@@ -43,28 +43,23 @@ public class HttpClientWrapper {
                     } else {
                         ((Activity) context).runOnUiThread(() -> callbackIncomplete.executeIncomplete(response));
                     }
-                    if (progressBar.getDialog() != null)
-                        progressBar.getDialog().dismiss();
+//                    if (progressBar.getDialog() != null)
+//                        progressBar.getDialog().dismiss();
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
                     ((Activity) context).runOnUiThread(() -> callbackError.executeError(t));
-                    if (progressBar.getDialog() != null)
-                        progressBar.getDialog().dismiss();
+//                    if (progressBar.getDialog() != null)
+//                        progressBar.getDialog().dismiss();
                 }
             });
         } else {
-            if (progressBar.getDialog() != null)
-                progressBar.getDialog().dismiss();
+//            if (progressBar.getDialog() != null)
+//                progressBar.getDialog().dismiss();
             Toast.makeText(context, R.string.turn_internet_on, Toast.LENGTH_SHORT).show();
         }
-
-    }
-
-    public static boolean isOnline(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return Objects.requireNonNull(cm).getActiveNetworkInfo() != null &&
-                Objects.requireNonNull(cm.getActiveNetworkInfo()).isConnectedOrConnecting();
+        if (progressBar.getDialog() != null)
+            progressBar.getDialog().dismiss();
     }
 }

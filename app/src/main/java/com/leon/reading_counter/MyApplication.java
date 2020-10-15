@@ -37,7 +37,7 @@ public class MyApplication extends Application {
         super.onCreate();
     }
 
-    public boolean isNetworkAvailable(Context context) {
+    public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = ((ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null &&

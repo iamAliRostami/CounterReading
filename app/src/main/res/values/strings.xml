@@ -7,4 +7,7 @@
     <string name="services_is_not_available">سرویس در دسترس  نیست</string>
     <string name="canceled">عملیات متوقف شد.</string>
     <string name="waiting">لطفا صبر کنید…</string>
+    <string name="turn_internet_on">اینترنت وصل نیست، اینترنت وایفای یا همراه خود را روشن کنید.</string>
+    <string name="cache_folder">responses</string>
+
 </resources>

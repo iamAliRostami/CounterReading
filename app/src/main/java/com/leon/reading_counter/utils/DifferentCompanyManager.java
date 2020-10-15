@@ -1,17 +1,12 @@
-package com.leon.estimate.Utils;
+package com.leon.reading_counter.utils;
 
 
-import com.leon.estimate.Enums.CompanyNames;
-
-/**
- * Created by Leon on 12/17/2017.
- */
+import com.leon.reading_counter.enums.CompanyNames;
 
 public class DifferentCompanyManager {
     private DifferentCompanyManager() {
     }
 
-    //
     public static CompanyNames getCompanyNameEnum(int companyCode) {
         switch (companyCode) {
             case 1:
@@ -42,7 +37,6 @@ public class DifferentCompanyManager {
         }
     }
 
-    //
     public static String getCompanyName(CompanyNames companyName) {
         switch (companyName) {
             case ZONE1:
@@ -58,7 +52,7 @@ public class DifferentCompanyManager {
             case ZONE6:
                 return "آبقا منطقه شش";
             case TE:
-                return "آبفاشرق";
+                return "آبفا شرق";
             case TSW:
                 return "آبفا جنوب غربی";
             case TSE:
@@ -72,8 +66,39 @@ public class DifferentCompanyManager {
         }
     }
 
-    public static int getEshterakMinLength() {
+    public static int getAccountMinLength() {
         return getActiveCompanyName() == CompanyNames.ESF ? 8 : 10;
+    }
+
+    public static String getMapUrl(CompanyNames companyNames) {
+        switch (companyNames) {
+            case ZONE1:
+                return "http://217.146.220.33:50011/";
+            case ZONE2:
+                return "http://212.16.75.194:8080/";
+            case ZONE3:
+                return "http://212.16.69.36:90/";
+            case ZONE4:
+                return "http://91.98.248.36:8081/";
+            case ZONE5:
+                return "http://80.69.252.151/";
+            case ZONE6:
+                return "http://85.133.190.220:4121/";
+            case TSW:
+                return "http://81.90.148.25/";
+            case TE:
+                return "http://185.120.137.254";
+            case TSE:
+                return "http://5.160.85.228:9098/";
+            case TOWNS_WEST:
+                return "http://217.66.195.75/";
+            case ESF:
+                return "http://37.191.92.130/";
+            case DEBUG:
+                return "http://192.168.43.185:45458/";
+            default:
+                throw new UnsupportedOperationException();
+        }
     }
 
     public static String getBaseUrl(CompanyNames companyNames) {
@@ -100,17 +125,13 @@ public class DifferentCompanyManager {
                 return "http://217.66.195.75/";
             case ESF:
                 return "http://37.191.92.130/";
-//                return "http://172.18.12.121";
             case DEBUG:
                 return "http://192.168.43.185:45458/";
-            case ESF_MAP:
-                return "http://172.18.12.242/osm_tiles";
             default:
                 throw new UnsupportedOperationException();
         }
     }
 
-    //
     public static String getLocalBaseUrl(CompanyNames companyNames) {
         switch (companyNames) {
             case ZONE1:
@@ -132,20 +153,16 @@ public class DifferentCompanyManager {
             case TSE:
                 return "http://172.28.5.40/";
             case TOWNS_WEST:
-                return "http://172.28.5.40/";
+                return "http://172.28.5.41/";
             case ESF:
                 return "http://172.18.12.14:100";
-//                return "http://172.18.12.121";
             case ESF_MAP:
                 return "http://172.18.12.242/osm_tiles/";
-            case SEPANO:
-                return "http://172.18.12.4:5002/";
             default:
                 throw new UnsupportedOperationException();
         }
     }
 
-    //
     public static String getEmailTail(CompanyNames companyNames) {
         switch (companyNames) {
             case ZONE1:
@@ -175,7 +192,6 @@ public class DifferentCompanyManager {
         }
     }
 
-    //
     public static String getCameraUploadUrl(CompanyNames companyNames) {
         switch (companyNames) {
             case ZONE1:
@@ -209,7 +225,6 @@ public class DifferentCompanyManager {
         return CompanyNames.ESF;
     }
 
-
     public static String getPrefixName(CompanyNames companyNames) {
         switch (companyNames) {
             case ZONE1:
@@ -238,5 +253,4 @@ public class DifferentCompanyManager {
                 throw new UnsupportedOperationException();
         }
     }
-
 }
