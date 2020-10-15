@@ -1,9 +1,4 @@
 package com.leon.reading_counter.enums;
-
-/**
- * Created by Leon on 12/28/2017.
- */
-
 public enum HighLowStateEnum {
     NORMAL(0),
     HIGH(2),

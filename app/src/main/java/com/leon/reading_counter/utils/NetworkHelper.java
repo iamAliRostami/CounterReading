@@ -44,7 +44,7 @@ public final class NetworkHelper {
                 .addInterceptor(interceptor).build();
     }
 
-    public static Retrofit getInstance(boolean b, String token) {
+    public static Retrofit getInstance(String token, boolean b) {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();

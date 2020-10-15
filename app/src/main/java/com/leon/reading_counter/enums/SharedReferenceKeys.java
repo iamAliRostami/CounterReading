@@ -1,9 +1,5 @@
 package com.leon.reading_counter.enums;
 
-/**
- * Created by Leon on 1/9/2018.
- */
-
 public enum SharedReferenceKeys {
     USERNAME("username"),
     PASSWORD("password"),

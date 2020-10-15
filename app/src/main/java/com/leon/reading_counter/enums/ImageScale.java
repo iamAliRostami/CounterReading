@@ -1,8 +1,5 @@
 package com.leon.reading_counter.enums;
 
-/**
- * Created by saeid on 3/5/2017.
- */
 public enum ImageScale {
     AS_IS(1),
     HALF_SMALL(2),

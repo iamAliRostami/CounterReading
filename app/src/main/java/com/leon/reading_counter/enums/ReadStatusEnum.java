@@ -1,9 +1,4 @@
 package com.leon.reading_counter.enums;
-
-/**
- * Created by Leon on 1/10/2018.
- */
-
 public enum ReadStatusEnum {
     ALL(0),
     UNREAD(1),
