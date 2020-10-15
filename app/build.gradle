@@ -29,7 +29,8 @@ android {
         release {
             clean
             debuggable true
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -71,8 +72,8 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'
     implementation 'com.github.GrenderG:Toasty:1.5.0'
 
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'com.github.mayuce:AndroidDocumentScanner:1.4'
+//    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+//    implementation 'com.github.mayuce:AndroidDocumentScanner:1.4'
     implementation 'com.github.ali-sardari:PersianRangeDatePicker:1.2.1'
 
     implementation platform('com.google.firebase:firebase-bom:25.12.0')
