@@ -8,8 +8,15 @@
         <item name="fontFamily">@font/font_1</item>
         <item name="font">@font/font_1</item>
         <item name="android:layoutDirection">rtl</item>
+        <item name="background">@drawable/img_background</item>
+        <item name="android:windowBackground">@drawable/img_background</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="background">@drawable/img_background</item>
+    </style>
 
     <style name="NewDialog" parent="Theme.AppCompat">
         <item name="android:windowIsFloating">true</item>
