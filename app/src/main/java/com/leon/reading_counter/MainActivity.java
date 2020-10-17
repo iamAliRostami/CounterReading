@@ -1,4 +1,4 @@
-package com.leon.reading_counter.activities;
+package com.leon.reading_counter;
 
 import android.content.Context;
 import android.os.Bundle;

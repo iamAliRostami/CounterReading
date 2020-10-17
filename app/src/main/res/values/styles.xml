@@ -10,12 +10,22 @@
         <item name="android:layoutDirection">rtl</item>
         <item name="background">@drawable/img_background</item>
         <item name="android:windowBackground">@drawable/img_background</item>
+        <item name="android:textColor">@color/textColorDark</item>
+        <item name="android:textColorSecondary">@color/textColorLight</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="background">@drawable/img_background</item>
+    </style>
+
+    <style name="bottomView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@color/footer</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginBottom">0dp</item>
     </style>
 
     <style name="NewDialog" parent="Theme.AppCompat">

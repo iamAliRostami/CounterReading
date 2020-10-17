@@ -16,12 +16,12 @@ public class SharedPreferenceManager implements ISharedPreferenceManager {
         appPrefs = this.context.getSharedPreferences(xml, MODE_PRIVATE);
     }
 
-    public boolean CheckIsNotEmpty(String key) {
+    public boolean checkIsNotEmpty(String key) {
         if (appPrefs == null) {
-            return false;
+            return true;
         } else if (appPrefs.getString(key, "").length() < 1) {
-            return false;
-        } else return appPrefs.getString(key, "").isEmpty();
+            return true;
+        } else return !appPrefs.getString(key, "").isEmpty();
     }
 
     @Override
