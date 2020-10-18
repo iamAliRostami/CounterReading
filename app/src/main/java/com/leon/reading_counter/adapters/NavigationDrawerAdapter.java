@@ -68,7 +68,6 @@ public class NavigationDrawerAdapter extends
         String ItemName;
         Drawable drawable;
 
-
         DrawerItem(String itemName, Drawable drawable) {
             this.ItemName = itemName;
             this.drawable = drawable;
@@ -89,11 +88,6 @@ public class NavigationDrawerAdapter extends
 
         public void setDrawable(Drawable drawable) {
             this.drawable = drawable;
-        }
-
-
-        public void setItemName(String itemName) {
-            ItemName = itemName;
         }
     }
 

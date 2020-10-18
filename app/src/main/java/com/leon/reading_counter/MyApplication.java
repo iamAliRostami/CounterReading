@@ -14,7 +14,7 @@ public class MyApplication extends Application {
     public static int REQUEST_LOCATION_CODE = 1236;
     public static int REQUEST_NETWORK_CODE = 1234;
     public static int TOAST_TEXT_SIZE = 20;
-    public static int position = 0;
+    public static int position = -1;
     static Context appContext;
 
     public static Context getContext() {

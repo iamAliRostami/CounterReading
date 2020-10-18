@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
 
@@ -43,21 +43,40 @@
         </provider>
 
         <activity
-            android:name=".activities.HomeActivity"
-            android:label="@string/home"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".activities.SettingActivity"
+            android:label="@string/app_setting" />
         <activity
-            android:name=".activities.SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".activities.ReadingSettingActivity"
+            android:label="@string/reading_setting" />
+        <activity
+            android:name=".activities.HelpActivity"
+            android:label="@string/help" />
+        <activity
+            android:name=".activities.ReadingReportActivity"
+            android:label="@string/reading_report" />
+        <activity
+            android:name=".activities.UploadActivity"
+            android:label="@string/upload_information" />
+        <activity
+            android:name=".activities.DownloadActivity"
+            android:label="@string/download_information" />
+        <activity
+            android:name=".activities.ReadingActivity"
+            android:label="@string/reading" />
+        <activity
+            android:name=".activities.LocationActivity"
+            android:label="@string/location" />
+        <activity
+            android:name=".activities.HomeActivity"
+            android:label="@string/home" />
+        <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.LoginActivity" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -70,5 +89,4 @@
             <!-- </intent-filter> -->
         </activity>
     </application>
-
 </manifest>

@@ -13,27 +13,27 @@
 
     <string-array name="menu">
         <!--        <item>@string/home</item>-->
-        <item>@string/upload_information</item>
-        <item>@string/reading</item>
         <item>@string/download_information</item>
+        <item>@string/reading</item>
+        <item>@string/upload_information</item>
         <item>@string/reading_report</item>
         <item>@string/location</item>
-        <item>@string/help</item>
         <item>@string/reading_setting</item>
         <item>@string/app_setting</item>
+        <item>@string/help</item>
         <item>@string/exit</item>
     </string-array>
 
     <array name="icons">
         <!--        <item>@drawable/img_home</item>-->
-        <item>@drawable/tiny_img_upload</item>
-        <item>@drawable/tiny_img_readings</item>
         <item>@drawable/tiny_img_download_information</item>
+        <item>@drawable/tiny_img_readings</item>
+        <item>@drawable/tiny_img_upload</item>
         <item>@drawable/tiny_img_reading_report</item>
         <item>@drawable/tiny_img_location</item>
-        <item>@drawable/tiny_img_help</item>
         <item>@drawable/tiny_img_reading_settings</item>
         <item>@drawable/tiny_img_app_settings</item>
+        <item>@drawable/tiny_img_help</item>
         <item>@drawable/tiny_img_exit</item>
     </array>
 </resources>

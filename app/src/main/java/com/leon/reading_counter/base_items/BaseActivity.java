@@ -19,9 +19,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 import com.leon.reading_counter.MyApplication;
 import com.leon.reading_counter.R;
+import com.leon.reading_counter.activities.DownloadActivity;
+import com.leon.reading_counter.activities.HelpActivity;
 import com.leon.reading_counter.activities.HomeActivity;
+import com.leon.reading_counter.activities.LocationActivity;
+import com.leon.reading_counter.activities.ReadingActivity;
+import com.leon.reading_counter.activities.ReadingReportActivity;
+import com.leon.reading_counter.activities.ReadingSettingActivity;
+import com.leon.reading_counter.activities.SettingActivity;
+import com.leon.reading_counter.activities.UploadActivity;
 import com.leon.reading_counter.adapters.NavigationDrawerAdapter;
 import com.leon.reading_counter.databinding.BaseActivityBinding;
+import com.leon.reading_counter.utils.CustomToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +75,8 @@ public abstract class BaseActivity extends AppCompatActivity
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else {
+            new CustomToast().warning(getString(R.string.how_to_exit));
         }
     }
 
@@ -89,11 +100,30 @@ public abstract class BaseActivity extends AppCompatActivity
                     @Override
                     public void onItemClick(View view, int position) {
                         drawer.closeDrawer(GravityCompat.START);
-                        MyApplication.position = position;
-                        if (position == 0) {
-                        } else if (position == 8) {
+                        if (position == 8) {
                             MyApplication.position = -1;
                             finishAffinity();
+                        } else {
+                            MyApplication.position = position;
+                            Intent intent = new Intent();
+                            if (position == 0) {
+                                intent = new Intent(getApplicationContext(), DownloadActivity.class);
+                            } else if (position == 1) {
+                                intent = new Intent(getApplicationContext(), ReadingActivity.class);
+                            } else if (position == 2) {
+                                intent = new Intent(getApplicationContext(), UploadActivity.class);
+                            } else if (position == 3) {
+                                intent = new Intent(getApplicationContext(), ReadingReportActivity.class);
+                            } else if (position == 4) {
+                                intent = new Intent(getApplicationContext(), LocationActivity.class);
+                            } else if (position == 5) {
+                                intent = new Intent(getApplicationContext(), ReadingSettingActivity.class);
+                            } else if (position == 6) {
+                                intent = new Intent(getApplicationContext(), SettingActivity.class);
+                            } else if (position == 7) {
+                                intent = new Intent(getApplicationContext(), HelpActivity.class);
+                            }
+                            startActivity(intent);
                         }
                     }
 
