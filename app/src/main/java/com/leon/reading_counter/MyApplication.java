@@ -13,8 +13,9 @@ public class MyApplication extends Application {
     public static final String fontName = "font/font_1.ttf";
     public static int REQUEST_LOCATION_CODE = 1236;
     public static int REQUEST_NETWORK_CODE = 1234;
-    static Context appContext;
     public static int TOAST_TEXT_SIZE = 20;
+    public static int position = 0;
+    static Context appContext;
 
     public static Context getContext() {
         return appContext;

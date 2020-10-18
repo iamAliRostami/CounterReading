@@ -20,6 +20,21 @@
         <item name="background">@drawable/img_background</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:actionOverflowButtonStyle">@style/OverFlowButton</item>
+        <item name="android:drawablePadding">2dp</item>
+    </style>
+
+    <style name="OverFlowButton">
+        <item name="android:layout_margin">3dp</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
     <style name="bottomView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">30dp</item>
