@@ -124,6 +124,7 @@ public abstract class BaseActivity extends AppCompatActivity
                                 intent = new Intent(getApplicationContext(), HelpActivity.class);
                             }
                             startActivity(intent);
+                            finish();
                         }
                     }
 
