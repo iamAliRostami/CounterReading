@@ -2,6 +2,7 @@ package com.leon.reading_counter.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Debug;
 import android.view.View;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -54,8 +55,10 @@ public class HomeActivity extends BaseActivity {
                 finishAffinity();
                 break;
         }
-        if (id != R.id.linear_layout_exit)
+        if (id != R.id.linear_layout_exit) {
             startActivity(intent);
+            finish();
+        }
     };
 
     @Override
@@ -64,7 +67,21 @@ public class HomeActivity extends BaseActivity {
         View childLayout = binding.getRoot();
         ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
+        initializeImageViews();
         setOnImageViewClickListener();
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    void initializeImageViews() {
+        binding.imageViewAppSetting.setImageDrawable(getResources().getDrawable(R.drawable.img_app_settings));
+        binding.imageViewDownload.setImageDrawable(getResources().getDrawable(R.drawable.img_download_information));
+        binding.imageViewUpload.setImageDrawable(getResources().getDrawable(R.drawable.img_upload));
+        binding.imageViewReadingSetting.setImageDrawable(getResources().getDrawable(R.drawable.img_reading_settings));
+        binding.imageViewHelp.setImageDrawable(getResources().getDrawable(R.drawable.img_help));
+        binding.imageViewExit.setImageDrawable(getResources().getDrawable(R.drawable.img_exit));
+        binding.imageViewReading.setImageDrawable(getResources().getDrawable(R.drawable.img_readings));
+        binding.imageViewReport.setImageDrawable(getResources().getDrawable(R.drawable.img_reading_report));
+        binding.imageViewLocation.setImageDrawable(getResources().getDrawable(R.drawable.img_location));
     }
 
     void setOnImageViewClickListener() {
@@ -77,5 +94,32 @@ public class HomeActivity extends BaseActivity {
         binding.linearLayoutAppSetting.setOnClickListener(onClickListener);
         binding.linearLayoutReadingSetting.setOnClickListener(onClickListener);
         binding.linearLayoutExit.setOnClickListener(onClickListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Runtime.getRuntime().totalMemory();
+        Runtime.getRuntime().freeMemory();
+        Runtime.getRuntime().maxMemory();
+        Debug.getNativeHeapAllocatedSize();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding.imageViewAppSetting.setImageDrawable(null);
+        binding.imageViewDownload.setImageDrawable(null);
+        binding.imageViewUpload.setImageDrawable(null);
+        binding.imageViewReadingSetting.setImageDrawable(null);
+        binding.imageViewHelp.setImageDrawable(null);
+        binding.imageViewExit.setImageDrawable(null);
+        binding.imageViewReading.setImageDrawable(null);
+        binding.imageViewReport.setImageDrawable(null);
+        binding.imageViewLocation.setImageDrawable(null);
+        Runtime.getRuntime().totalMemory();
+        Runtime.getRuntime().freeMemory();
+        Runtime.getRuntime().maxMemory();
+        Debug.getNativeHeapAllocatedSize();
     }
 }

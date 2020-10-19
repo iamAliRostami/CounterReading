@@ -27,6 +27,8 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
+        <activity android:name=".DescriptionActivity"></activity>
+        <activity android:name=".activities.DistributionBillActivity" />
 
         <meta-data
             android:name="firebase_performance_logcat_enabled"
@@ -89,4 +91,5 @@
             <!-- </intent-filter> -->
         </activity>
     </application>
+
 </manifest>

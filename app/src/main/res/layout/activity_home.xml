@@ -30,6 +30,7 @@
                 tools:ignore="NestedWeights">
 
                 <ImageView
+                    android:id="@+id/image_view_upload"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -40,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/upload_information"
+                    android:text="@string/upload"
                     android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
@@ -53,6 +54,7 @@
                 tools:ignore="NestedWeights">
 
                 <ImageView
+                    android:id="@+id/image_view_reading"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -76,6 +78,7 @@
                 tools:ignore="NestedWeights">
 
                 <ImageView
+                    android:id="@+id/image_view_download"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -86,7 +89,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/download_information"
+                    android:gravity="center"
+                    android:text="@string/download"
                     android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
         </LinearLayout>
@@ -108,6 +112,7 @@
                 tools:ignore="NestedWeights">
 
                 <ImageView
+                    android:id="@+id/image_view_report"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -131,6 +136,7 @@
                 tools:ignore="NestedWeights">
 
                 <ImageView
+                    android:id="@+id/image_view_location"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -154,6 +160,7 @@
                 tools:ignore="NestedWeights">
 
                 <ImageView
+                    android:id="@+id/image_view_help"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -186,6 +193,7 @@
                 tools:ignore="NestedWeights">
 
                 <ImageView
+                    android:id="@+id/image_view_reading_setting"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -209,6 +217,7 @@
                 tools:ignore="NestedWeights">
 
                 <ImageView
+                    android:id="@+id/image_view_app_setting"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -232,6 +241,7 @@
                 tools:ignore="NestedWeights">
 
                 <ImageView
+                    android:id="@+id/image_view_exit"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"

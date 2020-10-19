@@ -39,8 +39,10 @@
     <string name="error_empty">این فیلد باید پر شود.</string>
     <string name="home">خانه</string>
     <string name="upload_information">تخلیه اطلاعات</string>
+    <string name="upload">تخلیه</string>
     <string name="reading">قرائت</string>
     <string name="download_information">بارگیری اطلاعات</string>
+    <string name="download">بارگیری</string>
     <string name="reading_report">گزارش قرائت</string>
     <string name="location">مکان یابی</string>
     <string name="help">راهنما</string>
@@ -48,4 +50,16 @@
     <string name="app_setting">تنظیمات برنامه</string>
     <string name="exit">خروج</string>
     <string name="how_to_exit">جهت خروج از فهرست، گزینه «خروج» را بزنید.</string>
+    <string name="team">تیم نرم افزاری شبکه تارنما سپاهان</string>
+    <string name="www_abfa_ir">www.abfa.ir</string>
+    <string name="sepehr_shamsaei">سپهر شمسایی</string>
+    <string name="update_date">تاریخ به روزرسانی</string>
+    <string name="date_custom">1399/08/08</string>
+    <string name="version_custom">1.0.1.1</string>
+    <string name="sepehr_phone">09357366741</string>
+    <string name="design_by">طراحی و پیاده سازی</string>
+    <string name="website">وب سایت</string>
+    <string name="start">شروع</string>
+    <string name="_0">0</string>
+    <string name="send">ارسال</string>
 </resources>

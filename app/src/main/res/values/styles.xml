@@ -33,6 +33,15 @@
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TitleText" parent="Toolbar.TitleText">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="text_bold">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="bottomView">
