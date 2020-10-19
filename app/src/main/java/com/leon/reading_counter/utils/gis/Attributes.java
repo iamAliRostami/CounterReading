@@ -1,4 +1,4 @@
-package com.leon.reading_counter.utils.GIS;
+package com.leon.reading_counter.utils.gis;
 
 public class Attributes {
     public String OBJECTID;

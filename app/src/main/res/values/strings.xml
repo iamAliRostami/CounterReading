@@ -13,7 +13,9 @@
     <string name="waiting">لطفا صبر کنید…</string>
     <string name="turn_internet_on">اینترنت وصل نیست، اینترنت وایفای یا همراه خود را روشن کنید.</string>
     <string name="cache_folder">responses</string>
-    <string name="media_folder">/AbfaCamera/</string>
+    <string name="camera_folder">/AbfaCamera/</string>
+    <string name="audio_folder">/AbfaAudioRecord/</string>
+    <string name="save_format_name">yyyyMMdd_HHmmss</string>
     <string name="copy_right">شبکه تارنما سپاهان</string>
     <string name="version">نسخه</string>
     <string name="username">نام کاربری</string>
@@ -22,6 +24,7 @@
     <string name="save">ذخیره</string>
 
 
+    <string name="error">خطا</string>
     <string name="error_not_update_1">همکار گرامی لطفا نسخه به روز شده اپلیکیشن را از منوی تنظیمات  بخش به روز رسانی دریافت نمایید</string>
     <string name="error_not_update_2">لطفا نسخه به روز شده اپلیکیشن را از فهرست فوری، بخش به روز رسانی دریافت نمایید.</string>
     <string name="error_call_backup">همکار گرامی مشکلی در دریافت اطلاعات این بخش به وجود آمد، با پشتیبان بخش اسناد تماس حاصل فرمایید.</string>
@@ -31,12 +34,23 @@
     <string name="error_connection">خطا در جابجایی اطلاعات، اتصالات خود را بررسی و مجدد تلاش کنید.</string>
     <string name="error_unknown">خطای ناشناخته رخ داده است.</string>
     <string name="error_code">\nکد خطا:</string>
+    <string name="error_external_storage_is_not_writable">حافظه خارجی قابلی نوشتن نیست.</string>
+    <string name="error_in_record_voice">در ضبظ صدا مشکلی به وجود آمد</string>
+    <string name="error_in_play_voice">در پخش صدا مشکلی به وجود آمد</string>
+    <string name="dear_user">همکار گرامی!</string>
     <string name="error_other">در حال حاضر خدمات مقدور نمیباشد، لطفا مجددا تلاش فرمایید.</string>
     <string name="error_internal">با عرض پوزش، سرور در حال به روزرسانی، لطفا دقایقی دیگر امتحان فرمایید.</string>
     <string name="error_input">ورودی های خود را چک کنید.</string>
     <string name="error_change_server">سرور در حال تغییرات است، لطفا منتظر بمانید و در صورت برطرف نشدن مشکل با پشتیبان تماس حاصل فرمایید.</string>
     <string name="error_user_password">نام کاربری و گذرواژه در سیستم موجود نیست، لطفا در ورود اطلاعات دقت قرمایید.</string>
     <string name="error_empty">این فیلد باید پر شود.</string>
+    <string name="ex_msg_dialog_choice_confirm">Confirm button is only for multi choice lists. You must call setMultiChoiceItems first</string>
+    <string name="ex_msg_dialog_view_not_set">You must call method setView before calling configureView.</string>
+
+    <string name="accepted">ادامه</string>
+    <string name="confirm">تایید</string>
+    <string name="ok">تایید</string>
+    <string name="dont_show_again">دیگر نمایش نده</string>
     <string name="home">خانه</string>
     <string name="upload_information">تخلیه اطلاعات</string>
     <string name="upload">تخلیه</string>
@@ -62,4 +76,6 @@
     <string name="start">شروع</string>
     <string name="_0">0</string>
     <string name="send">ارسال</string>
+    <string name="description">توضیحات</string>
+    <string name="distribution">توزیع قبض</string>
 </resources>

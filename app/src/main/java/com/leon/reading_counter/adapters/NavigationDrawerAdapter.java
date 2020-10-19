@@ -46,7 +46,7 @@ public class NavigationDrawerAdapter extends
         if (position == 8) {
             holder.textViewTitle.setTextColor(context.getResources().getColor(R.color.red));
         } else if (position == MyApplication.position) {
-            holder.textViewTitle.setTextColor(context.getResources().getColor(R.color.white));
+            holder.textViewTitle.setTextColor(context.getResources().getColor(R.color.textColorLight));
             holder.linearLayout.setBackgroundColor(context.getResources().getColor(R.color.red));
         }
         holder.imageViewIcon.setImageDrawable(drawerItem.drawable);

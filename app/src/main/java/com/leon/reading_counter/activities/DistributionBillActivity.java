@@ -3,6 +3,8 @@ package com.leon.reading_counter.activities;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Debug;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +25,15 @@ public class DistributionBillActivity extends AppCompatActivity {
     @SuppressLint("UseCompatLoadingForDrawables")
     void initialize() {
         binding.imageViewBill.setImageDrawable(getDrawable(R.drawable.img_temporary));
+    }
+
+    private void startAnimationOnTextViewCounter() {
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(300);
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        binding.textViewCounter.startAnimation(anim);
     }
 
     @Override

@@ -89,10 +89,13 @@ public abstract class BaseActivity extends AppCompatActivity
     @SuppressLint("RtlHardcoded")
     void setOnDrawerItemClick() {
         binding.imageViewHeader.setOnClickListener(v -> {
-            MyApplication.position = -1;
-            Intent intent = new Intent(MyApplication.getContext(), HomeActivity.class);
-            startActivity(intent);
-            finish();
+            if (MyApplication.position != -1) {
+                MyApplication.position = -1;
+                Intent intent = new Intent(MyApplication.getContext(), HomeActivity.class);
+                startActivity(intent);
+                finish();
+            } else
+                drawer.closeDrawer(GravityCompat.START);
         });
         recyclerView.addOnItemTouchListener(
                 new NavigationDrawerAdapter.RecyclerItemClickListener(MyApplication.getContext(),
@@ -103,7 +106,7 @@ public abstract class BaseActivity extends AppCompatActivity
                         if (position == 8) {
                             MyApplication.position = -1;
                             finishAffinity();
-                        } else {
+                        } else if (MyApplication.position != position) {
                             MyApplication.position = position;
                             Intent intent = new Intent();
                             if (position == 0) {

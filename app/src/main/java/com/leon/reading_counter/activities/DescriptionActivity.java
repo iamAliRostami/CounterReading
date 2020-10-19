@@ -1,4 +1,4 @@
-package com.leon.reading_counter;
+package com.leon.reading_counter.activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.os.Debug;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.leon.reading_counter.R;
 import com.leon.reading_counter.databinding.ActivityDescriptionBinding;
 
 public class DescriptionActivity extends AppCompatActivity {

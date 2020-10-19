@@ -38,7 +38,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textViewCounter"
+        android:id="@+id/text_view_counter"
         style="@style/text_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

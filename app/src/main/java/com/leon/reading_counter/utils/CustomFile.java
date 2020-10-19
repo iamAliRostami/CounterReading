@@ -25,7 +25,7 @@ public class CustomFile {
 
     @SuppressLint("SimpleDateFormat")
     public static MultipartBody.Part bitmapToFile(Bitmap bitmap, Context context) {
-        String timeStamp = (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date());
+        String timeStamp = (new SimpleDateFormat(context.getString(R.string.save_format_name))).format(new Date());
         String fileNameToSave = "JPEG_" + timeStamp + "_";
         File f = new File(context.getCacheDir(), fileNameToSave);
         try {
@@ -61,19 +61,20 @@ public class CustomFile {
             saveImage(bitmap, context);
         } else {
             Log.e("error", "ExternalStorage is not Writable");
+            new CustomToast().warning(context.getString(R.string.error_external_storage_is_not_writable));
         }
     }
 
     @SuppressLint("SimpleDateFormat")
     void saveImage(Bitmap bitmapImage, Context context) {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES) + context.getString(R.string.media_folder));
+                Environment.DIRECTORY_PICTURES) + context.getString(R.string.camera_folder));
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
                 return;
             }
         }
-        String timeStamp = (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date());
+        String timeStamp = (new SimpleDateFormat(context.getString(R.string.save_format_name))).format(new Date());
         String fileNameToSave = "JPEG_" + timeStamp + "_";
         File file = new File(mediaStorageDir, fileNameToSave);
         if (file.exists()) file.delete();
