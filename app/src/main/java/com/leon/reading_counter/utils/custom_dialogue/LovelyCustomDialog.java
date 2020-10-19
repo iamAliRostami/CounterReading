@@ -42,7 +42,7 @@ public class LovelyCustomDialog extends AbsLovelyDialog<LovelyCustomDialog> {
         return this;
     }
 
-    //    @Override
+//    @Override
     public LovelyCustomDialog configureView(@NonNull ViewConfigurator<View> configurator) {
         if (addedView == null) {
             throw new IllegalStateException(string(R.string.ex_msg_dialog_view_not_set));
