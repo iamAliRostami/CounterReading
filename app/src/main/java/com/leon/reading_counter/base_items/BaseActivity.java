@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -40,6 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity
     Toolbar toolbar;
     DrawerLayout drawer;
     RecyclerView recyclerView;
+    RelativeLayout linearLayoutReadingHeader;
     NavigationDrawerAdapter adapter;
     List<NavigationDrawerAdapter.DrawerItem> dataList;
     BaseActivityBinding binding;
@@ -139,6 +141,10 @@ public abstract class BaseActivity extends AppCompatActivity
     }
 
     private void initializeBase() {
+        linearLayoutReadingHeader = findViewById(R.id.relative_layout_reading_header);
+        if (MyApplication.position == 1) {
+            linearLayoutReadingHeader.setVisibility(View.VISIBLE);
+        }
         toolbar = findViewById(R.id.toolbar);
         drawer = binding.drawerLayout;
         recyclerView = binding.recyclerView;

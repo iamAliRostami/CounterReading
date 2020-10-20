@@ -134,14 +134,14 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/buttonLogin"
+                android:id="@+id/button_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/low_dp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:layout_marginBottom="@dimen/low_dp"
-                android:background="@drawable/border_green_1"
+                android:background="@drawable/border_blue_1"
                 android:text="@string/login"
                 android:textColor="@color/text_color_light"
                 android:textSize="@dimen/text_size_medium"

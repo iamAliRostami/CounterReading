@@ -13,6 +13,7 @@
         tools:ignore="UselessParent">
 
         <LinearLayout
+            android:padding="@dimen/small_dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimaryDark"
@@ -24,10 +25,6 @@
                 style="@style/text_bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/medium_dp"
-                android:layout_marginTop="@dimen/medium_dp"
-                android:layout_marginRight="@dimen/medium_dp"
-                android:layout_marginBottom="@dimen/medium_dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_white_2"
                 android:gravity="center"
@@ -41,10 +38,6 @@
                 style="@style/text_bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/medium_dp"
-                android:layout_marginTop="@dimen/medium_dp"
-                android:layout_marginRight="@dimen/medium_dp"
-                android:layout_marginBottom="@dimen/medium_dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:paddingTop="@dimen/medium_dp"

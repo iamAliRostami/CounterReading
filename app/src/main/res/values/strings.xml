@@ -94,4 +94,10 @@
     <string name="slash">/</string>
     <string name="meter">m</string>
     <string name="distance_from_left">فاصله از دیوار سمت چپ</string>
+    <string name="pre_date">تاریخ قبلی</string>
+    <string name="branch_radius">قطر انشعاب</string>
+    <string name="ahad_asli">آحاداصلی:</string>
+    <string name="siphon_radius">قطر سیفون</string>
+    <string name="ahad_fari">آحاد فرعی:</string>
+    <string name="ahad_masraf">آحاد مصرف:</string>
 </resources>

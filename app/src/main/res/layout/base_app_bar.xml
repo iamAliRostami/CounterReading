@@ -22,7 +22,12 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_weight="1"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:titleTextAppearance="@style/Toolbar.TitleText" />
+            app:titleTextAppearance="@style/Toolbar.TitleText">
+
+            <include
+                layout="@layout/reading_header"
+                android:visibility="gone" />
+        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/base_content" />
