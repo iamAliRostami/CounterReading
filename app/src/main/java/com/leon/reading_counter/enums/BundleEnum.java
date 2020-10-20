@@ -1,7 +1,8 @@
 package com.leon.reading_counter.enums;
 
 public enum BundleEnum {
-    BILL_ID("bill_Id");
+    BILL_ID("bill_Id"),
+    TYPE("type");
 
     private final String value;
 

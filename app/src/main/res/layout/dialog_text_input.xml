@@ -144,7 +144,7 @@
             android:background="@drawable/border_green_1"
             android:gravity="center"
             android:text="@string/confirm"
-            android:textColor="@color/textColorLight"
+            android:textColor="@color/text_color_light"
             android:textSize="@dimen/text_size_medium"
             android:textStyle="bold" />
 
@@ -159,7 +159,7 @@
             android:background="@drawable/border_red_1"
             android:gravity="center"
             android:text="@string/cancel"
-            android:textColor="@color/textColorLight"
+            android:textColor="@color/text_color_light"
             android:textSize="@dimen/text_size_medium"
             android:textStyle="bold" />
     </LinearLayout>

@@ -37,7 +37,7 @@
                 android:gravity="end|center_vertical"
                 android:padding="@dimen/low_dp"
                 android:text="@string/home"
-                android:textColor="@color/textColorDark"
+                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_small"
                 tools:ignore="RtlHardcoded" />
         </LinearLayout>

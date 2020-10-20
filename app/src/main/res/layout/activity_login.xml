@@ -129,7 +129,7 @@
                 android:layout_marginRight="@dimen/_20sdp"
                 android:layout_marginBottom="@dimen/low_dp"
                 android:text="@string/save"
-                android:textColor="@color/textColorDark"
+                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold" />
 
@@ -143,7 +143,7 @@
                 android:layout_marginBottom="@dimen/low_dp"
                 android:background="@drawable/border_green_1"
                 android:text="@string/login"
-                android:textColor="@color/textColorLight"
+                android:textColor="@color/text_color_light"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold" />
 
@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/version"
-                android:textColor="@color/textColorDark" />
+                android:textColor="@color/text_color_dark" />
         </LinearLayout>
 
         <include layout="@layout/footer" />

@@ -1,5 +1,6 @@
 package com.leon.reading_counter.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -40,14 +41,16 @@ public class NavigationDrawerAdapter extends
         return new DrawerItemHolder(drawerView);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onBindViewHolder(@NonNull DrawerItemHolder holder, int position) {
         DrawerItem drawerItem = drawerItemList.get(position);
         if (position == 8) {
             holder.textViewTitle.setTextColor(context.getResources().getColor(R.color.red));
         } else if (position == MyApplication.position) {
-            holder.textViewTitle.setTextColor(context.getResources().getColor(R.color.textColorLight));
-            holder.linearLayout.setBackgroundColor(context.getResources().getColor(R.color.red));
+            holder.textViewTitle.setTextColor(context.getResources().getColor(R.color.text_color_light));
+//            holder.linearLayout.setBackgroundColor(context.getResources().getColor(R.color.red));
+            holder.linearLayout.setBackground(context.getResources().getDrawable(R.drawable.border_red_3));
         }
         holder.imageViewIcon.setImageDrawable(drawerItem.drawable);
         holder.textViewTitle.setText(drawerItem.ItemName);

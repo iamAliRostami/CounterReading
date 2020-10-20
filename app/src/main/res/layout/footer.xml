@@ -30,6 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/copy_right"
-            android:textColor="@color/textColorLight" />
+            android:textColor="@color/text_color_light" />
     </LinearLayout>
 </LinearLayout>

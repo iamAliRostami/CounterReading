@@ -78,4 +78,20 @@
     <string name="send">ارسال</string>
     <string name="description">توضیحات</string>
     <string name="distribution">توزیع قبض</string>
+    <string name="normal">عادی</string>
+    <string name="off_line">آفلاین</string>
+    <string name="special">ویژه</string>
+    <string name="again">مجدد</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="upload_off">بارگذاری آفلاین</string>
+    <string name="upload_multimedia">چندرسانه</string>
+    <string name="layers">لایه ها</string>
+    <string name="location_counter">محل کنتور</string>
+    <string name="submit">ثبت</string>
+    <string name="distance_from_input">فاصله از نقطه ورود</string>
+    <string name="cm">cm</string>
+    <string name="slash">/</string>
+    <string name="meter">m</string>
+    <string name="distance_from_left">فاصله از دیوار سمت چپ</string>
 </resources>

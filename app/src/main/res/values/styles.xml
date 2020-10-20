@@ -10,8 +10,8 @@
         <item name="android:layoutDirection">rtl</item>
         <item name="background">@drawable/img_background</item>
         <item name="android:windowBackground">@drawable/img_background</item>
-        <item name="android:textColor">@color/textColorDark</item>
-        <item name="android:textColorSecondary">@color/textColorLight</item>
+        <item name="android:textColor">@color/text_color_dark</item>
+        <item name="android:textColorSecondary">@color/text_color_light</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -34,7 +34,7 @@
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:textColor">@color/text_color_light</item>
     </style>
 
     <style name="TitleText" parent="Toolbar.TitleText">

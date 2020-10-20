@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/border_yellow_1"
             android:text="@string/send"
-            android:textColor="@color/textColorLight"
+            android:textColor="@color/text_color_light"
             android:textSize="@dimen/text_size_large"
             android:textStyle="bold" />
     </LinearLayout>
