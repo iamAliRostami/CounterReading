@@ -33,10 +33,13 @@ public class ReadingActivity extends BaseActivity {
         flashLightManager = new FlashLightManager(getApplicationContext());
         ImageView imageViewFlash = findViewById(R.id.image_view_flash);
         imageViewFlash.setOnClickListener(v -> {
-            if (isFlashOn)
-                flashLightManager.turnOff();
-            else
-                flashLightManager.turnOn();
+            if (isFlashOn) {
+//                flashLightManager.turnOff();
+                flashLightManager.flashLightOff();
+            } else {
+                flashLightManager.flashLightOn();
+//                flashLightManager.turnOn();
+            }
             isFlashOn = !isFlashOn;
         });
     }

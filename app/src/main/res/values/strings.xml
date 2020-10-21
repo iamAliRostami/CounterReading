@@ -100,4 +100,10 @@
     <string name="siphon_radius">قطر سیفون</string>
     <string name="ahad_fari">آحاد فرعی:</string>
     <string name="ahad_masraf">آحاد مصرف:</string>
+    <string name="insert_information">ورود اطلاعات</string>
+    <string name="search">جستجو</string>
+    <string name="close">بستن</string>
+    <string name="back_up">پشتیبانی</string>
+    <string name="delete">حذف</string>
+    <string name="is_high">رقم وارد شده بالاتر از میانگین بلند مدت است. آیا از رقم وارد شده اطمینان دارید؟</string>
 </resources>

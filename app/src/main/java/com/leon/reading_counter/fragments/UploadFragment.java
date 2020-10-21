@@ -11,6 +11,8 @@ import com.leon.reading_counter.R;
 import com.leon.reading_counter.databinding.FragmentUploadBinding;
 import com.leon.reading_counter.enums.BundleEnum;
 
+import org.jetbrains.annotations.NotNull;
+
 public class UploadFragment extends Fragment {
     private final int[] imageSrc = {R.drawable.img_upload_on, R.drawable.img_upload_off, R.drawable.img_multimedia};
     int type;
@@ -36,7 +38,7 @@ public class UploadFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentUploadBinding.inflate(inflater, container, false);
         initialize();
