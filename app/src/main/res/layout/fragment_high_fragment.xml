@@ -49,7 +49,7 @@
                 android:textSize="@dimen/text_size_large" />
 
             <Button
-                android:id="@+id/buttonSubmit"
+                android:id="@+id/button_submit"
                 style="@style/text_bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

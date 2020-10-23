@@ -188,7 +188,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/buttonSubmit"
+            android:id="@+id/button_submit"
             style="@style/text_bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.ReadingReportActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listViewReports"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/button_submit"
+        android:dividerHeight="@dimen/low_dp"
+        tools:listitem="@layout/item_public" />
+
+    <Button
+        android:id="@+id/button_submit"
+        style="@style/text_bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/huge_dp"
+        android:layout_marginTop="@dimen/low_dp"
+        android:layout_marginRight="@dimen/huge_dp"
+        android:background="@drawable/border_green_3"
+        android:text="@string/submit"
+        android:textColor="@color/text_color_light"
+        android:textSize="@dimen/text_size_large" />
+</RelativeLayout>

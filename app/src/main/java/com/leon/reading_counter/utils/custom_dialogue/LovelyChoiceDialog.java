@@ -87,7 +87,7 @@ public class LovelyChoiceDialog extends AbsLovelyDialog<LovelyChoiceDialog> {
     public <T> LovelyChoiceDialog setItemsMultiChoice(ArrayAdapter<T> adapter, boolean[] selectionState, OnItemsSelectedListener<T> itemsSelectedListener) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View confirmBtnContainer = inflater.inflate(R.layout.dialog_item_footer_confirm, null);
-        confirmButton = (TextView) confirmBtnContainer.findViewById(R.id.ld_btn_confirm);
+        confirmButton = confirmBtnContainer.findViewById(R.id.ld_btn_confirm);
         confirmButton.setOnClickListener(new ItemsSelectedAdapter<>(itemsSelectedListener));
         choicesList.addFooterView(confirmBtnContainer);
 
