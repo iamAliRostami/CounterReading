@@ -112,7 +112,6 @@ public class DownloadActivity extends BaseActivity {
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -136,7 +135,6 @@ public class DownloadActivity extends BaseActivity {
                     currentState = state;
                     if (previousState == 1 && currentState == 0) {
                         binding.viewPager.setCurrentItem(currentPage == 0 ? 3 : 0);
-
                     }
                 }
             }

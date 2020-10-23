@@ -106,4 +106,17 @@
     <string name="back_up">پشتیبانی</string>
     <string name="delete">حذف</string>
     <string name="is_high">رقم وارد شده بالاتر از میانگین بلند مدت است. آیا از رقم وارد شده اطمینان دارید؟</string>
+    <string name="change_theme">تغییر پوسته</string>
+    <string name="change_password">تغییر گذرواژه</string>
+    <string name="update">بروزرسانی</string>
+    <string name="pre_password">گذرواژه پیشین</string>
+    <string name="new_password">گذرواژه جدید</string>
+    <string name="repeat_new_password">تکرار گذرواژه جدید</string>
+    <string name="green">سبز</string>
+    <string name="light_blue">آبی کم رنگ</string>
+    <string name="blue">آبی</string>
+    <string name="dark">تیره</string>
+    <string name="new_possibilities">امکانات جدید</string>
+    <string name="apk_size">حجم فایل</string>
+    <string name="receive_file">دریافت فایل</string>
 </resources>

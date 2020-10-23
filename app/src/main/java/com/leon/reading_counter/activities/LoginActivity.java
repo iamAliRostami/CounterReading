@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.textViewVersion.setText(getString(R.string.version).concat(" ")
                 .concat(BuildConfig.VERSION_NAME));
         sharedPreferenceManager = new SharedPreferenceManager(context, SharedReferenceNames.ACCOUNT.getValue());
+        loadPreference();
         binding.imageViewPassword.setImageResource(R.drawable.img_password);
         binding.imageViewLogo.setImageResource(R.drawable.img_login_logo);
         binding.imageViewPerson.setImageResource(R.drawable.img_profile);
@@ -131,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadPreference();
+        initialize();
     }
 
     @Override
@@ -153,6 +154,11 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        context = null;
+        binding.imageViewPerson.setImageDrawable(null);
+        binding.imageViewPassword.setImageDrawable(null);
+        binding.imageViewLogo.setImageDrawable(null);
+        binding.imageViewUsername.setImageDrawable(null);
         System.gc();
         Runtime.getRuntime().gc();
         Runtime.getRuntime().totalMemory();

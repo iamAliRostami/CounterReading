@@ -7,18 +7,20 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.leon.reading_counter.R;
-import com.leon.reading_counter.adapters.ViewPagerAdapterTab;
+import com.leon.reading_counter.adapters.ViewPagerAdapterReading;
 import com.leon.reading_counter.base_items.BaseActivity;
 import com.leon.reading_counter.databinding.ActivityReadingBinding;
-import com.leon.reading_counter.fragments.ReadingFragment;
 import com.leon.reading_counter.infrastructure.IFlashLightManager;
 import com.leon.reading_counter.utils.DepthPageTransformer;
 import com.leon.reading_counter.utils.FlashLightManager;
+
+import java.util.ArrayList;
 
 public class ReadingActivity extends BaseActivity {
     ActivityReadingBinding binding;
     private boolean isFlashOn = false;
     private IFlashLightManager flashLightManager;
+    private int previousState, currentState;
 
     @Override
     protected void initialize() {
@@ -45,14 +47,14 @@ public class ReadingActivity extends BaseActivity {
     }
 
     private void setupViewPager() {
-        ViewPagerAdapterTab adapter = new ViewPagerAdapterTab(getSupportFragmentManager());
-        adapter.addFragment(new ReadingFragment(), "بارگیری");
-        adapter.addFragment(new ReadingFragment(), "بارگیری مجدد");
+        ArrayList<Integer> ints = new ArrayList<>();
+        for (int i = 0; i <= 4000; i++)
+            ints.add(i);
+        ViewPagerAdapterReading adapter = new ViewPagerAdapterReading(getSupportFragmentManager(), ints);
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
