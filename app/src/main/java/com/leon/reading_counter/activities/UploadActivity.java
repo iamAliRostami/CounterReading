@@ -117,7 +117,6 @@ public class UploadActivity extends BaseActivity {
                     currentState = state;
                     if (previousState == 1 && currentState == 0) {
                         binding.viewPager.setCurrentItem(currentPage == 0 ? 2 : 0);
-
                     }
                 }
             }

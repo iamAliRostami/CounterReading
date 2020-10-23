@@ -53,7 +53,7 @@ public class SettingActivity extends BaseActivity {
             setColor();
             binding.textViewUpdate.setBackground(getResources().getDrawable(R.drawable.border_white_2));
             setPadding();
-            binding.viewPager.setCurrentItem(1);
+            binding.viewPager.setCurrentItem(2);
         });
     }
 
@@ -63,7 +63,7 @@ public class SettingActivity extends BaseActivity {
             setColor();
             binding.textViewChangePassword.setBackground(getResources().getDrawable(R.drawable.border_white_2));
             setPadding();
-            binding.viewPager.setCurrentItem(2);
+            binding.viewPager.setCurrentItem(1);
         });
     }
 
