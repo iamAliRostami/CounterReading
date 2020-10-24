@@ -12,8 +12,9 @@ import com.leon.reading_counter.R;
 import com.leon.reading_counter.adapters.ViewPagerAdapterTab;
 import com.leon.reading_counter.base_items.BaseActivity;
 import com.leon.reading_counter.databinding.ActivityReportBinding;
+import com.leon.reading_counter.fragments.ReportNotReadingFragment;
+import com.leon.reading_counter.fragments.ReportTemporaryFragment;
 import com.leon.reading_counter.fragments.ReportTotalFragment;
-import com.leon.reading_counter.fragments.UploadFragment;
 import com.leon.reading_counter.utils.DepthPageTransformer;
 
 public class ReportActivity extends BaseActivity {
@@ -92,8 +93,8 @@ public class ReportActivity extends BaseActivity {
         //TODO
         ViewPagerAdapterTab adapter = new ViewPagerAdapterTab(getSupportFragmentManager());
         adapter.addFragment(new ReportTotalFragment(), "آمار کلی");
-        adapter.addFragment(UploadFragment.newInstance(2), "قرائت نشده");
-        adapter.addFragment(UploadFragment.newInstance(3), "علی الحساب");
+        adapter.addFragment(new ReportNotReadingFragment(), "قرائت نشده");
+        adapter.addFragment(new ReportTemporaryFragment(), "علی الحساب");
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

@@ -128,4 +128,8 @@
     <string name="up">بالا </string>
     <string name="zero">صفر </string>
     <string name="total_number">تعداد کل</string>
+    <string name="not_reading_number">تعداد قرائت نشده</string>
+    <string name="continue_reading">ادامه قرائت</string>
+    <string name="temporary_number">تعداد علی الحساب</string>
+    <string name="data_not_found">داده ای یافت نشد</string>
 </resources>

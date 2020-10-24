@@ -8,14 +8,15 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.leon.reading_counter.databinding.FragmentReportTotalBinding;
+import com.leon.reading_counter.R;
+import com.leon.reading_counter.databinding.FragmentReportTemporaryBinding;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ReportTotalFragment extends Fragment {
-    FragmentReportTotalBinding binding;
+public class ReportTemporaryFragment extends Fragment {
+    FragmentReportTemporaryBinding binding;
 
-    public ReportTotalFragment() {
+    public ReportTemporaryFragment() {
     }
 
     @Override
@@ -26,17 +27,19 @@ public class ReportTotalFragment extends Fragment {
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentReportTotalBinding.inflate(inflater, container, false);
+        binding = FragmentReportTemporaryBinding.inflate(inflater, container, false);
         initialize();
         return binding.getRoot();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     void initialize() {
+        binding.imageViewTemporary.setImageDrawable(getResources().getDrawable(R.drawable.img_temporary_report));
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        binding.imageViewTemporary.setImageDrawable(null);
     }
 }
