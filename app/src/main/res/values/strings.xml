@@ -119,7 +119,6 @@
     <string name="new_possibilities">امکانات جدید</string>
     <string name="apk_size">حجم فایل</string>
     <string name="receive_file">دریافت فایل</string>
-    <string name="reading_setting">تنظیمات قرائت</string>
     <string name="sending_setting">تنظیمات ارسال</string>
     <string name="delete_data">حذف داده ها</string>
 </resources>
