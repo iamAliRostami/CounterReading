@@ -132,4 +132,11 @@
     <string name="continue_reading">ادامه قرائت</string>
     <string name="temporary_number">تعداد علی الحساب</string>
     <string name="data_not_found">داده ای یافت نشد</string>
+    <string name="navigation">پیمایش</string>
+    <string name="account">اشتراک</string>
+    <string name="phone_number">تلفن ثابت</string>
+    <string name="mobile_number">تلفن همراه</string>
+    <string name="counter_serial">شماره سریال کنتور</string>
+    <string name="address">نشانی</string>
+    <string name="empty_ahad">آحاد خالی از سکنه</string>
 </resources>

@@ -31,7 +31,8 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
-        <activity android:name=".activities.ReportActivity"></activity>
+        <activity android:name=".activities.NavigationActivity"></activity>
+        <activity android:name=".activities.ReportActivity" />
         <activity android:name=".activities.ReportActivity1" />
 
         <meta-data
