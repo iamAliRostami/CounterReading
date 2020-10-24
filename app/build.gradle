@@ -93,4 +93,5 @@ dependencies {
     implementation 'com.cocoahero.android:geojson:1.0.1@jar'
 
     implementation 'com.github.blackfizz:eazegraph:1.2.3@aar'
+    implementation 'com.nineoldandroids:library:2.4.0'
 }

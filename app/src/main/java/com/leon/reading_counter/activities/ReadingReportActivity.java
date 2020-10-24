@@ -1,21 +1,23 @@
 package com.leon.reading_counter.activities;
 
-import android.view.View;
+import android.os.Bundle;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.base_items.BaseActivity;
 import com.leon.reading_counter.databinding.ActivityReadingReportBinding;
 
-public class ReadingReportActivity extends BaseActivity {
+public class ReadingReportActivity extends AppCompatActivity {
+
     ActivityReadingReportBinding binding;
 
     @Override
-    protected void initialize() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         binding = ActivityReadingReportBinding.inflate(getLayoutInflater());
-        View childLayout = binding.getRoot();
-        ConstraintLayout parentLayout = findViewById(R.id.base_Content);
-        parentLayout.addView(childLayout);
+        setContentView(binding.getRoot());
+        initialize();
+    }
+
+    void initialize() {
     }
 }

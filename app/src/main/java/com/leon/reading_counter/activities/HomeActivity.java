@@ -33,7 +33,7 @@ public class HomeActivity extends BaseActivity {
                 break;
             case R.id.linear_layout_report:
                 MyApplication.position = 3;
-                intent = new Intent(getApplicationContext(), ReadingReportActivity.class);
+                intent = new Intent(getApplicationContext(), ReportActivity.class);
                 break;
             case R.id.linear_layout_location:
                 MyApplication.position = 4;

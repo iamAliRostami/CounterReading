@@ -25,8 +25,8 @@ import com.leon.reading_counter.activities.HelpActivity;
 import com.leon.reading_counter.activities.HomeActivity;
 import com.leon.reading_counter.activities.LocationActivity;
 import com.leon.reading_counter.activities.ReadingActivity;
-import com.leon.reading_counter.activities.ReadingReportActivity;
 import com.leon.reading_counter.activities.ReadingSettingActivity;
+import com.leon.reading_counter.activities.ReportActivity;
 import com.leon.reading_counter.activities.SettingActivity;
 import com.leon.reading_counter.activities.UploadActivity;
 import com.leon.reading_counter.adapters.NavigationDrawerAdapter;
@@ -118,7 +118,7 @@ public abstract class BaseActivity extends AppCompatActivity
                             } else if (position == 2) {
                                 intent = new Intent(getApplicationContext(), UploadActivity.class);
                             } else if (position == 3) {
-                                intent = new Intent(getApplicationContext(), ReadingReportActivity.class);
+                                intent = new Intent(getApplicationContext(), ReportActivity.class);
                             } else if (position == 4) {
                                 intent = new Intent(getApplicationContext(), LocationActivity.class);
                             } else if (position == 5) {

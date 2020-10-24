@@ -121,4 +121,11 @@
     <string name="receive_file">دریافت فایل</string>
     <string name="sending_setting">تنظیمات ارسال</string>
     <string name="delete_data">حذف داده ها</string>
+    <string name="temporary">علی الحساب</string>
+    <string name="not_read">قرائت نشده</string>
+    <string name="total_statistic">آمار کلی</string>
+    <string name="down">پایین </string>
+    <string name="up">بالا </string>
+    <string name="zero">صفر </string>
+    <string name="total_number">تعداد کل</string>
 </resources>
