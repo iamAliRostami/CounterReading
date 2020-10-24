@@ -31,9 +31,6 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
-        <activity android:name=".activities.NavigationActivity"></activity>
-        <activity android:name=".activities.ReportActivity" />
-        <activity android:name=".activities.ReportActivity1" />
 
         <meta-data
             android:name="firebase_performance_logcat_enabled"
@@ -49,6 +46,12 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
+        <activity
+            android:name=".activities.NavigationActivity"
+            android:label="@string/navigation" />
+        <activity
+            android:name=".activities.ReportActivity"
+            android:label="@string/reports" />
         <activity
             android:name=".activities.SettingActivity"
             android:label="@string/app_setting" />
