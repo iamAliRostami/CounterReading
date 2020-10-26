@@ -26,6 +26,9 @@ public class SharedPreferenceManager implements ISharedPreferenceManager {
 
     @Override
     public void putData(String key, int value) {
+        SharedPreferences.Editor prefsEditor = appPrefs.edit();
+        prefsEditor.putInt(key, value);
+        prefsEditor.apply();
 
     }
 
@@ -48,7 +51,7 @@ public class SharedPreferenceManager implements ISharedPreferenceManager {
 
     @Override
     public int getIntData(String key) {
-        return 0;
+        return appPrefs.getInt(key, 1);
     }
 
     @Override

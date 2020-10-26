@@ -12,17 +12,22 @@ import com.leon.reading_counter.R;
 import com.leon.reading_counter.adapters.ViewPagerAdapterTab;
 import com.leon.reading_counter.base_items.BaseActivity;
 import com.leon.reading_counter.databinding.ActivitySettingBinding;
+import com.leon.reading_counter.enums.SharedReferenceNames;
 import com.leon.reading_counter.fragments.SettingChangePasswordFragment;
 import com.leon.reading_counter.fragments.SettingChangeThemeFragment;
 import com.leon.reading_counter.fragments.SettingUpdateFragment;
 import com.leon.reading_counter.utils.DepthPageTransformer;
+import com.leon.reading_counter.utils.SharedPreferenceManager;
 
 public class SettingActivity extends BaseActivity {
     ActivitySettingBinding binding;
     private int previousState, currentState;
+    SharedPreferenceManager sharedPreferenceManager;
 
     @Override
     protected void initialize() {
+        sharedPreferenceManager = new SharedPreferenceManager(getApplicationContext(),
+                SharedReferenceNames.ACCOUNT.getValue());
         binding = ActivitySettingBinding.inflate(getLayoutInflater());
         View childLayout = binding.getRoot();
         ConstraintLayout parentLayout = findViewById(R.id.base_Content);

@@ -6,7 +6,9 @@
     <color name="colorPrimaryDark">#061f49</color>
     <color name="colorAccent">#e91e63</color>
 
+    <!--    <color name="footer">?colorPrimaryDark</color>-->
     <color name="footer">@color/colorPrimaryDark</color>
+
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>

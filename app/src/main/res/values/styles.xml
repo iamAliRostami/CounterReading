@@ -5,24 +5,48 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/text_color_dark</item>
+        <item name="android:textColorSecondary">@color/text_color_light</item>
         <item name="fontFamily">@font/font_1</item>
         <item name="font">@font/font_1</item>
         <item name="android:layoutDirection">rtl</item>
         <item name="background">@drawable/img_background</item>
         <item name="android:windowBackground">@drawable/img_background</item>
-        <item name="android:textColor">@color/text_color_dark</item>
-        <item name="android:textColorSecondary">@color/text_color_light</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="background">@drawable/img_background</item>
+    </style>
+
+
+    <style name="AppTheme.GreenBlue.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="AppTheme.DarkGrey.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="AppTheme.Indigo.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.Monochrome.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="backgroundColor">?colorPrimary</item>
+        <item name="background">?colorPrimary</item>
         <item name="android:actionOverflowButtonStyle">@style/OverFlowButton</item>
         <item name="android:drawablePadding">2dp</item>
     </style>
@@ -35,10 +59,12 @@
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text_color_light</item>
+        <item name="backgroundColor">?colorPrimary</item>
+        <item name="background">?colorPrimary</item>
     </style>
 
     <style name="TitleText" parent="Toolbar.TitleText">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">?colorAccent</item>
     </style>
 
     <style name="text_bold">
@@ -60,7 +86,8 @@
     <style name="bottomView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">30dp</item>
-        <item name="android:background">@color/footer</item>
+        <!--        <item name="android:background">@color/footer</item>-->
+        <item name="android:background">?colorPrimaryDark</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_marginBottom">0dp</item>
     </style>
@@ -76,4 +103,5 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
+
 </resources>

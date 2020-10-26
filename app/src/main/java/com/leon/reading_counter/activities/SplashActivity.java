@@ -24,7 +24,6 @@ public class SplashActivity extends AppCompatActivity {
         if (!splashLoaded) {
             binding = ActivitySplashBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
-//            setContentView(R.layout.splash_activity);
             initialize();
             startSplash();
         } else {

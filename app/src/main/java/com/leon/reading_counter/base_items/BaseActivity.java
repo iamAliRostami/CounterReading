@@ -31,7 +31,11 @@ import com.leon.reading_counter.activities.SettingActivity;
 import com.leon.reading_counter.activities.UploadActivity;
 import com.leon.reading_counter.adapters.NavigationDrawerAdapter;
 import com.leon.reading_counter.databinding.BaseActivityBinding;
+import com.leon.reading_counter.enums.BundleEnum;
+import com.leon.reading_counter.enums.SharedReferenceKeys;
+import com.leon.reading_counter.enums.SharedReferenceNames;
 import com.leon.reading_counter.utils.CustomToast;
+import com.leon.reading_counter.utils.SharedPreferenceManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +56,17 @@ public abstract class BaseActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(getApplicationContext(),
+                SharedReferenceNames.ACCOUNT.getValue());
+        int theme;
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            theme = extras.getInt(BundleEnum.THEME.getValue());
+        } else {
+            theme = sharedPreferenceManager.getIntData(SharedReferenceKeys.THEME_STABLE.getValue());
+        }
+        onActivitySetTheme(theme);
+
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         overridePendingTransition(R.anim.slide_up_info, R.anim.no_change);
         binding = BaseActivityBinding.inflate(getLayoutInflater());
@@ -161,6 +176,18 @@ public abstract class BaseActivity extends AppCompatActivity
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MyApplication.getContext()));
         recyclerView.setNestedScrollingEnabled(true);
+    }
+
+    public void onActivitySetTheme(int theme) {
+        if (theme == 1) {
+            setTheme(R.style.AppTheme_NoActionBar);
+        } else if (theme == 2) {
+            setTheme(R.style.AppTheme_GreenBlue_NoActionBar);
+        } else if (theme == 3) {
+            setTheme(R.style.AppTheme_Indigo_NoActionBar);
+        } else if (theme == 4) {
+            setTheme(R.style.AppTheme_DarkGrey_NoActionBar);
+        }
     }
 
     @Override

@@ -145,4 +145,5 @@
     <string name="next_account">اشتراک بعدی</string>
     <string name="ahad_number">تعداد آحاد</string>
     <string name="attach_image">الصاق عکس</string>
+    <string name="theme_changed">تغییر پوسته با موفقیت انجام گرفت</string>
 </resources>
