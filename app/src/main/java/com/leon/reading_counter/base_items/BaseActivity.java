@@ -65,7 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity
         } else {
             theme = sharedPreferenceManager.getIntData(SharedReferenceKeys.THEME_STABLE.getValue());
         }
-        onActivitySetTheme(theme);
+        MyApplication.onActivitySetTheme(this, theme);
 
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         overridePendingTransition(R.anim.slide_up_info, R.anim.no_change);
@@ -182,11 +182,11 @@ public abstract class BaseActivity extends AppCompatActivity
         if (theme == 1) {
             setTheme(R.style.AppTheme_NoActionBar);
         } else if (theme == 2) {
-            setTheme(R.style.AppTheme_GreenBlue_NoActionBar);
+            setTheme(R.style.AppTheme_NoActionBar_GreenBlue);
         } else if (theme == 3) {
-            setTheme(R.style.AppTheme_Indigo_NoActionBar);
+            setTheme(R.style.AppTheme_NoActionBar_Indigo);
         } else if (theme == 4) {
-            setTheme(R.style.AppTheme_DarkGrey_NoActionBar);
+            setTheme(R.style.AppTheme_NoActionBar_DarkGrey);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.leon.reading_counter;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -43,5 +44,17 @@ public class MyApplication extends Application {
                 context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null &&
                 connectivityManager.getActiveNetworkInfo().isConnectedOrConnecting();
+    }
+
+    public static void onActivitySetTheme(Activity activity, int theme) {
+        if (theme == 1) {
+            activity.setTheme(R.style.AppTheme_NoActionBar);
+        } else if (theme == 2) {
+            activity.setTheme(R.style.AppTheme_NoActionBar_GreenBlue);
+        } else if (theme == 3) {
+            activity.setTheme(R.style.AppTheme_NoActionBar_Indigo);
+        } else if (theme == 4) {
+            activity.setTheme(R.style.AppTheme_NoActionBar_DarkGrey);
+        }
     }
 }

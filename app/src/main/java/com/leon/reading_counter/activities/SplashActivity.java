@@ -8,8 +8,12 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.leon.reading_counter.MyApplication;
 import com.leon.reading_counter.R;
 import com.leon.reading_counter.databinding.ActivitySplashBinding;
+import com.leon.reading_counter.enums.SharedReferenceKeys;
+import com.leon.reading_counter.enums.SharedReferenceNames;
+import com.leon.reading_counter.utils.SharedPreferenceManager;
 
 public class SplashActivity extends AppCompatActivity {
     ActivitySplashBinding binding;
@@ -18,6 +22,10 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(getApplicationContext(),
+                SharedReferenceNames.ACCOUNT.getValue());
+        int theme = sharedPreferenceManager.getIntData(SharedReferenceKeys.THEME_STABLE.getValue());
+        MyApplication.onActivitySetTheme(this, theme);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);

@@ -15,6 +15,7 @@
             android:id="@+id/linear_layout_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_red_3"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
@@ -36,7 +37,7 @@
                 android:gravity="end|center_vertical"
                 android:padding="@dimen/low_dp"
                 android:text="@string/home"
-                android:textColor="?android:textColor"
+                android:textColor="?android:textColorSecondary"
                 android:textSize="@dimen/text_size_small"
                 tools:ignore="RtlHardcoded" />
         </LinearLayout>

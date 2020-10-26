@@ -2,8 +2,11 @@ package com.leon.reading_counter.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,6 +39,7 @@ public class NavigationDrawerAdapter extends
     @NonNull
     @Override
     public DrawerItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.e("viewType", String.valueOf(viewType));
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View drawerView = inflater.inflate(R.layout.item_navigation_drawer, parent, false);
@@ -48,8 +53,11 @@ public class NavigationDrawerAdapter extends
         if (position == 8) {
             holder.textViewTitle.setTextColor(context.getResources().getColor(R.color.red));
         } else if (position == MyApplication.position) {
-            holder.textViewTitle.setTextColor(context.getResources().getColor(R.color.text_color_light));
-//            holder.linearLayout.setBackgroundColor(context.getResources().getColor(R.color.red));
+            TypedValue typedValue = new TypedValue();
+            Resources.Theme theme = context.getTheme();
+            theme.resolveAttribute(android.R.attr.textColorSecondary, typedValue, true);
+            @ColorInt int color = typedValue.data;
+            holder.textViewTitle.setTextColor(color);
             holder.linearLayout.setBackground(context.getResources().getDrawable(R.drawable.border_red_3));
         }
         holder.imageViewIcon.setImageDrawable(drawerItem.drawable);

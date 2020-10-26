@@ -44,7 +44,6 @@
                 android:layout_weight="1"
                 android:padding="@dimen/low_dp"
                 android:text="@string/update_date"
-                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_small" />
 
             <TextView
@@ -57,7 +56,6 @@
                 android:layout_marginRight="@dimen/medium_dp"
                 android:layout_weight="1"
                 android:padding="@dimen/low_dp"
-                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_small" />
 
         </LinearLayout>
@@ -82,7 +80,6 @@
                 android:layout_weight="1"
                 android:padding="@dimen/low_dp"
                 android:text="@string/version"
-                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_small" />
 
             <TextView
@@ -95,7 +92,6 @@
                 android:layout_marginRight="@dimen/medium_dp"
                 android:layout_weight="1"
                 android:padding="@dimen/low_dp"
-                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_small" />
         </LinearLayout>
 
@@ -119,7 +115,6 @@
                 android:layout_weight="1"
                 android:padding="@dimen/low_dp"
                 android:text="@string/apk_size"
-                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_small" />
 
             <TextView
@@ -132,7 +127,6 @@
                 android:layout_marginRight="@dimen/medium_dp"
                 android:layout_weight="1"
                 android:padding="@dimen/low_dp"
-                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_small" />
 
         </LinearLayout>
@@ -157,7 +151,6 @@
                 android:layout_weight="1"
                 android:padding="@dimen/low_dp"
                 android:text="@string/new_possibilities"
-                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_small" />
 
             <TextView
@@ -170,7 +163,6 @@
                 android:layout_marginRight="@dimen/medium_dp"
                 android:layout_weight="1"
                 android:padding="@dimen/low_dp"
-                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_small" />
 
         </LinearLayout>
