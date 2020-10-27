@@ -272,7 +272,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/border_yellow_3"
                     android:text="@string/submit"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_color_light"
                     android:textSize="@dimen/text_size_large" />
 
                 <EditText
@@ -288,7 +288,8 @@
                     android:hint="@string/_0"
                     android:imeOptions="actionDone"
                     android:inputType="number"
-                    android:textSize="@dimen/text_size_large" />
+                    android:textSize="@dimen/text_size_large"
+                    tools:ignore="Autofill" />
             </LinearLayout>
 
             <LinearLayout

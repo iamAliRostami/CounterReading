@@ -65,26 +65,13 @@ public abstract class BaseActivity extends AppCompatActivity
         } else {
             theme = sharedPreferenceManager.getIntData(SharedReferenceKeys.THEME_STABLE.getValue());
         }
-        MyApplication.onActivitySetTheme(this, theme);
-
+        MyApplication.onActivitySetTheme(this, theme, false);
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         overridePendingTransition(R.anim.slide_up_info, R.anim.no_change);
         binding = BaseActivityBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
         initializeBase();
-        setSupportActionBar(toolbar);//TODO
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle
-                (this, drawer, toolbar, R.string.navigation_drawer_open,
-                        R.string.navigation_drawer_close) {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-        };
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        toolbar.setNavigationOnClickListener(view1 -> drawer.openDrawer(Gravity.START));
+
         initialize();
     }
 
@@ -155,17 +142,30 @@ public abstract class BaseActivity extends AppCompatActivity
         );
     }
 
+    @SuppressLint("WrongConstant")
     private void initializeBase() {
         linearLayoutReadingHeader = findViewById(R.id.relative_layout_reading_header);
         if (MyApplication.position == 1) {
             linearLayoutReadingHeader.setVisibility(View.VISIBLE);
         }
         toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);//TODO
         drawer = binding.drawerLayout;
         recyclerView = binding.recyclerView;
         dataList = new ArrayList<>();
         fillDrawerListView();
         setOnDrawerItemClick();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle
+                (this, drawer, toolbar, R.string.navigation_drawer_open,
+                        R.string.navigation_drawer_close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+        };
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        toolbar.setNavigationOnClickListener(view1 -> drawer.openDrawer(Gravity.START));
     }
 
     void fillDrawerListView() {
@@ -176,18 +176,6 @@ public abstract class BaseActivity extends AppCompatActivity
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MyApplication.getContext()));
         recyclerView.setNestedScrollingEnabled(true);
-    }
-
-    public void onActivitySetTheme(int theme) {
-        if (theme == 1) {
-            setTheme(R.style.AppTheme_NoActionBar);
-        } else if (theme == 2) {
-            setTheme(R.style.AppTheme_NoActionBar_GreenBlue);
-        } else if (theme == 3) {
-            setTheme(R.style.AppTheme_NoActionBar_Indigo);
-        } else if (theme == 4) {
-            setTheme(R.style.AppTheme_NoActionBar_DarkGrey);
-        }
     }
 
     @Override

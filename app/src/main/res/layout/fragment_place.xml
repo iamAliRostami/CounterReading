@@ -10,8 +10,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_margin="@dimen/large_dp"
-        android:gravity="center"
         android:background="@drawable/border_gray_3"
+        android:gravity="center"
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
@@ -35,7 +35,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/distance_from_input"
-                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_large" />
 
         </LinearLayout>
@@ -79,7 +78,6 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/slash"
-                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_large" />
 
             <LinearLayout
@@ -121,7 +119,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/distance_from_left"
-                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_large" />
         </LinearLayout>
 
@@ -159,7 +156,6 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/slash"
-                android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/text_size_large" />
 
             <LinearLayout

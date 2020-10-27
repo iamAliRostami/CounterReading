@@ -3,6 +3,7 @@ package com.leon.reading_counter.activities;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 public class ReadingActivity extends BaseActivity {
     ActivityReadingBinding binding;
-    private boolean isFlashOn = false;
+    private boolean isFlashOn = false, isNight = false;
     private IFlashLightManager flashLightManager;
     private int previousState, currentState;
 
@@ -29,6 +30,7 @@ public class ReadingActivity extends BaseActivity {
         ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
         setupViewPager();
+        setOnImageViewsClickListener();
     }
 
     void setOnImageViewsClickListener() {
@@ -36,13 +38,20 @@ public class ReadingActivity extends BaseActivity {
         ImageView imageViewFlash = findViewById(R.id.image_view_flash);
         imageViewFlash.setOnClickListener(v -> {
             if (isFlashOn) {
-//                flashLightManager.turnOff();
-                flashLightManager.flashLightOff();
+                flashLightManager.turnOff();
             } else {
-                flashLightManager.flashLightOn();
-//                flashLightManager.turnOn();
+                flashLightManager.turnOn();
             }
             isFlashOn = !isFlashOn;
+        });
+        ImageView imageViewReverse = findViewById(R.id.image_view_reverse);
+        imageViewReverse.setOnClickListener(v -> {
+            if (!isNight) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            isNight = !isNight;
         });
     }
 
