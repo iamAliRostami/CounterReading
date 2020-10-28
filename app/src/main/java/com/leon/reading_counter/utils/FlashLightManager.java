@@ -8,6 +8,7 @@ import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.widget.Toast;
 
+import com.leon.reading_counter.R;
 import com.leon.reading_counter.infrastructure.IFlashLightManager;
 
 public final class FlashLightManager implements IFlashLightManager {
@@ -52,32 +53,38 @@ public final class FlashLightManager implements IFlashLightManager {
         }
     }
 
-    public void turnOn() {
-        CameraManager camManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
-        try {
-            boolean flashShouldBecome = true;
-            String[] cameraId = camManager.getCameraIdList();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                camManager.setTorchMode(cameraId[0], flashShouldBecome);
+    public boolean turnOn() {
+        boolean hasFlash = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+        if (hasFlash) {
+            CameraManager camManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+            try {
+                String[] cameraId = camManager.getCameraIdList();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    camManager.setTorchMode(cameraId[0], true);
+                }
+                isFlashOn = true;
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
             }
-            isFlashOn = flashShouldBecome;
-        } catch (CameraAccessException e) {
-            e.printStackTrace();
+        } else {
+            CustomToast customToast = new CustomToast();
+            customToast.error(context.getString(R.string.has_no_flash));
         }
+        return isFlashOn;
     }
 
-    public void turnOff() {
+    public boolean turnOff() {
         CameraManager camManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
         try {
-            boolean flashShouldBecome = false;
             String[] cameraId = camManager.getCameraIdList();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                camManager.setTorchMode(cameraId[0], flashShouldBecome);
+                camManager.setTorchMode(cameraId[0], false);
             }
-            isFlashOn = flashShouldBecome;
+            isFlashOn = false;
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
+        return !isFlashOn;
     }
 
     public boolean toggleFlash() {

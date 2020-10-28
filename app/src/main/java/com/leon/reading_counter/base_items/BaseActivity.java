@@ -81,7 +81,7 @@ public abstract class BaseActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            new CustomToast().warning(getString(R.string.how_to_exit));
+            new CustomToast().info(getString(R.string.how_to_exit));
         }
     }
 

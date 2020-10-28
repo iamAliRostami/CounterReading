@@ -7,6 +7,7 @@ import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.util.Log;
 
+import com.leon.reading_counter.MyApplication;
 import com.leon.reading_counter.R;
 
 import java.io.ByteArrayOutputStream;
@@ -88,5 +89,17 @@ public class CustomFile {
             Log.e("error", Objects.requireNonNull(e.getMessage()));
         }
         MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, new String[]{"image/jpeg"}, null);
+    }
+
+    @SuppressLint({"SimpleDateFormat"})
+    public static File createImageFile() throws IOException {
+        String timeStamp = (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        StringBuilder stringBuilder = (new StringBuilder()).append("file:");
+        Objects.requireNonNull(image);
+        MyApplication.fileName = stringBuilder.append(image.getAbsolutePath()).toString();
+        return image;
     }
 }

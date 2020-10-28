@@ -52,13 +52,13 @@ public class MainActivity extends AppCompatActivity {
             }
     }
 
-    private void forceClose(Context context) {
+    void forceClose() {
         CustomToast customToast = new CustomToast();
-        customToast.error(context.getString(R.string.permission_not_completed));
+        customToast.error(getString(R.string.permission_not_completed));
         finishAffinity();
     }
 
-    public final void askLocationPermission() {
+    void askLocationPermission() {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                forceClose(context);
+                forceClose();
             }
         };
         new TedPermission(this)
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             });
             alertDialog.setNegativeButton(R.string.close, (dialog, which) -> {
                 dialog.cancel();
-                forceClose(getApplicationContext());
+                forceClose();
             });
             alertDialog.show();
         }

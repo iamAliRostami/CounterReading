@@ -158,4 +158,8 @@
     <string name="if_reject_permission">در صورت رد این مجوز قادر به استفاده از این دستگاه نخواهید بود\nلطفا با فشار دادن دکمه اعطای دسترسی و سپس در بخش دسترسی ها با این مجوز ها موافقت نمایید</string>
     <string name="permission_reject">مجوز رد شد</string>
     <string name="access_granted">مجوز ها داده شده</string>
+    <string name="has_no_flash">دستگاه شما مجهز به چراغ قوه نیست</string>
+    <string name="choose_document">انتخاب مدرک</string>
+    <string name="select_source">تصویر را از کجا انتخاب میکنید؟</string>
+    <string name="gallery">گالری</string>
 </resources>

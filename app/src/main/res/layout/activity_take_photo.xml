@@ -25,7 +25,7 @@
             <ImageView
                 android:id="@+id/image_View_1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/low_dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_gray_1"
@@ -36,7 +36,7 @@
             <ImageView
                 android:id="@+id/image_View_2"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/low_dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_gray_1"
@@ -56,7 +56,7 @@
             <ImageView
                 android:id="@+id/image_View_3"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/low_dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_gray_1"
@@ -67,7 +67,7 @@
             <ImageView
                 android:id="@+id/image_View_4"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/low_dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_gray_1"

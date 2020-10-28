@@ -5,9 +5,9 @@ package com.leon.reading_counter.infrastructure;
  */
 
 public interface IFlashLightManager {
-    void turnOn();
+    boolean turnOn();
 
-    void turnOff();
+    boolean turnOff();
 
     boolean toggleFlash();
 
