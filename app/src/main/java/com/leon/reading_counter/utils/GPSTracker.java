@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,26 +12,20 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-
 import com.leon.reading_counter.R;
 
-import static com.leon.reading_counter.MyApplication.REQUEST_LOCATION_CODE;
-
-public class GPSTracker extends Service implements LocationListener,
-        ActivityCompat.OnRequestPermissionsResultCallback {
+public class GPSTracker extends Service implements LocationListener {
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     // The minimum time between updates in milliseconds
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60;
-    private final Activity activity;
-    protected LocationManager locationManager;
     boolean canGetLocation = false;
     double latitude;
     double longitude;
     boolean checkGPS = false;
     boolean checkNetwork = false;
+    private final Activity activity;
+    protected LocationManager locationManager;
     Location location;
 
     public GPSTracker(Activity activity) {
@@ -67,10 +60,12 @@ public class GPSTracker extends Service implements LocationListener,
                     }
                 }
                 if (checkGPS && location == null) {
-                    locationManager.requestLocationUpdates(
-                            LocationManager.GPS_PROVIDER,
-                            MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                    if (locationManager != null) {
+                        locationManager.requestLocationUpdates(
+                                LocationManager.GPS_PROVIDER,
+                                MIN_TIME_BW_UPDATES,
+                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                    }
                     if (locationManager != null) {
                         location = locationManager
                                 .getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -117,6 +112,7 @@ public class GPSTracker extends Service implements LocationListener,
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.e("onLocationChanged", String.valueOf(location));
     }
 
     @Override
@@ -129,16 +125,5 @@ public class GPSTracker extends Service implements LocationListener,
 
     @Override
     public void onProviderDisabled(String s) {
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_LOCATION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Log.e("permission", "granted");
-            }
-        }
-
     }
 }

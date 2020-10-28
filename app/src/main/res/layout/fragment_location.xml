@@ -5,14 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".fragments.LocationFragment">
 
-    <SearchView
-        android:id="@+id/searchView"
+    <org.osmdroid.views.MapView
+        android:id="@+id/map_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="2dp"
-        android:inputType="number"
-        android:maxLength="10"
-        android:maxLines="1"
-        android:textColor="@color/black" />
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/medium_dp"
+        android:background="@drawable/border_gray_2"
+        android:padding="@dimen/low_dp" />
 
 </FrameLayout>
