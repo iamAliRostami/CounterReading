@@ -162,4 +162,5 @@
     <string name="choose_document">انتخاب مدرک</string>
     <string name="select_source">تصویر را از کجا انتخاب میکنید؟</string>
     <string name="gallery">گالری</string>
+    <string name="save_send">ذخیره و ارسال</string>
 </resources>

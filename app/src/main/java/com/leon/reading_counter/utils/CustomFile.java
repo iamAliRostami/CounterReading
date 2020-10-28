@@ -52,12 +52,12 @@ public class CustomFile {
         return MultipartBody.Part.createFormData("imageFile", f.getName(), reqFile);
     }
 
-    public boolean isExternalStorageWritable() {
+    public static boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state);
     }
 
-    public void saveTempBitmap(Bitmap bitmap, Context context) {
+    public static void saveTempBitmap(Bitmap bitmap, Context context) {
         if (isExternalStorageWritable()) {
             saveImage(bitmap, context);
         } else {
@@ -67,7 +67,7 @@ public class CustomFile {
     }
 
     @SuppressLint("SimpleDateFormat")
-    void saveImage(Bitmap bitmapImage, Context context) {
+    static void saveImage(Bitmap bitmapImage, Context context) {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES) + context.getString(R.string.camera_folder));
         if (!mediaStorageDir.exists()) {

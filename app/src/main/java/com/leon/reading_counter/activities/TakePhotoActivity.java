@@ -27,6 +27,7 @@ import com.leon.reading_counter.R;
 import com.leon.reading_counter.enums.SharedReferenceKeys;
 import com.leon.reading_counter.enums.SharedReferenceNames;
 import com.leon.reading_counter.infrastructure.ISharedPreferenceManager;
+import com.leon.reading_counter.utils.CustomFile;
 import com.leon.reading_counter.utils.CustomToast;
 import com.leon.reading_counter.utils.SharedPreferenceManager;
 
@@ -44,6 +45,7 @@ public class TakePhotoActivity extends AppCompatActivity {
     com.leon.reading_counter.databinding.ActivityTakePhotoBinding binding;
     ISharedPreferenceManager sharedPreferenceManager;
     int imageNumber = 1, imageNumberTemp = 0;
+    ArrayList<Bitmap> bitmaps;
     boolean replace = false;
 
     @Override
@@ -61,7 +63,17 @@ public class TakePhotoActivity extends AppCompatActivity {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     void initialize() {
+        bitmaps = new ArrayList<>();
         imageSetup();
+        setOnButtonSendClickListener();
+    }
+
+    void setOnButtonSendClickListener() {
+        binding.buttonSaveSend.setOnClickListener(v -> {
+            for (Bitmap bitmap : bitmaps) {
+                CustomFile.saveTempBitmap(bitmap, getApplicationContext());
+            }
+        });
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -70,11 +82,12 @@ public class TakePhotoActivity extends AppCompatActivity {
         binding.imageView2.setImageDrawable(getResources().getDrawable(R.drawable.img_take_photo));
         binding.imageView3.setImageDrawable(getResources().getDrawable(R.drawable.img_take_photo));
         binding.imageView4.setImageDrawable(getResources().getDrawable(R.drawable.img_take_photo));
-        setOnImageClickListener();
+        setOnImageViewPickerClickListener();
+        setOnImageViewDeleteClickListener();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    void setOnImageClickListener() {
+    void setOnImageViewPickerClickListener() {
         binding.imageView1.setOnClickListener(v -> {
             if (imageNumber > 1) {
                 replace = true;
@@ -113,9 +126,14 @@ public class TakePhotoActivity extends AppCompatActivity {
             }
             imagePicker();
         });
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    void setOnImageViewDeleteClickListener() {
         binding.imageViewDelete1.setOnClickListener(v -> {
             if (imageNumber > 1) {
                 imageNumber = imageNumber - 1;
+                bitmaps.remove(0);
                 binding.imageView1.setImageBitmap(((BitmapDrawable) binding.imageView2.getDrawable()).getBitmap());
                 binding.imageView2.setImageBitmap(((BitmapDrawable) binding.imageView3.getDrawable()).getBitmap());
                 binding.imageView3.setImageBitmap(((BitmapDrawable) binding.imageView4.getDrawable()).getBitmap());
@@ -125,6 +143,7 @@ public class TakePhotoActivity extends AppCompatActivity {
         binding.imageViewDelete2.setOnClickListener(v -> {
             if (imageNumber > 2) {
                 imageNumber = imageNumber - 1;
+                bitmaps.remove(1);
                 binding.imageView2.setImageBitmap(((BitmapDrawable) binding.imageView3.getDrawable()).getBitmap());
                 binding.imageView3.setImageBitmap(((BitmapDrawable) binding.imageView4.getDrawable()).getBitmap());
                 binding.imageView4.setImageDrawable(getDrawable(R.drawable.img_take_photo));
@@ -133,6 +152,7 @@ public class TakePhotoActivity extends AppCompatActivity {
         binding.imageViewDelete3.setOnClickListener(v -> {
             if (imageNumber > 3) {
                 imageNumber = imageNumber - 1;
+                bitmaps.remove(2);
                 binding.imageView3.setImageBitmap(((BitmapDrawable) binding.imageView4.getDrawable()).getBitmap());
                 binding.imageView4.setImageDrawable(getDrawable(R.drawable.img_take_photo));
             }
@@ -140,6 +160,7 @@ public class TakePhotoActivity extends AppCompatActivity {
         binding.imageViewDelete4.setOnClickListener(v -> {
             if (imageNumber > 4) {
                 imageNumber = imageNumber - 1;
+                bitmaps.remove(3);
                 binding.imageView4.setImageDrawable(getDrawable(R.drawable.img_take_photo));
             }
         });
@@ -257,6 +278,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                 }
             }
             if (replace) {
+                bitmaps.set(imageNumberTemp - 1, MyApplication.bitmapSelectedImage);
                 if (imageNumberTemp == 1) {
                     binding.imageView1.setImageBitmap(MyApplication.bitmapSelectedImage);
                 } else if (imageNumberTemp == 2) {
@@ -267,6 +289,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                     binding.imageView4.setImageBitmap(MyApplication.bitmapSelectedImage);
                 }
             } else {
+                bitmaps.add(MyApplication.bitmapSelectedImage);
                 if (imageNumber == 1) {
                     binding.imageView1.setImageBitmap(MyApplication.bitmapSelectedImage);
                 } else if (imageNumber == 2) {
