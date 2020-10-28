@@ -12,8 +12,9 @@ import es.dmoral.toasty.Toasty;
 
 public class MyApplication extends Application {
     public static final String fontName = "font/font_1.ttf";
-    public static int REQUEST_LOCATION_CODE = 1236;
     public static int REQUEST_NETWORK_CODE = 1234;
+    public static int GPS_CODE = 1235;
+    public static int REQUEST_LOCATION_CODE = 1236;
     public static int TOAST_TEXT_SIZE = 20;
     public static int position = -1;
     static Context appContext;

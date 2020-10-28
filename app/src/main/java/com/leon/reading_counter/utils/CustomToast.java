@@ -20,7 +20,7 @@ public class CustomToast {
     }
 
     public void success(String s, int duration) {
-        Toasty.error(MyApplication.getContext(), s, duration, true).show();
+        Toasty.success(MyApplication.getContext(), s, duration, true).show();
     }
 
     public void info(String s) {
@@ -36,7 +36,7 @@ public class CustomToast {
     }
 
     public void warning(String s, int duration) {
-        Toasty.info(MyApplication.getContext(), s, duration, true).show();
+        Toasty.warning(MyApplication.getContext(), s, duration, true).show();
     }
 
     public void normal(String s, int drawable) {

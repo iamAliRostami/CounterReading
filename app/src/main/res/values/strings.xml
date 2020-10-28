@@ -146,4 +146,16 @@
     <string name="ahad_number">تعداد آحاد</string>
     <string name="attach_image">الصاق عکس</string>
     <string name="theme_changed">تغییر پوسته با موفقیت انجام گرفت</string>
+    <string name="camera">دوربین</string>
+    <string name="photo">عکس</string>
+    <string name="gps_setting">تنظیمات جی پی اس</string>
+    <string name="setting">تنظیمات</string>
+    <string name="force_close">مجوز ها کامل نیست</string>
+    <string name="allow_permission">اعطای دسترسی</string>
+    <string name="permission_not_completed">مجوزها کامل نیست، پس از اعطای دسترسی کامل، مجددا تلاش کنید.</string>
+    <string name="active_gps">مکان یابی شما غیر فعال است، با مراجعه به تنظیمات، آن را فعال کنید.</string>
+    <string name="confirm_permission">جهت استفاده از برنامه مجوزهای پیشنهادی را قبول فرمایید</string>
+    <string name="if_reject_permission">در صورت رد این مجوز قادر به استفاده از این دستگاه نخواهید بود\nلطفا با فشار دادن دکمه اعطای دسترسی و سپس در بخش دسترسی ها با این مجوز ها موافقت نمایید</string>
+    <string name="permission_reject">مجوز رد شد</string>
+    <string name="access_granted">مجوز ها داده شده</string>
 </resources>

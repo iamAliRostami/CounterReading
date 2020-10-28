@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.TakePhotoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linear_layout_footer"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/large_dp"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <ImageView
+                android:id="@+id/image_View_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/low_dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_gray_1"
+                android:padding="@dimen/low_dp"
+                android:src="@drawable/img_take_photo"
+                tools:ignore="ContentDescription,NestedWeights" />
+
+            <ImageView
+                android:id="@+id/image_View_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/low_dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_gray_1"
+                android:padding="@dimen/low_dp"
+                android:src="@drawable/img_take_photo"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <ImageView
+                android:id="@+id/image_View_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/low_dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_gray_1"
+                android:padding="@dimen/low_dp"
+                android:src="@drawable/img_take_photo"
+                tools:ignore="ContentDescription,NestedWeights" />
+
+            <ImageView
+                android:id="@+id/image_View_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/low_dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_gray_1"
+                android:padding="@dimen/low_dp"
+                android:src="@drawable/img_take_photo"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_take_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/low_dp"
+            android:background="@drawable/border_yellow_1"
+            android:text="@string/photo"
+            android:textColor="@color/text_color_light"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <include layout="@layout/footer" />
+</RelativeLayout>
