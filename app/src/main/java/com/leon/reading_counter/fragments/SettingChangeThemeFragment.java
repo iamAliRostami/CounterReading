@@ -15,6 +15,7 @@ import com.leon.reading_counter.databinding.FragmentSettingChangeThemeBinding;
 import com.leon.reading_counter.enums.BundleEnum;
 import com.leon.reading_counter.enums.SharedReferenceKeys;
 import com.leon.reading_counter.enums.SharedReferenceNames;
+import com.leon.reading_counter.infrastructure.ISharedPreferenceManager;
 import com.leon.reading_counter.utils.CustomToast;
 import com.leon.reading_counter.utils.SharedPreferenceManager;
 
@@ -23,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 public class SettingChangeThemeFragment extends Fragment {
     FragmentSettingChangeThemeBinding binding;
     static int theme;
-    SharedPreferenceManager sharedPreferenceManager;
+    ISharedPreferenceManager sharedPreferenceManager;
 
     public SettingChangeThemeFragment() {
     }

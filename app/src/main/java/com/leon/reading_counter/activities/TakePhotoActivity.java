@@ -6,15 +6,25 @@ import android.os.Debug;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.leon.reading_counter.MyApplication;
 import com.leon.reading_counter.R;
 import com.leon.reading_counter.databinding.ActivityTakePhotoBinding;
+import com.leon.reading_counter.enums.SharedReferenceKeys;
+import com.leon.reading_counter.enums.SharedReferenceNames;
+import com.leon.reading_counter.infrastructure.ISharedPreferenceManager;
+import com.leon.reading_counter.utils.SharedPreferenceManager;
 
 public class TakePhotoActivity extends AppCompatActivity {
     ActivityTakePhotoBinding binding;
+    ISharedPreferenceManager sharedPreferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferenceManager = new SharedPreferenceManager(getApplicationContext(),
+                SharedReferenceNames.ACCOUNT.getValue());
+        int theme = sharedPreferenceManager.getIntData(SharedReferenceKeys.THEME_STABLE.getValue());
+        MyApplication.onActivitySetTheme(this, theme, true);
         binding = ActivityTakePhotoBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_take_photo);
         initialize();

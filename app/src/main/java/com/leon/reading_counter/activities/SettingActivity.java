@@ -16,13 +16,14 @@ import com.leon.reading_counter.enums.SharedReferenceNames;
 import com.leon.reading_counter.fragments.SettingChangePasswordFragment;
 import com.leon.reading_counter.fragments.SettingChangeThemeFragment;
 import com.leon.reading_counter.fragments.SettingUpdateFragment;
+import com.leon.reading_counter.infrastructure.ISharedPreferenceManager;
 import com.leon.reading_counter.utils.DepthPageTransformer;
 import com.leon.reading_counter.utils.SharedPreferenceManager;
 
 public class SettingActivity extends BaseActivity {
     ActivitySettingBinding binding;
     private int previousState, currentState;
-    SharedPreferenceManager sharedPreferenceManager;
+    ISharedPreferenceManager sharedPreferenceManager;
 
     @Override
     protected void initialize() {

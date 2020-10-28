@@ -11,11 +11,12 @@ import com.leon.reading_counter.R;
 import com.leon.reading_counter.databinding.ActivityNavigationBinding;
 import com.leon.reading_counter.enums.SharedReferenceKeys;
 import com.leon.reading_counter.enums.SharedReferenceNames;
+import com.leon.reading_counter.infrastructure.ISharedPreferenceManager;
 import com.leon.reading_counter.utils.SharedPreferenceManager;
 
 public class NavigationActivity extends AppCompatActivity {
     ActivityNavigationBinding binding;
-    SharedPreferenceManager sharedPreferenceManager;
+    ISharedPreferenceManager sharedPreferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

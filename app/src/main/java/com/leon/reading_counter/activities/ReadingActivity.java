@@ -1,5 +1,6 @@
 package com.leon.reading_counter.activities;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -52,6 +53,11 @@ public class ReadingActivity extends BaseActivity {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
             isNight = !isNight;
+        });
+        ImageView imageViewCamera = findViewById(R.id.image_view_camera);
+        imageViewCamera.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), TakePhotoActivity.class);
+            startActivity(intent);
         });
     }
 

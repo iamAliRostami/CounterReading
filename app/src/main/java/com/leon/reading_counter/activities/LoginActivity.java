@@ -15,10 +15,11 @@ import com.leon.reading_counter.R;
 import com.leon.reading_counter.databinding.ActivityLoginBinding;
 import com.leon.reading_counter.enums.SharedReferenceKeys;
 import com.leon.reading_counter.enums.SharedReferenceNames;
+import com.leon.reading_counter.infrastructure.ISharedPreferenceManager;
 import com.leon.reading_counter.utils.SharedPreferenceManager;
 
 public class LoginActivity extends AppCompatActivity {
-    SharedPreferenceManager sharedPreferenceManager;
+    ISharedPreferenceManager sharedPreferenceManager;
     ActivityLoginBinding binding;
     Context context;
     String username, password;

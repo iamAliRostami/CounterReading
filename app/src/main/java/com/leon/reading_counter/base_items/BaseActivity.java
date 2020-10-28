@@ -34,6 +34,7 @@ import com.leon.reading_counter.databinding.BaseActivityBinding;
 import com.leon.reading_counter.enums.BundleEnum;
 import com.leon.reading_counter.enums.SharedReferenceKeys;
 import com.leon.reading_counter.enums.SharedReferenceNames;
+import com.leon.reading_counter.infrastructure.ISharedPreferenceManager;
 import com.leon.reading_counter.utils.CustomToast;
 import com.leon.reading_counter.utils.SharedPreferenceManager;
 
@@ -56,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(getApplicationContext(),
+        ISharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(getApplicationContext(),
                 SharedReferenceNames.ACCOUNT.getValue());
         int theme;
         Bundle extras = getIntent().getExtras();
