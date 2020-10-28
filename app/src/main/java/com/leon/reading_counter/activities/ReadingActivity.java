@@ -1,6 +1,7 @@
 package com.leon.reading_counter.activities;
 
 import android.content.Intent;
+import android.os.Debug;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -80,5 +81,23 @@ public class ReadingActivity extends BaseActivity {
             }
         });
         binding.viewPager.setPageTransformer(true, new DepthPageTransformer());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Runtime.getRuntime().totalMemory();
+        Runtime.getRuntime().freeMemory();
+        Runtime.getRuntime().maxMemory();
+        Debug.getNativeHeapAllocatedSize();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Runtime.getRuntime().totalMemory();
+        Runtime.getRuntime().freeMemory();
+        Runtime.getRuntime().maxMemory();
+        Debug.getNativeHeapAllocatedSize();
     }
 }

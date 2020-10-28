@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -94,6 +95,7 @@ public abstract class BaseActivity extends AppCompatActivity
     @SuppressLint("RtlHardcoded")
     void setOnDrawerItemClick() {
         binding.imageViewHeader.setOnClickListener(v -> {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             if (MyApplication.position != -1) {
                 MyApplication.position = -1;
                 Intent intent = new Intent(MyApplication.getContext(), HomeActivity.class);
@@ -133,6 +135,7 @@ public abstract class BaseActivity extends AppCompatActivity
                             }
                             startActivity(intent);
                             finish();
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                         }
                     }
 
