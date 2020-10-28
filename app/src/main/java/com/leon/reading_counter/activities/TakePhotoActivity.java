@@ -14,6 +14,7 @@ import android.os.Debug;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -82,6 +83,15 @@ public class TakePhotoActivity extends AppCompatActivity {
         binding.imageView2.setImageDrawable(getResources().getDrawable(R.drawable.img_take_photo));
         binding.imageView3.setImageDrawable(getResources().getDrawable(R.drawable.img_take_photo));
         binding.imageView4.setImageDrawable(getResources().getDrawable(R.drawable.img_take_photo));
+        binding.imageViewDelete1.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_delete));
+        binding.imageViewDelete2.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_delete));
+        binding.imageViewDelete3.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_delete));
+        binding.imageViewDelete4.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_delete));
+        binding.imageViewDelete1.setVisibility(View.GONE);
+        binding.imageViewDelete2.setVisibility(View.GONE);
+        binding.imageViewDelete3.setVisibility(View.GONE);
+        binding.imageViewDelete4.setVisibility(View.GONE);
+
         setOnImageViewPickerClickListener();
         setOnImageViewDeleteClickListener();
     }
@@ -138,6 +148,14 @@ public class TakePhotoActivity extends AppCompatActivity {
                 binding.imageView2.setImageBitmap(((BitmapDrawable) binding.imageView3.getDrawable()).getBitmap());
                 binding.imageView3.setImageBitmap(((BitmapDrawable) binding.imageView4.getDrawable()).getBitmap());
                 binding.imageView4.setImageDrawable(getDrawable(R.drawable.img_take_photo));
+                if (imageNumber == 1)
+                    binding.imageViewDelete1.setVisibility(View.GONE);
+                else if (imageNumber == 2)
+                    binding.imageViewDelete2.setVisibility(View.GONE);
+                else if (imageNumber == 3)
+                    binding.imageViewDelete3.setVisibility(View.GONE);
+                else if (imageNumber == 4)
+                    binding.imageViewDelete4.setVisibility(View.GONE);
             }
         });
         binding.imageViewDelete2.setOnClickListener(v -> {
@@ -147,6 +165,12 @@ public class TakePhotoActivity extends AppCompatActivity {
                 binding.imageView2.setImageBitmap(((BitmapDrawable) binding.imageView3.getDrawable()).getBitmap());
                 binding.imageView3.setImageBitmap(((BitmapDrawable) binding.imageView4.getDrawable()).getBitmap());
                 binding.imageView4.setImageDrawable(getDrawable(R.drawable.img_take_photo));
+                if (imageNumber == 2)
+                    binding.imageViewDelete2.setVisibility(View.GONE);
+                else if (imageNumber == 3)
+                    binding.imageViewDelete3.setVisibility(View.GONE);
+                else if (imageNumber == 4)
+                    binding.imageViewDelete4.setVisibility(View.GONE);
             }
         });
         binding.imageViewDelete3.setOnClickListener(v -> {
@@ -155,6 +179,10 @@ public class TakePhotoActivity extends AppCompatActivity {
                 bitmaps.remove(2);
                 binding.imageView3.setImageBitmap(((BitmapDrawable) binding.imageView4.getDrawable()).getBitmap());
                 binding.imageView4.setImageDrawable(getDrawable(R.drawable.img_take_photo));
+                if (imageNumber == 3)
+                    binding.imageViewDelete3.setVisibility(View.GONE);
+                else if (imageNumber == 4)
+                    binding.imageViewDelete4.setVisibility(View.GONE);
             }
         });
         binding.imageViewDelete4.setOnClickListener(v -> {
@@ -162,6 +190,8 @@ public class TakePhotoActivity extends AppCompatActivity {
                 imageNumber = imageNumber - 1;
                 bitmaps.remove(3);
                 binding.imageView4.setImageDrawable(getDrawable(R.drawable.img_take_photo));
+                if (imageNumber == 4)
+                    binding.imageViewDelete4.setVisibility(View.GONE);
             }
         });
     }
@@ -291,12 +321,16 @@ public class TakePhotoActivity extends AppCompatActivity {
             } else {
                 bitmaps.add(MyApplication.bitmapSelectedImage);
                 if (imageNumber == 1) {
+                    binding.imageViewDelete1.setVisibility(View.VISIBLE);
                     binding.imageView1.setImageBitmap(MyApplication.bitmapSelectedImage);
                 } else if (imageNumber == 2) {
+                    binding.imageViewDelete2.setVisibility(View.VISIBLE);
                     binding.imageView2.setImageBitmap(MyApplication.bitmapSelectedImage);
                 } else if (imageNumber == 3) {
+                    binding.imageViewDelete3.setVisibility(View.VISIBLE);
                     binding.imageView3.setImageBitmap(MyApplication.bitmapSelectedImage);
                 } else if (imageNumber == 4) {
+                    binding.imageViewDelete4.setVisibility(View.VISIBLE);
                     binding.imageView4.setImageBitmap(MyApplication.bitmapSelectedImage);
                 }
                 imageNumber = imageNumber + 1;
@@ -321,6 +355,10 @@ public class TakePhotoActivity extends AppCompatActivity {
         binding.imageView2.setImageDrawable(null);
         binding.imageView3.setImageDrawable(null);
         binding.imageView4.setImageDrawable(null);
+        binding.imageViewDelete1.setImageDrawable(null);
+        binding.imageViewDelete2.setImageDrawable(null);
+        binding.imageViewDelete3.setImageDrawable(null);
+        binding.imageViewDelete4.setImageDrawable(null);
         MyApplication.bitmapSelectedImage = null;
         Runtime.getRuntime().totalMemory();
         Runtime.getRuntime().freeMemory();
