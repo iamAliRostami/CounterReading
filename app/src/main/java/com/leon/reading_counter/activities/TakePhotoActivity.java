@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Debug;
@@ -72,6 +73,7 @@ public class TakePhotoActivity extends AppCompatActivity {
         setOnImageClickListener();
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     void setOnImageClickListener() {
         binding.imageView1.setOnClickListener(v -> {
             if (imageNumber > 1) {
@@ -110,6 +112,36 @@ public class TakePhotoActivity extends AppCompatActivity {
                 replace = false;
             }
             imagePicker();
+        });
+        binding.imageViewDelete1.setOnClickListener(v -> {
+            if (imageNumber > 1) {
+                imageNumber = imageNumber - 1;
+                binding.imageView1.setImageBitmap(((BitmapDrawable) binding.imageView2.getDrawable()).getBitmap());
+                binding.imageView2.setImageBitmap(((BitmapDrawable) binding.imageView3.getDrawable()).getBitmap());
+                binding.imageView3.setImageBitmap(((BitmapDrawable) binding.imageView4.getDrawable()).getBitmap());
+                binding.imageView4.setImageDrawable(getDrawable(R.drawable.img_take_photo));
+            }
+        });
+        binding.imageViewDelete2.setOnClickListener(v -> {
+            if (imageNumber > 2) {
+                imageNumber = imageNumber - 1;
+                binding.imageView2.setImageBitmap(((BitmapDrawable) binding.imageView3.getDrawable()).getBitmap());
+                binding.imageView3.setImageBitmap(((BitmapDrawable) binding.imageView4.getDrawable()).getBitmap());
+                binding.imageView4.setImageDrawable(getDrawable(R.drawable.img_take_photo));
+            }
+        });
+        binding.imageViewDelete3.setOnClickListener(v -> {
+            if (imageNumber > 3) {
+                imageNumber = imageNumber - 1;
+                binding.imageView3.setImageBitmap(((BitmapDrawable) binding.imageView4.getDrawable()).getBitmap());
+                binding.imageView4.setImageDrawable(getDrawable(R.drawable.img_take_photo));
+            }
+        });
+        binding.imageViewDelete4.setOnClickListener(v -> {
+            if (imageNumber > 4) {
+                imageNumber = imageNumber - 1;
+                binding.imageView4.setImageDrawable(getDrawable(R.drawable.img_take_photo));
+            }
         });
     }
 
@@ -241,7 +273,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                     binding.imageView2.setImageBitmap(MyApplication.bitmapSelectedImage);
                 } else if (imageNumber == 3) {
                     binding.imageView3.setImageBitmap(MyApplication.bitmapSelectedImage);
-                } else {
+                } else if (imageNumber == 4) {
                     binding.imageView4.setImageBitmap(MyApplication.bitmapSelectedImage);
                 }
                 imageNumber = imageNumber + 1;
