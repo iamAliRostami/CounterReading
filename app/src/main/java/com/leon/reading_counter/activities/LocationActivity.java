@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.LocationManager;
+import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Debug;
 import android.provider.Settings;
 import android.view.View;
@@ -20,6 +22,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.leon.reading_counter.MyApplication;
 import com.leon.reading_counter.R;
 import com.leon.reading_counter.adapters.ViewPagerAdapterTab;
 import com.leon.reading_counter.base_items.BaseActivity;
@@ -33,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.leon.reading_counter.MyApplication.GPS_CODE;
+import static com.leon.reading_counter.MyApplication.REQUEST_NETWORK_CODE;
 
 public class LocationActivity extends BaseActivity {
     ActivityLocationBinding binding;
@@ -44,84 +48,36 @@ public class LocationActivity extends BaseActivity {
         View childLayout = binding.getRoot();
         ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
-        locationPermission();
+        if (MyApplication.isNetworkAvailable(getApplicationContext()))
+            locationPermission();
+        else enableNetwork();
     }
 
-    void initializeTextViews() {
-        textViewLocation();
-        textViewPlace();
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    void textViewPlace() {
-        binding.textViewPlace.setOnClickListener(view -> {
-            setColor();
-            binding.textViewPlace.setBackground(getResources().getDrawable(R.drawable.border_white_2));
-            setPadding();
-            binding.viewPager.setCurrentItem(3);
+    void enableNetwork() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setCancelable(false);
+        alertDialog.setTitle(getApplicationContext().getString(R.string.network_setting));
+        alertDialog.setMessage(R.string.active_network);
+        alertDialog.setPositiveButton(R.string.setting, (dialog, which) -> {
+            setMobileDataEnabled();
         });
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    void textViewLocation() {
-        binding.textViewLocation.setOnClickListener(view -> {
-            setColor();
-            binding.textViewLocation.setBackground(getResources().getDrawable(R.drawable.border_white_2));
-            setPadding();
-            binding.viewPager.setCurrentItem(0);
+        alertDialog.setNegativeButton(R.string.close, (dialog, which) -> {
+            dialog.cancel();
+            forceClose();
         });
+        alertDialog.show();
     }
 
-    private void setColor() {
-        binding.textViewLocation.setBackgroundColor(Color.TRANSPARENT);
-        binding.textViewLocation.setTextColor(getResources().getColor(R.color.text_color_light));
-        binding.textViewPlace.setBackgroundColor(Color.TRANSPARENT);
-        binding.textViewPlace.setTextColor(getResources().getColor(R.color.text_color_light));
-    }
-
-    private void setPadding() {
-        binding.textViewLocation.setPadding(0,
-                (int) getResources().getDimension(R.dimen.medium_dp), 0,
-                (int) getResources().getDimension(R.dimen.medium_dp));
-        binding.textViewPlace.setPadding(0,
-                (int) getResources().getDimension(R.dimen.medium_dp), 0,
-                (int) getResources().getDimension(R.dimen.medium_dp));
-    }
-
-    private void setupViewPager() {
-        ViewPagerAdapterTab adapter = new ViewPagerAdapterTab(getSupportFragmentManager());
-        adapter.addFragment(new LocationFragment(), "لایه ها ");
-        adapter.addFragment(new PlaceFragment(), "مکان کنتور");
-        binding.viewPager.setAdapter(adapter);
-        binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 0) {
-                    binding.textViewLocation.callOnClick();
-                } else if (position == 1) {
-                    binding.textViewPlace.callOnClick();
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                int currentPage = binding.viewPager.getCurrentItem();
-                if (currentPage == 1 || currentPage == 0) {
-                    previousState = currentState;
-                    currentState = state;
-                    if (previousState == 1 && currentState == 0) {
-                        binding.viewPager.setCurrentItem(currentPage == 0 ? 1 : 0);
-
-                    }
-                }
-            }
-        });
-        binding.viewPager.setPageTransformer(true, new DepthPageTransformer());
+    public void setMobileDataEnabled() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            Intent panelIntent = new Intent(Settings.Panel.ACTION_INTERNET_CONNECTIVITY);
+            startActivityForResult(panelIntent, 0);
+        } else {
+            WifiManager wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            wifi.setWifiEnabled(true);
+            startActivity(getIntent());
+            finish();
+        }
     }
 
     void locationPermission() {
@@ -201,12 +157,94 @@ public class LocationActivity extends BaseActivity {
         return enabled;
     }
 
+    void initializeTextViews() {
+        textViewLocation();
+        textViewPlace();
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    void textViewPlace() {
+        binding.textViewPlace.setOnClickListener(view -> {
+            setColor();
+            binding.textViewPlace.setBackground(getResources().getDrawable(R.drawable.border_white_2));
+            setPadding();
+            binding.viewPager.setCurrentItem(3);
+        });
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    void textViewLocation() {
+        binding.textViewLocation.setOnClickListener(view -> {
+            setColor();
+            binding.textViewLocation.setBackground(getResources().getDrawable(R.drawable.border_white_2));
+            setPadding();
+            binding.viewPager.setCurrentItem(0);
+        });
+    }
+
+    private void setColor() {
+        binding.textViewLocation.setBackgroundColor(Color.TRANSPARENT);
+        binding.textViewLocation.setTextColor(getResources().getColor(R.color.text_color_light));
+        binding.textViewPlace.setBackgroundColor(Color.TRANSPARENT);
+        binding.textViewPlace.setTextColor(getResources().getColor(R.color.text_color_light));
+    }
+
+    private void setPadding() {
+        binding.textViewLocation.setPadding(0,
+                (int) getResources().getDimension(R.dimen.medium_dp), 0,
+                (int) getResources().getDimension(R.dimen.medium_dp));
+        binding.textViewPlace.setPadding(0,
+                (int) getResources().getDimension(R.dimen.medium_dp), 0,
+                (int) getResources().getDimension(R.dimen.medium_dp));
+    }
+
+    private void setupViewPager() {
+        ViewPagerAdapterTab adapter = new ViewPagerAdapterTab(getSupportFragmentManager());
+        adapter.addFragment(new LocationFragment(), "لایه ها ");
+        adapter.addFragment(new PlaceFragment(), "مکان کنتور");
+        binding.viewPager.setAdapter(adapter);
+        binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    binding.textViewLocation.callOnClick();
+                } else if (position == 1) {
+                    binding.textViewPlace.callOnClick();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                int currentPage = binding.viewPager.getCurrentItem();
+                if (currentPage == 1 || currentPage == 0) {
+                    previousState = currentState;
+                    currentState = state;
+                    if (previousState == 1 && currentState == 0) {
+                        binding.viewPager.setCurrentItem(currentPage == 0 ? 1 : 0);
+
+                    }
+                }
+            }
+        });
+        binding.viewPager.setPageTransformer(true, new DepthPageTransformer());
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == PackageManager.PERMISSION_GRANTED) {
             if (requestCode == GPS_CODE)
                 locationPermission();
+            if (requestCode == REQUEST_NETWORK_CODE) {
+                if (MyApplication.isNetworkAvailable(getApplicationContext()))
+                    locationPermission();
+                else enableNetwork();
+            }
         }
     }
 

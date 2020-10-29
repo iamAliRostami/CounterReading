@@ -360,6 +360,7 @@ public class TakePhotoActivity extends AppCompatActivity {
         binding.imageViewDelete3.setImageDrawable(null);
         binding.imageViewDelete4.setImageDrawable(null);
         MyApplication.bitmapSelectedImage = null;
+        bitmaps = null;
         Runtime.getRuntime().totalMemory();
         Runtime.getRuntime().freeMemory();
         Runtime.getRuntime().maxMemory();

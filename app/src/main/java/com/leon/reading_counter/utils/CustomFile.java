@@ -96,6 +96,7 @@ public class CustomFile {
         String timeStamp = (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        storageDir.mkdirs();
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
         StringBuilder stringBuilder = (new StringBuilder()).append("file:");
         Objects.requireNonNull(image);

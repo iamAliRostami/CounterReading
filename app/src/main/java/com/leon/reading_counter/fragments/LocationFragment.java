@@ -8,6 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,7 @@ public class LocationFragment extends Fragment implements LocationListener {
         Criteria criteria = new Criteria();
         String bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true));
         Location location = getLocation();
+        Log.e("location", String.valueOf(location));
         if (location != null) {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
@@ -132,6 +134,7 @@ public class LocationFragment extends Fragment implements LocationListener {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e("error", e.toString());
         }
         return location;
     }
@@ -142,6 +145,13 @@ public class LocationFragment extends Fragment implements LocationListener {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
         initializeMap();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        locationManager.removeUpdates(this);
+        locationManager = null;
     }
 
     @Override

@@ -163,4 +163,7 @@
     <string name="select_source">تصویر را از کجا انتخاب میکنید؟</string>
     <string name="gallery">گالری</string>
     <string name="save_send">ذخیره و ارسال</string>
+
+    <string name="active_network">اینترنت شما غیر فعال است، با مراجعه به تنظیمات، آن را فعال کنید.</string>
+    <string name="network_setting">تنظیمات اینترنت</string>
 </resources>
