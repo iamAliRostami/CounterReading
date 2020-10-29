@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,6 +26,7 @@ import com.leon.reading_counter.tables.LoginFeedBack;
 import com.leon.reading_counter.tables.LoginInfo;
 import com.leon.reading_counter.utils.CustomDialog;
 import com.leon.reading_counter.utils.CustomErrorHandling;
+import com.leon.reading_counter.utils.CustomToast;
 import com.leon.reading_counter.utils.HttpClientWrapper;
 import com.leon.reading_counter.utils.NetworkHelper;
 import com.leon.reading_counter.utils.SharedPreferenceManager;
@@ -162,7 +162,8 @@ public class LoginActivity extends AppCompatActivity {
                     loginFeedBack.refresh_token == null ||
                     loginFeedBack.access_token.length() < 1 ||
                     loginFeedBack.refresh_token.length() < 1) {
-                Toast.makeText(getApplicationContext(), getString(R.string.error_is_not_match), Toast.LENGTH_SHORT).show();
+                CustomToast customToast = new CustomToast();
+                customToast.warning(getString(R.string.error_is_not_match));
             } else {
                 savePreference(loginFeedBack);
                 Intent intent = new Intent(context, HomeActivity.class);
