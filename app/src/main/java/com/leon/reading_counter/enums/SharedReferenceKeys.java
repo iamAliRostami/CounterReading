@@ -5,6 +5,8 @@ public enum SharedReferenceKeys {
     PASSWORD("password"),
     TOKEN("token"),
     REFRESH_TOKEN("refresh_token"),
+    ANTIFORGERY("Antiforgery"),
+    XSRF("xsrf"),
     THEME_STABLE("theme_stable"),
     THEME_TEMPORARY("theme_temporary");
 

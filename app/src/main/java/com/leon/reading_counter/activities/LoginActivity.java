@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,9 +19,9 @@ import com.leon.reading_counter.enums.ProgressType;
 import com.leon.reading_counter.enums.SharedReferenceKeys;
 import com.leon.reading_counter.enums.SharedReferenceNames;
 import com.leon.reading_counter.infrastructure.IAbfaService;
-import com.leon.reading_counter.infrastructure.ICallback;
 import com.leon.reading_counter.infrastructure.ICallbackError;
 import com.leon.reading_counter.infrastructure.ICallbackIncomplete;
+import com.leon.reading_counter.infrastructure.ICallbackNew;
 import com.leon.reading_counter.infrastructure.ISharedPreferenceManager;
 import com.leon.reading_counter.tables.LoginFeedBack;
 import com.leon.reading_counter.tables.LoginInfo;
@@ -30,6 +31,8 @@ import com.leon.reading_counter.utils.CustomToast;
 import com.leon.reading_counter.utils.HttpClientWrapper;
 import com.leon.reading_counter.utils.NetworkHelper;
 import com.leon.reading_counter.utils.SharedPreferenceManager;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -155,9 +158,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    class Login implements ICallback<LoginFeedBack> {
+    class Login implements ICallbackNew<LoginFeedBack> {
         @Override
-        public void execute(LoginFeedBack loginFeedBack) {
+        public void execute(Response<LoginFeedBack> response) {
+            LoginFeedBack loginFeedBack = response.body();
             if (loginFeedBack.access_token == null ||
                     loginFeedBack.refresh_token == null ||
                     loginFeedBack.access_token.length() < 1 ||
@@ -165,6 +169,9 @@ public class LoginActivity extends AppCompatActivity {
                 CustomToast customToast = new CustomToast();
                 customToast.warning(getString(R.string.error_is_not_match));
             } else {
+                List<String> cookieList = response.headers().values("Set-Cookie");
+                Log.e("headers", String.valueOf(cookieList));
+                String jsessionid = (cookieList.get(0).split(";"))[0];
                 savePreference(loginFeedBack);
                 Intent intent = new Intent(context, HomeActivity.class);
                 startActivity(intent);
