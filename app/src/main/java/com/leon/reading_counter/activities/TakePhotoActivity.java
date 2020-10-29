@@ -2,9 +2,9 @@ package com.leon.reading_counter.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,7 +19,6 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -30,6 +29,7 @@ import com.leon.reading_counter.enums.SharedReferenceNames;
 import com.leon.reading_counter.infrastructure.ISharedPreferenceManager;
 import com.leon.reading_counter.utils.CustomFile;
 import com.leon.reading_counter.utils.CustomToast;
+import com.leon.reading_counter.utils.PermissionManager;
 import com.leon.reading_counter.utils.SharedPreferenceManager;
 
 import java.io.File;
@@ -48,6 +48,7 @@ public class TakePhotoActivity extends AppCompatActivity {
     int imageNumber = 1, imageNumberTemp = 0;
     ArrayList<Bitmap> bitmaps;
     boolean replace = false;
+    Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +59,10 @@ public class TakePhotoActivity extends AppCompatActivity {
         MyApplication.onActivitySetTheme(this, theme, true);
         binding = com.leon.reading_counter.databinding.ActivityTakePhotoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        if (checkPermission())
+        activity = this;
+        if (PermissionManager.checkStoragePermission(getApplicationContext()))
             initialize();
+        else askStoragePermission();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -196,24 +199,6 @@ public class TakePhotoActivity extends AppCompatActivity {
         });
     }
 
-    boolean checkPermission() {
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-            askStoragePermission();
-            return false;
-        } else {
-            initialize();
-            return true;
-        }
-    }
-
     void askStoragePermission() {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
@@ -225,7 +210,7 @@ public class TakePhotoActivity extends AppCompatActivity {
 
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                forceClose();
+                PermissionManager.forceClose(activity);
             }
         };
         new TedPermission(this)
@@ -240,12 +225,6 @@ public class TakePhotoActivity extends AppCompatActivity {
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ).check();
-    }
-
-    void forceClose() {
-        CustomToast customToast = new CustomToast();
-        customToast.error(getString(R.string.permission_not_completed));
-        finish();
     }
 
     @SuppressLint("QueryPermissionsNeeded")

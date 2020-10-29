@@ -1,19 +1,34 @@
 package com.leon.reading_counter.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Debug;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.leon.reading_counter.MyApplication;
 import com.leon.reading_counter.R;
 import com.leon.reading_counter.base_items.BaseActivity;
 import com.leon.reading_counter.databinding.ActivityHomeBinding;
+import com.leon.reading_counter.utils.CustomToast;
+import com.leon.reading_counter.utils.PermissionManager;
+
+import java.util.ArrayList;
+
+import static com.leon.reading_counter.MyApplication.GPS_CODE;
+import static com.leon.reading_counter.MyApplication.REQUEST_NETWORK_CODE;
+import static com.leon.reading_counter.utils.PermissionManager.isNetworkAvailable;
 
 public class HomeActivity extends BaseActivity {
     ActivityHomeBinding binding;
+    Activity activity;
     @SuppressLint("NonConstantResourceId")
     View.OnClickListener onClickListener = v -> {
         int id = v.getId();
@@ -67,8 +82,77 @@ public class HomeActivity extends BaseActivity {
         View childLayout = binding.getRoot();
         ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
-        initializeImageViews();
-        setOnImageViewClickListener();
+        activity = this;
+        if (isNetworkAvailable(getApplicationContext()))
+            checkPermissions();
+        else PermissionManager.enableNetwork(this);
+    }
+
+    void checkPermissions() {
+        if (PermissionManager.gpsEnabled(this))
+            if (!PermissionManager.checkLocationPermission(getApplicationContext())) {
+                askLocationPermission();
+            } else if (!PermissionManager.checkStoragePermission(getApplicationContext())) {
+                askStoragePermission();
+            } else {
+                initializeImageViews();
+                setOnImageViewClickListener();
+            }
+    }
+
+    void askStoragePermission() {
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                CustomToast customToast = new CustomToast();
+                customToast.info(getString(R.string.access_granted));
+                checkPermissions();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                PermissionManager.forceClose(activity);
+            }
+        };
+        new TedPermission(this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage(getString(R.string.confirm_permission))
+                .setRationaleConfirmText(getString(R.string.allow_permission))
+                .setDeniedMessage(getString(R.string.if_reject_permission))
+                .setDeniedCloseButtonText(getString(R.string.close))
+                .setGotoSettingButtonText(getString(R.string.allow_permission))
+                .setPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ).check();
+    }
+
+    void askLocationPermission() {
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                CustomToast customToast = new CustomToast();
+                customToast.info(getString(R.string.access_granted));
+                checkPermissions();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                PermissionManager.forceClose(activity);
+            }
+        };
+        new TedPermission(this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage(getString(R.string.confirm_permission))
+                .setRationaleConfirmText(getString(R.string.allow_permission))
+                .setDeniedMessage(getString(R.string.if_reject_permission))
+                .setDeniedCloseButtonText(getString(R.string.close))
+                .setGotoSettingButtonText(getString(R.string.allow_permission))
+                .setPermissions(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                ).check();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -94,6 +178,20 @@ public class HomeActivity extends BaseActivity {
         binding.linearLayoutAppSetting.setOnClickListener(onClickListener);
         binding.linearLayoutReadingSetting.setOnClickListener(onClickListener);
         binding.linearLayoutExit.setOnClickListener(onClickListener);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == PackageManager.PERMISSION_GRANTED) {
+            if (requestCode == GPS_CODE)
+                checkPermissions();
+            if (requestCode == REQUEST_NETWORK_CODE) {
+                if (isNetworkAvailable(getApplicationContext()))
+                    checkPermissions();
+                else PermissionManager.enableNetwork(this);
+            }
+        }
     }
 
     @Override

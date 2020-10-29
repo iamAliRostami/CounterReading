@@ -2,27 +2,19 @@ package com.leon.reading_counter.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.LocationManager;
-import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Debug;
-import android.provider.Settings;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.core.location.LocationManagerCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-import com.leon.reading_counter.MyApplication;
 import com.leon.reading_counter.R;
 import com.leon.reading_counter.adapters.ViewPagerAdapterTab;
 import com.leon.reading_counter.base_items.BaseActivity;
@@ -31,16 +23,18 @@ import com.leon.reading_counter.fragments.LocationFragment;
 import com.leon.reading_counter.fragments.PlaceFragment;
 import com.leon.reading_counter.utils.CustomToast;
 import com.leon.reading_counter.utils.DepthPageTransformer;
+import com.leon.reading_counter.utils.PermissionManager;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static com.leon.reading_counter.MyApplication.GPS_CODE;
 import static com.leon.reading_counter.MyApplication.REQUEST_NETWORK_CODE;
+import static com.leon.reading_counter.utils.PermissionManager.isNetworkAvailable;
 
 public class LocationActivity extends BaseActivity {
     ActivityLocationBinding binding;
-    private int previousState, currentState;
+    int previousState, currentState;
+    Activity activity;
 
     @Override
     protected void initialize() {
@@ -48,50 +42,50 @@ public class LocationActivity extends BaseActivity {
         View childLayout = binding.getRoot();
         ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
-        if (MyApplication.isNetworkAvailable(getApplicationContext()))
-            locationPermission();
-        else enableNetwork();
+        activity = this;
+        if (isNetworkAvailable(getApplicationContext()))
+            checkPermissions();
+        else PermissionManager.enableNetwork(this);
     }
 
-    void enableNetwork() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setCancelable(false);
-        alertDialog.setTitle(getApplicationContext().getString(R.string.network_setting));
-        alertDialog.setMessage(R.string.active_network);
-        alertDialog.setPositiveButton(R.string.setting, (dialog, which) -> {
-            setMobileDataEnabled();
-        });
-        alertDialog.setNegativeButton(R.string.close, (dialog, which) -> {
-            dialog.cancel();
-            forceClose();
-        });
-        alertDialog.show();
-    }
-
-    public void setMobileDataEnabled() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            Intent panelIntent = new Intent(Settings.Panel.ACTION_INTERNET_CONNECTIVITY);
-            startActivityForResult(panelIntent, 0);
-        } else {
-            WifiManager wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            wifi.setWifiEnabled(true);
-            startActivity(getIntent());
-            finish();
-        }
-    }
-
-    void locationPermission() {
-        if (gpsEnabled())
-            if (accessLocation()) {
+    void checkPermissions() {
+        if (PermissionManager.gpsEnabled(this))
+            if (!PermissionManager.checkLocationPermission(getApplicationContext())) {
+                askLocationPermission();
+            } else if (!PermissionManager.checkStoragePermission(getApplicationContext())) {
+                askStoragePermission();
+            } else {
                 setupViewPager();
                 initializeTextViews();
             }
     }
 
-    void forceClose() {
-        CustomToast customToast = new CustomToast();
-        customToast.error(getString(R.string.permission_not_completed));
-        finish();
+    void askStoragePermission() {
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                CustomToast customToast = new CustomToast();
+                customToast.info(getString(R.string.access_granted));
+                checkPermissions();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                PermissionManager.forceClose(activity);
+            }
+        };
+        new TedPermission(this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage(getString(R.string.confirm_permission))
+                .setRationaleConfirmText(getString(R.string.allow_permission))
+                .setDeniedMessage(getString(R.string.if_reject_permission))
+                .setDeniedCloseButtonText(getString(R.string.close))
+                .setGotoSettingButtonText(getString(R.string.allow_permission))
+                .setPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ).check();
     }
 
     void askLocationPermission() {
@@ -100,12 +94,12 @@ public class LocationActivity extends BaseActivity {
             public void onPermissionGranted() {
                 CustomToast customToast = new CustomToast();
                 customToast.info(getString(R.string.access_granted));
-                locationPermission();
+                checkPermissions();
             }
 
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                forceClose();
+                PermissionManager.forceClose(activity);
             }
         };
         new TedPermission(this)
@@ -119,42 +113,6 @@ public class LocationActivity extends BaseActivity {
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION
                 ).check();
-    }
-
-    boolean accessLocation() {
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-            askLocationPermission();
-            return false;
-        }
-        return true;
-    }
-
-    boolean gpsEnabled() {
-        LocationManager locationManager = (LocationManager)
-                getSystemService(Context.LOCATION_SERVICE);
-        boolean enabled =
-                LocationManagerCompat.isLocationEnabled(Objects.requireNonNull(locationManager));
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        if (!enabled) {
-            alertDialog.setCancelable(false);
-            alertDialog.setTitle(getApplicationContext().getString(R.string.gps_setting));
-            alertDialog.setMessage(R.string.active_gps);
-            alertDialog.setPositiveButton(R.string.setting, (dialog, which) -> {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivityForResult(intent, GPS_CODE);
-            });
-            alertDialog.setNegativeButton(R.string.close, (dialog, which) -> {
-                dialog.cancel();
-                forceClose();
-            });
-            alertDialog.show();
-        }
-        return enabled;
     }
 
     void initializeTextViews() {
@@ -239,11 +197,11 @@ public class LocationActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == PackageManager.PERMISSION_GRANTED) {
             if (requestCode == GPS_CODE)
-                locationPermission();
+                checkPermissions();
             if (requestCode == REQUEST_NETWORK_CODE) {
-                if (MyApplication.isNetworkAvailable(getApplicationContext()))
-                    locationPermission();
-                else enableNetwork();
+                if (isNetworkAvailable(getApplicationContext()))
+                    checkPermissions();
+                else PermissionManager.enableNetwork(this);
             }
         }
     }

@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.net.ConnectivityManager;
 
 import androidx.multidex.MultiDex;
 
@@ -46,12 +45,6 @@ public class MyApplication extends Application {
         super.onCreate();
     }
 
-    public static boolean isNetworkAvailable(Context context) {
-        ConnectivityManager connectivityManager = ((ConnectivityManager)
-                context.getSystemService(Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null &&
-                connectivityManager.getActiveNetworkInfo().isConnectedOrConnecting();
-    }
 
     public static void onActivitySetTheme(Activity activity, int theme, boolean actionBar) {
         if (!actionBar) {

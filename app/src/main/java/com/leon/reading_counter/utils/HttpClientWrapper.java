@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.leon.reading_counter.MyApplication;
 import com.leon.reading_counter.R;
 import com.leon.reading_counter.enums.ProgressType;
 import com.leon.reading_counter.infrastructure.ICallback;
@@ -16,6 +15,8 @@ import com.leon.reading_counter.infrastructure.ICallbackIncomplete;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.leon.reading_counter.utils.PermissionManager.isNetworkAvailable;
 
 public class HttpClientWrapper {
     public static Call call;
@@ -34,7 +35,7 @@ public class HttpClientWrapper {
         } else if (dialogType == ProgressType.SHOW_CANCELABLE_REDIRECT.getValue()) {
             progressBar.show(context, context.getString(R.string.waiting), true);
         }
-        if (MyApplication.isNetworkAvailable(context)) {
+        if (isNetworkAvailable(context)) {
             HttpClientWrapper.call.enqueue(new Callback<T>() {
                 @Override
                 public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
