@@ -177,8 +177,8 @@ public class PermissionManager {
             WifiManager wifi = (WifiManager) activity.getApplicationContext()
                     .getSystemService(Context.WIFI_SERVICE);
             wifi.setWifiEnabled(true);
-            activity.startActivity(activity.getIntent());
             activity.finish();
+            activity.startActivity(activity.getIntent());
         }
     }
 

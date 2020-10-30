@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.auth0.android.jwt.JWT;
 import com.leon.reading_counter.BuildConfig;
 import com.leon.reading_counter.R;
 import com.leon.reading_counter.databinding.ActivityLoginBinding;
@@ -25,6 +25,7 @@ import com.leon.reading_counter.infrastructure.ICallbackNew;
 import com.leon.reading_counter.infrastructure.ISharedPreferenceManager;
 import com.leon.reading_counter.tables.LoginFeedBack;
 import com.leon.reading_counter.tables.LoginInfo;
+import com.leon.reading_counter.utils.Crypto;
 import com.leon.reading_counter.utils.CustomDialog;
 import com.leon.reading_counter.utils.CustomErrorHandling;
 import com.leon.reading_counter.utils.CustomToast;
@@ -141,10 +142,12 @@ public class LoginActivity extends AppCompatActivity {
     void savePreference(LoginFeedBack loginFeedBack) {
         if (binding.checkBoxSave.isChecked()) {
             sharedPreferenceManager.putData(SharedReferenceKeys.USERNAME.getValue(), username);
-//                sharedPreferenceManager.putData(SharedReferenceKeys.PASSWORD.getValue(), Crypto.encrypt(password));
-            sharedPreferenceManager.putData(SharedReferenceKeys.PASSWORD.getValue(), password);
+            sharedPreferenceManager.putData(SharedReferenceKeys.PASSWORD.getValue(), Crypto.encrypt(password));
             sharedPreferenceManager.putData(SharedReferenceKeys.TOKEN.getValue(), loginFeedBack.access_token);
             sharedPreferenceManager.putData(SharedReferenceKeys.REFRESH_TOKEN.getValue(), loginFeedBack.refresh_token);
+            sharedPreferenceManager.putData(SharedReferenceKeys.XSRF.getValue(), loginFeedBack.XSRFToken);
+            sharedPreferenceManager.putData(SharedReferenceKeys.DISPLAY_NAME.getValue(), loginFeedBack.displayName);
+            sharedPreferenceManager.putData(SharedReferenceKeys.USER_CODE.getValue(), loginFeedBack.userCode);
         }
     }
 
@@ -153,8 +156,8 @@ public class LoginActivity extends AppCompatActivity {
                 sharedPreferenceManager.checkIsNotEmpty(SharedReferenceKeys.PASSWORD.getValue())) {
             binding.editTextUsername.setText(sharedPreferenceManager.getStringData(
                     SharedReferenceKeys.USERNAME.getValue()));
-            binding.editTextPassword.setText(sharedPreferenceManager.getStringData(
-                    SharedReferenceKeys.PASSWORD.getValue()));
+            binding.editTextPassword.setText(Crypto.decrypt(sharedPreferenceManager.getStringData(
+                    SharedReferenceKeys.PASSWORD.getValue())));
         }
     }
 
@@ -170,8 +173,14 @@ public class LoginActivity extends AppCompatActivity {
                 customToast.warning(getString(R.string.error_is_not_match));
             } else {
                 List<String> cookieList = response.headers().values("Set-Cookie");
-                Log.e("headers", String.valueOf(cookieList));
-                String jsessionid = (cookieList.get(0).split(";"))[0];
+                loginFeedBack.XSRFToken = (cookieList.get(1).split(";"))[0];
+
+                JWT jwt = new JWT(loginFeedBack.access_token);
+                loginFeedBack.displayName = jwt.getClaim("DisplayName").asString();
+                loginFeedBack.userCode = jwt.getClaim("UserCode").asString();
+
+//                SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(loginFeedBack.access_token));
+
                 savePreference(loginFeedBack);
                 Intent intent = new Intent(context, HomeActivity.class);
                 startActivity(intent);

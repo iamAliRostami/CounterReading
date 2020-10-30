@@ -110,4 +110,6 @@ dependencies {
     runtimeOnly('io.jsonwebtoken:jjwt-orgjson:0.11.2') {
         exclude group: 'org.json', module: 'json'
     }
+    implementation 'com.auth0.android:jwtdecode:2.0.0'
+
 }

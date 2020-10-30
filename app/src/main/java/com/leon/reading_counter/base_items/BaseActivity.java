@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -51,6 +52,7 @@ public abstract class BaseActivity extends AppCompatActivity
     NavigationDrawerAdapter adapter;
     List<NavigationDrawerAdapter.DrawerItem> dataList;
     BaseActivityBinding binding;
+    ISharedPreferenceManager sharedPreferenceManager;
 
     protected abstract void initialize();
 
@@ -58,7 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ISharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(getApplicationContext(),
+        sharedPreferenceManager = new SharedPreferenceManager(getApplicationContext(),
                 SharedReferenceNames.ACCOUNT.getValue());
         int theme;
         Bundle extras = getIntent().getExtras();
@@ -73,7 +75,6 @@ public abstract class BaseActivity extends AppCompatActivity
         binding = BaseActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initializeBase();
-
         initialize();
     }
 
@@ -148,6 +149,11 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @SuppressLint("WrongConstant")
     private void initializeBase() {
+        TextView textView = findViewById(R.id.text_view_title);
+        textView.setText(sharedPreferenceManager.getStringData(
+                SharedReferenceKeys.DISPLAY_NAME.getValue()).concat(" (").concat(
+                sharedPreferenceManager.getStringData(
+                        SharedReferenceKeys.USER_CODE.getValue())).concat(")"));
         linearLayoutReadingHeader = findViewById(R.id.relative_layout_reading_header);
         if (MyApplication.position == 1) {
             linearLayoutReadingHeader.setVisibility(View.VISIBLE);

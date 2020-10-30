@@ -7,6 +7,8 @@ public enum SharedReferenceKeys {
     REFRESH_TOKEN("refresh_token"),
     ANTIFORGERY("Antiforgery"),
     XSRF("xsrf"),
+    USER_CODE("user_code"),
+    DISPLAY_NAME("display_name"),
     THEME_STABLE("theme_stable"),
     THEME_TEMPORARY("theme_temporary");
 
