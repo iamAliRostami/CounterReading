@@ -19,9 +19,9 @@ import com.leon.reading_counter.enums.ProgressType;
 import com.leon.reading_counter.enums.SharedReferenceKeys;
 import com.leon.reading_counter.enums.SharedReferenceNames;
 import com.leon.reading_counter.infrastructure.IAbfaService;
+import com.leon.reading_counter.infrastructure.ICallback;
 import com.leon.reading_counter.infrastructure.ICallbackError;
 import com.leon.reading_counter.infrastructure.ICallbackIncomplete;
-import com.leon.reading_counter.infrastructure.ICallbackNew;
 import com.leon.reading_counter.infrastructure.ISharedPreferenceManager;
 import com.leon.reading_counter.tables.LoginFeedBack;
 import com.leon.reading_counter.tables.LoginInfo;
@@ -146,8 +146,6 @@ public class LoginActivity extends AppCompatActivity {
             sharedPreferenceManager.putData(SharedReferenceKeys.TOKEN.getValue(), loginFeedBack.access_token);
             sharedPreferenceManager.putData(SharedReferenceKeys.REFRESH_TOKEN.getValue(), loginFeedBack.refresh_token);
             sharedPreferenceManager.putData(SharedReferenceKeys.XSRF.getValue(), loginFeedBack.XSRFToken);
-            sharedPreferenceManager.putData(SharedReferenceKeys.DISPLAY_NAME.getValue(), loginFeedBack.displayName);
-            sharedPreferenceManager.putData(SharedReferenceKeys.USER_CODE.getValue(), loginFeedBack.userCode);
         }
     }
 
@@ -161,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    class Login implements ICallbackNew<LoginFeedBack> {
+    class Login implements ICallback<LoginFeedBack> {
         @Override
         public void execute(Response<LoginFeedBack> response) {
             LoginFeedBack loginFeedBack = response.body();
@@ -174,12 +172,11 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 List<String> cookieList = response.headers().values("Set-Cookie");
                 loginFeedBack.XSRFToken = (cookieList.get(1).split(";"))[0];
-
                 JWT jwt = new JWT(loginFeedBack.access_token);
                 loginFeedBack.displayName = jwt.getClaim("DisplayName").asString();
                 loginFeedBack.userCode = jwt.getClaim("UserCode").asString();
-
-//                SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(loginFeedBack.access_token));
+                sharedPreferenceManager.putData(SharedReferenceKeys.DISPLAY_NAME.getValue(), loginFeedBack.displayName);
+                sharedPreferenceManager.putData(SharedReferenceKeys.USER_CODE.getValue(), loginFeedBack.userCode);
 
                 savePreference(loginFeedBack);
                 Intent intent = new Intent(context, HomeActivity.class);

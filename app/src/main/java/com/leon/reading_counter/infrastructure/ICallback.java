@@ -1,9 +1,11 @@
 package com.leon.reading_counter.infrastructure;
 
+import retrofit2.Response;
+
 /**
  * Created by Leon on 12/12/2017.
  */
 
 public interface ICallback<T> {
-    void execute(T t);
+    void execute(Response<T> response);
 }

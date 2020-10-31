@@ -7,9 +7,9 @@ import androidx.annotation.NonNull;
 
 import com.leon.reading_counter.R;
 import com.leon.reading_counter.enums.ProgressType;
+import com.leon.reading_counter.infrastructure.ICallback;
 import com.leon.reading_counter.infrastructure.ICallbackError;
 import com.leon.reading_counter.infrastructure.ICallbackIncomplete;
-import com.leon.reading_counter.infrastructure.ICallbackNew;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +22,7 @@ public class HttpClientWrapper {
 
     public static <T> void callHttpAsync(Call<T> call, int dialogType,
                                          final Context context,
-                                         final ICallbackNew<T> callback,
+                                         final ICallback<T> callback,
                                          final ICallbackIncomplete<T> callbackIncomplete,
                                          final ICallbackError callbackError) {
         HttpClientWrapper.call = call;
