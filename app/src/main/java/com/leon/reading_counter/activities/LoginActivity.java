@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void attemptLogin() {
-        Retrofit retrofit = NetworkHelper.getInstance("", true);
+        Retrofit retrofit = NetworkHelper.getInstance();
         final IAbfaService loginInfo = retrofit.create(IAbfaService.class);
         Call<LoginFeedBack> call = loginInfo.login(new LoginInfo(username, password));
         HttpClientWrapper.callHttpAsync(call, ProgressType.SHOW.getValue(), this,
@@ -143,9 +143,6 @@ public class LoginActivity extends AppCompatActivity {
         if (binding.checkBoxSave.isChecked()) {
             sharedPreferenceManager.putData(SharedReferenceKeys.USERNAME.getValue(), username);
             sharedPreferenceManager.putData(SharedReferenceKeys.PASSWORD.getValue(), Crypto.encrypt(password));
-            sharedPreferenceManager.putData(SharedReferenceKeys.TOKEN.getValue(), loginFeedBack.access_token);
-            sharedPreferenceManager.putData(SharedReferenceKeys.REFRESH_TOKEN.getValue(), loginFeedBack.refresh_token);
-            sharedPreferenceManager.putData(SharedReferenceKeys.XSRF.getValue(), loginFeedBack.XSRFToken);
         }
     }
 
@@ -177,6 +174,9 @@ public class LoginActivity extends AppCompatActivity {
                 loginFeedBack.userCode = jwt.getClaim("UserCode").asString();
                 sharedPreferenceManager.putData(SharedReferenceKeys.DISPLAY_NAME.getValue(), loginFeedBack.displayName);
                 sharedPreferenceManager.putData(SharedReferenceKeys.USER_CODE.getValue(), loginFeedBack.userCode);
+                sharedPreferenceManager.putData(SharedReferenceKeys.TOKEN.getValue(), loginFeedBack.access_token);
+                sharedPreferenceManager.putData(SharedReferenceKeys.REFRESH_TOKEN.getValue(), loginFeedBack.refresh_token);
+                sharedPreferenceManager.putData(SharedReferenceKeys.XSRF.getValue(), loginFeedBack.XSRFToken);
 
                 savePreference(loginFeedBack);
                 Intent intent = new Intent(context, HomeActivity.class);
@@ -193,11 +193,13 @@ public class LoginActivity extends AppCompatActivity {
             String error = customErrorHandlingNew.getErrorMessageDefault(response);
             if (response.code() == 401) {
                 error = LoginActivity.this.getString(R.string.error_is_not_match);
-            }
-            new CustomDialog(DialogType.Yellow, LoginActivity.this, error,
-                    LoginActivity.this.getString(R.string.dear_user),
-                    LoginActivity.this.getString(R.string.login),
-                    LoginActivity.this.getString(R.string.accepted));
+                CustomToast customToast = new CustomToast();
+                customToast.warning(error);
+            } else
+                new CustomDialog(DialogType.Yellow, LoginActivity.this, error,
+                        LoginActivity.this.getString(R.string.dear_user),
+                        LoginActivity.this.getString(R.string.login),
+                        LoginActivity.this.getString(R.string.accepted));
         }
     }
 

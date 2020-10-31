@@ -27,6 +27,25 @@ public final class NetworkHelper {
     private NetworkHelper() {
     }
 
+    public static OkHttpClient getHttpClient(final String token, final String XSRF) {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return new OkHttpClient
+                .Builder()
+                .readTimeout(READ_TIMEOUT, TIME_UNIT)
+                .writeTimeout(WRITE_TIMEOUT, TIME_UNIT)
+                .connectTimeout(CONNECT_TIMEOUT, TIME_UNIT)
+                .retryOnConnectionFailure(RETRY_ENABLED)
+                .addInterceptor(chain -> {
+                    Request request = chain.request().newBuilder()
+                            .addHeader("Authorization", "Bearer " + token)
+                            .addHeader("XSRF-TOKEN", XSRF)
+                            .build();
+                    return chain.proceed(request);
+                })
+                .addInterceptor(interceptor).build();
+    }
+
     public static OkHttpClient getHttpClient(final String token) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -37,11 +56,44 @@ public final class NetworkHelper {
                 .connectTimeout(CONNECT_TIMEOUT, TIME_UNIT)
                 .retryOnConnectionFailure(RETRY_ENABLED)
                 .addInterceptor(chain -> {
-                    Request request = chain.request().newBuilder().addHeader(
-                            "Authorization", "Bearer " + token).build();
+                    Request request = chain.request().newBuilder()
+                            .addHeader("Authorization", "Bearer " + token)
+                            .build();
                     return chain.proceed(request);
                 })
                 .addInterceptor(interceptor).build();
+    }
+
+    public static OkHttpClient getHttpClient() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return new OkHttpClient
+                .Builder()
+                .readTimeout(READ_TIMEOUT, TIME_UNIT)
+                .writeTimeout(WRITE_TIMEOUT, TIME_UNIT)
+                .connectTimeout(CONNECT_TIMEOUT, TIME_UNIT)
+                .retryOnConnectionFailure(RETRY_ENABLED)
+                .addInterceptor(interceptor).build();
+    }
+
+    public static Retrofit getInstance(String token, String XSRF, boolean b) {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+        String baseUrl = DifferentCompanyManager.getBaseUrl(
+                DifferentCompanyManager.getActiveCompanyName());
+        if (!b)
+            baseUrl = DifferentCompanyManager.getLocalBaseUrl(
+                    DifferentCompanyManager.getActiveCompanyName());
+        return new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(NetworkHelper.getHttpClient(token, XSRF))
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+    }
+
+    public static Retrofit getInstance(String token, String XSRF) {
+        return getInstance(token, XSRF, true);
     }
 
     public static Retrofit getInstance(String token, boolean b) {
@@ -58,6 +110,30 @@ public final class NetworkHelper {
                 .client(NetworkHelper.getHttpClient(token))
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
+    }
+
+    public static Retrofit getInstance(String token) {
+        return getInstance(token);
+    }
+
+    public static Retrofit getInstance(boolean b) {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+        String baseUrl = DifferentCompanyManager.getBaseUrl(
+                DifferentCompanyManager.getActiveCompanyName());
+        if (!b)
+            baseUrl = DifferentCompanyManager.getLocalBaseUrl(
+                    DifferentCompanyManager.getActiveCompanyName());
+        return new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(NetworkHelper.getHttpClient())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+    }
+
+    public static Retrofit getInstance() {
+        return getInstance(true);
     }
 
     public static Retrofit getInstanceMap() {
