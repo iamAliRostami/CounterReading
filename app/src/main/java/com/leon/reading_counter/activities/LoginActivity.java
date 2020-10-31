@@ -139,7 +139,12 @@ public class LoginActivity extends AppCompatActivity {
                 new Login(), new GetErrorIncomplete(), new GetError());
     }
 
-    void savePreference() {
+    void savePreference(LoginFeedBack loginFeedBack) {
+        sharedPreferenceManager.putData(SharedReferenceKeys.DISPLAY_NAME.getValue(), loginFeedBack.displayName);
+        sharedPreferenceManager.putData(SharedReferenceKeys.USER_CODE.getValue(), loginFeedBack.userCode);
+        sharedPreferenceManager.putData(SharedReferenceKeys.TOKEN.getValue(), loginFeedBack.access_token);
+        sharedPreferenceManager.putData(SharedReferenceKeys.REFRESH_TOKEN.getValue(), loginFeedBack.refresh_token);
+        sharedPreferenceManager.putData(SharedReferenceKeys.XSRF.getValue(), loginFeedBack.XSRFToken);
         if (binding.checkBoxSave.isChecked()) {
             sharedPreferenceManager.putData(SharedReferenceKeys.USERNAME.getValue(), username);
             sharedPreferenceManager.putData(SharedReferenceKeys.PASSWORD.getValue(), Crypto.encrypt(password));
@@ -172,13 +177,7 @@ public class LoginActivity extends AppCompatActivity {
                 JWT jwt = new JWT(loginFeedBack.access_token);
                 loginFeedBack.displayName = jwt.getClaim("DisplayName").asString();
                 loginFeedBack.userCode = jwt.getClaim("UserCode").asString();
-                sharedPreferenceManager.putData(SharedReferenceKeys.DISPLAY_NAME.getValue(), loginFeedBack.displayName);
-                sharedPreferenceManager.putData(SharedReferenceKeys.USER_CODE.getValue(), loginFeedBack.userCode);
-                sharedPreferenceManager.putData(SharedReferenceKeys.TOKEN.getValue(), loginFeedBack.access_token);
-                sharedPreferenceManager.putData(SharedReferenceKeys.REFRESH_TOKEN.getValue(), loginFeedBack.refresh_token);
-                sharedPreferenceManager.putData(SharedReferenceKeys.XSRF.getValue(), loginFeedBack.XSRFToken);
-
-                savePreference();
+                savePreference(loginFeedBack);
                 Intent intent = new Intent(context, HomeActivity.class);
                 startActivity(intent);
                 finish();

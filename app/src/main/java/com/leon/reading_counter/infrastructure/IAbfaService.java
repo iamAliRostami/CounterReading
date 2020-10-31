@@ -13,7 +13,7 @@ public interface IAbfaService {
     @POST("kontoriNew/V1/Account/Login")
     Call<LoginFeedBack> login(@Body LoginInfo logininfo);
 
-    @POST("kontori/v1/api/ChangePassword")
+    @POST("kontoriNew/v1/api/ChangePassword")
     Call<Integer> changePassword(@Body PasswordInfo passwordInfo);
 
 }
