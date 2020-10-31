@@ -139,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Login(), new GetErrorIncomplete(), new GetError());
     }
 
-    void savePreference(LoginFeedBack loginFeedBack) {
+    void savePreference() {
         if (binding.checkBoxSave.isChecked()) {
             sharedPreferenceManager.putData(SharedReferenceKeys.USERNAME.getValue(), username);
             sharedPreferenceManager.putData(SharedReferenceKeys.PASSWORD.getValue(), Crypto.encrypt(password));
@@ -178,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
                 sharedPreferenceManager.putData(SharedReferenceKeys.REFRESH_TOKEN.getValue(), loginFeedBack.refresh_token);
                 sharedPreferenceManager.putData(SharedReferenceKeys.XSRF.getValue(), loginFeedBack.XSRFToken);
 
-                savePreference(loginFeedBack);
+                savePreference();
                 Intent intent = new Intent(context, HomeActivity.class);
                 startActivity(intent);
                 finish();
