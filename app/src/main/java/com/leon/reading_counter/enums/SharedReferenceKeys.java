@@ -1,10 +1,13 @@
 package com.leon.reading_counter.enums;
 
 public enum SharedReferenceKeys {
+    USERNAME_TEMP("username_temp"),
+    PASSWORD_TEMP("password_temp"),
     USERNAME("username"),
     PASSWORD("password"),
     TOKEN("token"),
     REFRESH_TOKEN("refresh_token"),
+    LOAD_USER_PASSWORD("load_user_password"),
     ANTIFORGERY("Antiforgery"),
     XSRF("xsrf"),
     USER_CODE("user_code"),

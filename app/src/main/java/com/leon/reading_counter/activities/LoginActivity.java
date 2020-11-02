@@ -145,6 +145,8 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferenceManager.putData(SharedReferenceKeys.TOKEN.getValue(), loginFeedBack.access_token);
         sharedPreferenceManager.putData(SharedReferenceKeys.REFRESH_TOKEN.getValue(), loginFeedBack.refresh_token);
         sharedPreferenceManager.putData(SharedReferenceKeys.XSRF.getValue(), loginFeedBack.XSRFToken);
+        sharedPreferenceManager.putData(SharedReferenceKeys.USERNAME_TEMP.getValue(), username);
+        sharedPreferenceManager.putData(SharedReferenceKeys.PASSWORD_TEMP.getValue(), Crypto.encrypt(password));
         if (binding.checkBoxSave.isChecked()) {
             sharedPreferenceManager.putData(SharedReferenceKeys.USERNAME.getValue(), username);
             sharedPreferenceManager.putData(SharedReferenceKeys.PASSWORD.getValue(), Crypto.encrypt(password));
@@ -165,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void execute(Response<LoginFeedBack> response) {
             LoginFeedBack loginFeedBack = response.body();
-            if (loginFeedBack.access_token == null ||
+            if (loginFeedBack == null || loginFeedBack.access_token == null ||
                     loginFeedBack.refresh_token == null ||
                     loginFeedBack.access_token.length() < 1 ||
                     loginFeedBack.refresh_token.length() < 1) {

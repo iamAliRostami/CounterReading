@@ -41,7 +41,9 @@ public class SharedPreferenceManager implements ISharedPreferenceManager {
 
     @Override
     public void putData(String key, boolean value) {
-
+        SharedPreferences.Editor prefsEditor = appPrefs.edit();
+        prefsEditor.putBoolean(key, value);
+        prefsEditor.apply();
     }
 
     @Override
@@ -56,6 +58,6 @@ public class SharedPreferenceManager implements ISharedPreferenceManager {
 
     @Override
     public boolean getBoolData(String key) {
-        return false;
+        return appPrefs.getBoolean(key, false);
     }
 }
