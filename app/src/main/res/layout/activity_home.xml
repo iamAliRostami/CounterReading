@@ -152,39 +152,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linear_layout_help"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                tools:ignore="NestedWeights">
-
-                <ImageView
-                    android:id="@+id/image_view_help"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/img_help"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/help"
-                    android:textSize="@dimen/text_size_medium" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="3"
-            tools:ignore="DisableBaselineAlignment,UselessParent">
-
-            <LinearLayout
                 android:id="@+id/linear_layout_reading_setting"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -205,6 +172,39 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/reading_setting"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            tools:ignore="DisableBaselineAlignment,UselessParent">
+
+            <LinearLayout
+                android:id="@+id/linear_layout_help"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                tools:ignore="NestedWeights">
+
+                <ImageView
+                    android:id="@+id/image_view_help"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/img_help"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/help"
                     android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 

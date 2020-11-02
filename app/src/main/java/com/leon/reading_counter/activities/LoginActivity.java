@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -125,6 +126,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             if (!cancel) {
                 username = binding.editTextUsername.getText().toString();
+                Log.e("username", username);
                 password = binding.editTextPassword.getText().toString();
                 attemptLogin();
             }
