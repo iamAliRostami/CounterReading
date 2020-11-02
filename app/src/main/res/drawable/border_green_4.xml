@@ -8,7 +8,7 @@
         android:top="@dimen/small_dp" />
     <gradient
         android:angle="180"
-        android:centerColor="@color/green"
-        android:endColor="@color/text_color_light"
+        android:centerColor="?android:textColorSecondary"
+        android:endColor="?android:textColorSecondary"
         android:startColor="@color/green" />
 </shape>

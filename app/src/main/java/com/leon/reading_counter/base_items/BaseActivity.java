@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.leon.reading_counter.BuildConfig;
 import com.leon.reading_counter.MyApplication;
 import com.leon.reading_counter.R;
 import com.leon.reading_counter.activities.DownloadActivity;
@@ -154,6 +155,8 @@ public abstract class BaseActivity extends AppCompatActivity
                 SharedReferenceKeys.DISPLAY_NAME.getValue()).concat(" (").concat(
                 sharedPreferenceManager.getStringData(
                         SharedReferenceKeys.USER_CODE.getValue())).concat(")"));
+        binding.textViewVersion.setText(getString(R.string.version).concat(" ")
+                .concat(BuildConfig.VERSION_NAME));
         linearLayoutReadingHeader = findViewById(R.id.relative_layout_reading_header);
         if (MyApplication.position == 1) {
             linearLayoutReadingHeader.setVisibility(View.VISIBLE);
