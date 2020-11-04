@@ -185,7 +185,7 @@ public class PermissionManager {
     public static void forceClose(Activity activity) {
         CustomToast customToast = new CustomToast();
         customToast.error(activity.getString(R.string.permission_not_completed));
-        MyApplication.position = -1;
+        MyApplication.POSITION = -1;
         activity.finish();
     }
 }

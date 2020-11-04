@@ -7,12 +7,16 @@ import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.leon.reading_counter.MyApplication;
 import com.leon.reading_counter.R;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -102,5 +106,86 @@ public class CustomFile {
         Objects.requireNonNull(image);
         MyApplication.fileName = stringBuilder.append(image.getAbsolutePath()).toString();
         return image;
+    }
+
+    static File findFile(File dir, String name) {
+        File[] children = dir.listFiles();
+        if (children != null) {
+            for (File child : children) {
+                if (child.isDirectory()) {
+                    File found = findFile(child, name);
+                    if (found != null) return found;
+                } else {
+                    if (name.equals(child.getName())) return child;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static void readData() {
+        File root = Environment.getExternalStorageDirectory();
+        File file = findFile(root, "json.txt");
+
+        StringBuilder text = new StringBuilder();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+            }
+            br.close();
+        } catch (IOException ignored) {
+            Log.e("Error", ignored.toString());
+        }
+        String json = text.toString();
+        Log.e("json", json);
+
+        Gson gson = new GsonBuilder().create();
+//        Input input = gson.fromJson(json, Input.class);
+//        List<ExaminerDuties> examinerDutiesList = input.getExaminerDuties();
+//        for (int i = 0; i < examinerDutiesList.size(); i++) {
+//            Gson gson1 = new Gson();
+//            examinerDutiesList.get(i).setRequestDictionaryString(
+//                    gson1.toJson(examinerDutiesList.get(i).getRequestDictionary()));
+//        }
+//        dataBase = Room.databaseBuilder(context, MyDatabase.class, MyApplication.getDBNAME())
+//                .allowMainThreadQueries().build();
+//        DaoExaminerDuties daoExaminerDuties = dataBase.daoExaminerDuties();
+//        List<ExaminerDuties> examinerDutiesListTemp = daoExaminerDuties.getExaminerDuties();
+//        for (int i = 0; i < examinerDutiesList.size(); i++) {
+//            examinerDutiesList.get(i).setTrackNumber(
+//                    examinerDutiesList.get(i).getTrackNumber().replace(".0", ""));
+//            examinerDutiesList.get(i).setRadif(
+//                    examinerDutiesList.get(i).getRadif().replace(".0", ""));
+//            ExaminerDuties examinerDuties = examinerDutiesList.get(i);
+//            for (int j = 0; j < examinerDutiesListTemp.size(); j++) {
+//                ExaminerDuties examinerDutiesTemp = examinerDutiesListTemp.get(j);
+//                if (examinerDuties.getTrackNumber().equals(examinerDutiesTemp.getTrackNumber())) {
+//                    examinerDutiesList.remove(i);
+//                    j = examinerDutiesListTemp.size();
+//                    i--;
+//                }
+//            }
+//        }
+//        daoExaminerDuties.insertAll(examinerDutiesList);
+//        DaoNoeVagozariDictionary daoNoeVagozariDictionary = dataBase.daoNoeVagozariDictionary();
+//        daoNoeVagozariDictionary.insertAll(input.getNoeVagozariDictionary());
+//
+//        DaoQotrEnsheabDictionary daoQotrEnsheabDictionary = dataBase.daoQotrEnsheabDictionary();
+//        daoQotrEnsheabDictionary.insertAll(input.getQotrEnsheabDictionary());
+//
+//        DaoServiceDictionary daoServiceDictionary = dataBase.daoServiceDictionary();
+//        daoServiceDictionary.insertAll(input.getServiceDictionary());
+//
+//        DaoTaxfifDictionary daoTaxfifDictionary = dataBase.daoTaxfifDictionary();
+//        daoTaxfifDictionary.insertAll(input.getTaxfifDictionary());
+//
+//        DaoKarbariDictionary daoKarbariDictionary = dataBase.daoKarbariDictionary();
+//        daoKarbariDictionary.insertAll(input.getKarbariDictionary());
+//
+//        DaoResultDictionary daoResultDictionary = dataBase.daoResultDictionary();
+//        daoResultDictionary.insertAll(input.getResultDictionary());
     }
 }

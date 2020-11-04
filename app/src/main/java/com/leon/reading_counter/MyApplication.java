@@ -14,11 +14,15 @@ public class MyApplication extends Application {
     public static final String fontName = "font/font_1.ttf";
     public static int REQUEST_NETWORK_CODE = 1234;
     public static int CAMERA_REQUEST = 1888;
-    public static int GALLERY_REQUEST = 1888;
+    public static int GALLERY_REQUEST = 1889;//TODO
     public static int GPS_CODE = 1235;
     public static int REQUEST_LOCATION_CODE = 1236;
+    public static int REQUEST_CODE_RECOVER_PLAY_SERVICES = 200;
+    public static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    public static long MIN_DISTANCE_CHANGE_FOR_UPDATES = 2;
+    public static long MIN_TIME_BW_UPDATES = 1000;
     public static int TOAST_TEXT_SIZE = 20;
-    public static int position = -1;
+    public static int POSITION = -1;
 
     public static Bitmap bitmapSelectedImage;
     public static String fileName;

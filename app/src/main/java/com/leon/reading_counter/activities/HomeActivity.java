@@ -35,35 +35,35 @@ public class HomeActivity extends BaseActivity {
         Intent intent = new Intent();
         switch (id) {
             case R.id.linear_layout_download:
-                MyApplication.position = 0;
+                MyApplication.POSITION = 0;
                 intent = new Intent(getApplicationContext(), DownloadActivity.class);
                 break;
             case R.id.linear_layout_reading:
-                MyApplication.position = 1;
+                MyApplication.POSITION = 1;
                 intent = new Intent(getApplicationContext(), ReadingActivity.class);
                 break;
             case R.id.linear_layout_upload:
-                MyApplication.position = 2;
+                MyApplication.POSITION = 2;
                 intent = new Intent(getApplicationContext(), UploadActivity.class);
                 break;
             case R.id.linear_layout_report:
-                MyApplication.position = 3;
+                MyApplication.POSITION = 3;
                 intent = new Intent(getApplicationContext(), ReportActivity.class);
                 break;
             case R.id.linear_layout_location:
-                MyApplication.position = 4;
+                MyApplication.POSITION = 4;
                 intent = new Intent(getApplicationContext(), LocationActivity.class);
                 break;
             case R.id.linear_layout_reading_setting:
-                MyApplication.position = 5;
+                MyApplication.POSITION = 5;
                 intent = new Intent(getApplicationContext(), ReadingSettingActivity.class);
                 break;
             case R.id.linear_layout_app_setting:
-                MyApplication.position = 6;
+                MyApplication.POSITION = 6;
                 intent = new Intent(getApplicationContext(), SettingActivity.class);
                 break;
             case R.id.linear_layout_help:
-                MyApplication.position = 7;
+                MyApplication.POSITION = 7;
                 intent = new Intent(getApplicationContext(), HelpActivity.class);
                 break;
             case R.id.linear_layout_exit:

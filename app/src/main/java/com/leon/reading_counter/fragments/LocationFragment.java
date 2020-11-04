@@ -28,18 +28,18 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import static android.content.Context.LOCATION_SERVICE;
+import static com.leon.reading_counter.MyApplication.MIN_DISTANCE_CHANGE_FOR_UPDATES;
+import static com.leon.reading_counter.MyApplication.MIN_TIME_BW_UPDATES;
 
 public class LocationFragment extends Fragment implements LocationListener {
     FragmentLocationBinding binding;
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60;
     protected LocationManager locationManager;
     boolean canGetLocation = false;
     boolean checkGPS = false;
     boolean checkNetwork = false;
     Location location;
-    private Context context;
     private double latitude, longitude;
+    private Context context;
 
     public LocationFragment() {
     }
@@ -144,6 +144,7 @@ public class LocationFragment extends Fragment implements LocationListener {
         locationManager.removeUpdates(this);
         latitude = location.getLatitude();
         longitude = location.getLongitude();
+        Log.e("accuracy", String.valueOf(location.getAccuracy()));
         initializeMap();
     }
 

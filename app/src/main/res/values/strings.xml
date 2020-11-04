@@ -167,4 +167,6 @@
 
     <string name="active_network">اینترنت شما غیر فعال است، با مراجعه به تنظیمات، آن را فعال کنید.</string>
     <string name="network_setting">تنظیمات اینترنت</string>
+    <string name="google_is_not_available">سرویس های گوگل برای شما در دسترس نیست.</string>
+    <string name="google_is_available_but_not_installed">سرویس های گوگل در دسترس است، گوگل پلی نصب را نصب کنید.</string>
 </resources>

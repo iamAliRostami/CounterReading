@@ -52,7 +52,7 @@ public class NavigationDrawerAdapter extends
         DrawerItem drawerItem = drawerItemList.get(position);
         if (position == 8) {
             holder.textViewTitle.setTextColor(context.getResources().getColor(R.color.red));
-        } else if (position == MyApplication.position) {
+        } else if (position == MyApplication.POSITION) {
             TypedValue typedValue = new TypedValue();
             Resources.Theme theme = context.getTheme();
             theme.resolveAttribute(android.R.attr.textColorSecondary, typedValue, true);

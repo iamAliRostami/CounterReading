@@ -89,6 +89,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.android.gms:play-services-location:17.1.0'
+//    implementation 'com.google.android.gms:play-services:12.0.1'
 
     implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0-alpha02'
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'

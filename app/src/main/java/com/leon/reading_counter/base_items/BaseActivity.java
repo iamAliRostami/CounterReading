@@ -98,8 +98,8 @@ public abstract class BaseActivity extends AppCompatActivity
     void setOnDrawerItemClick() {
         binding.imageViewHeader.setOnClickListener(v -> {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            if (MyApplication.position != -1) {
-                MyApplication.position = -1;
+            if (MyApplication.POSITION != -1) {
+                MyApplication.POSITION = -1;
                 Intent intent = new Intent(MyApplication.getContext(), HomeActivity.class);
                 startActivity(intent);
                 finish();
@@ -113,10 +113,10 @@ public abstract class BaseActivity extends AppCompatActivity
                     public void onItemClick(View view, int position) {
                         drawer.closeDrawer(GravityCompat.START);
                         if (position == 8) {
-                            MyApplication.position = -1;
+                            MyApplication.POSITION = -1;
                             finishAffinity();
-                        } else if (MyApplication.position != position) {
-                            MyApplication.position = position;
+                        } else if (MyApplication.POSITION != position) {
+                            MyApplication.POSITION = position;
                             Intent intent = new Intent();
                             if (position == 0) {
                                 intent = new Intent(getApplicationContext(), DownloadActivity.class);
@@ -158,7 +158,7 @@ public abstract class BaseActivity extends AppCompatActivity
         binding.textViewVersion.setText(getString(R.string.version).concat(" ")
                 .concat(BuildConfig.VERSION_NAME));
         linearLayoutReadingHeader = findViewById(R.id.relative_layout_reading_header);
-        if (MyApplication.position == 1) {
+        if (MyApplication.POSITION == 1) {
             linearLayoutReadingHeader.setVisibility(View.VISIBLE);
         }
         toolbar = findViewById(R.id.toolbar);
