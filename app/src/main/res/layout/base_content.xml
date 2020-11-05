@@ -9,5 +9,5 @@
     android:paddingRight="0dp"
     android:paddingBottom="0dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".base_items.BaseActivity"
+    tools:context="com.leon.counter_reading.base_items.BaseActivity"
     tools:showIn="@layout/base_app_bar" />

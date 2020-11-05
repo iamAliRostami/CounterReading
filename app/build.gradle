@@ -14,7 +14,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.leon.reading_counter"
+        applicationId 'com.leon.counter_reading'
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".activities.NavigationActivity">
+    tools:context="com.leon.counter_reading.activities.NavigationActivity">
 
     <ScrollView
         android:layout_width="match_parent"

@@ -39,7 +39,7 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.leon.counter_reading.MyApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:hardwareAccelerated="true"
@@ -55,51 +55,51 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
         <activity
-            android:name=".activities.TakePhotoActivity"
+            android:name="com.leon.counter_reading.activities.TakePhotoActivity"
             android:label="@string/camera" />
         <activity
-            android:name=".activities.ReportForbidActivity"
+            android:name="com.leon.counter_reading.activities.ReportForbidActivity"
             android:label="@string/report_forbid" />
         <activity
-            android:name=".activities.NavigationActivity"
+            android:name="com.leon.counter_reading.activities.NavigationActivity"
             android:label="@string/navigation" />
         <activity
-            android:name=".activities.ReportActivity"
+            android:name="com.leon.counter_reading.activities.ReportActivity"
             android:label="@string/reports" />
         <activity
-            android:name=".activities.SettingActivity"
+            android:name="com.leon.counter_reading.activities.SettingActivity"
             android:label="@string/app_setting" />
         <activity
-            android:name=".activities.ReadingSettingActivity"
+            android:name="com.leon.counter_reading.activities.ReadingSettingActivity"
             android:label="@string/reading_setting" />
         <activity
-            android:name=".activities.HelpActivity"
+            android:name="com.leon.counter_reading.activities.HelpActivity"
             android:label="@string/help" />
         <activity
-            android:name=".activities.DescriptionActivity"
+            android:name="com.leon.counter_reading.activities.DescriptionActivity"
             android:label="@string/description" />
         <activity
-            android:name=".activities.DistributionBillActivity"
+            android:name="com.leon.counter_reading.activities.DistributionBillActivity"
             android:label="@string/distribution" />
         <activity
-            android:name=".activities.ReadingReportActivity"
+            android:name="com.leon.counter_reading.activities.ReadingReportActivity"
             android:label="@string/reading_report" />
         <activity
-            android:name=".activities.UploadActivity"
+            android:name="com.leon.counter_reading.activities.UploadActivity"
             android:label="@string/upload_information" />
         <activity
-            android:name=".activities.DownloadActivity"
+            android:name="com.leon.counter_reading.activities.DownloadActivity"
             android:label="@string/download_information" />
         <activity
-            android:name=".activities.ReadingActivity"
+            android:name="com.leon.counter_reading.activities.ReadingActivity"
             android:label="@string/reading" />
         <activity
-            android:name=".activities.LocationActivity"
+            android:name="com.leon.counter_reading.activities.LocationActivity"
             android:label="@string/location" />
         <activity
-            android:name=".activities.HomeActivity"
+            android:name="com.leon.counter_reading.activities.HomeActivity"
             android:label="@string/home" />
-        <activity android:name=".activities.SplashActivity">
+        <activity android:name="com.leon.counter_reading.activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -108,7 +108,7 @@
         </activity>
         <activity android:name=".activities.LoginActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.leon.counter_reading.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <!--            <intent-filter>-->
