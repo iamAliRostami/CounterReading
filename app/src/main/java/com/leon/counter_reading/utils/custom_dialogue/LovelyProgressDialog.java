@@ -2,7 +2,7 @@ package com.leon.counter_reading.utils.custom_dialogue;
 
 import android.content.Context;
 
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 /**
  * Created by yarolegovich on 16.04.2016.

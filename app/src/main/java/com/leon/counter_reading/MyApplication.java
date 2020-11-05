@@ -8,8 +8,6 @@ import android.graphics.Typeface;
 
 import androidx.multidex.MultiDex;
 
-import com.leon.reading_counter.R;
-
 import es.dmoral.toasty.Toasty;
 
 public class MyApplication extends Application {
@@ -30,24 +28,6 @@ public class MyApplication extends Application {
     public static Context getContext() {
         return appContext;
     }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
-    }
-
-    @Override
-    public void onCreate() {
-        appContext = getApplicationContext();
-        Toasty.Config.getInstance()
-                .tintIcon(true)
-                .setToastTypeface(Typeface.createFromAsset(appContext.getAssets(), MyApplication.FONT_NAME))
-                .setTextSize(TOAST_TEXT_SIZE)
-                .allowQueue(true).apply();
-        super.onCreate();
-    }
-
 
     public static void onActivitySetTheme(Activity activity, int theme, boolean actionBar) {
         if (!actionBar) {
@@ -71,5 +51,22 @@ public class MyApplication extends Application {
                 activity.setTheme(R.style.AppTheme_DarkGrey);
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
+    @Override
+    public void onCreate() {
+        appContext = getApplicationContext();
+        Toasty.Config.getInstance()
+                .tintIcon(true)
+                .setToastTypeface(Typeface.createFromAsset(appContext.getAssets(), MyApplication.FONT_NAME))
+                .setTextSize(TOAST_TEXT_SIZE)
+                .allowQueue(true).apply();
+        super.onCreate();
     }
 }

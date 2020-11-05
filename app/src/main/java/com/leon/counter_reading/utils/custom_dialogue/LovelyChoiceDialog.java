@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.StringRes;
 
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

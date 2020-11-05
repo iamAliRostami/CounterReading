@@ -10,7 +10,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.leon.counter_reading.MyApplication;
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

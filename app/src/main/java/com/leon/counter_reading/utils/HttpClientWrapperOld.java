@@ -6,11 +6,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.leon.counter_reading.R;
 import com.leon.counter_reading.enums.ProgressType;
 import com.leon.counter_reading.infrastructure.ICallbackError;
 import com.leon.counter_reading.infrastructure.ICallbackIncomplete;
 import com.leon.counter_reading.infrastructure.ICallbackOld;
-import com.leon.reading_counter.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;

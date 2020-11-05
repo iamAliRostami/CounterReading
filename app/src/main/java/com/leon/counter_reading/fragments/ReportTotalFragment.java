@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.leon.reading_counter.databinding.FragmentReportTotalBinding;
+import com.leon.counter_reading.databinding.FragmentReportTotalBinding;
 
 import org.jetbrains.annotations.NotNull;
 

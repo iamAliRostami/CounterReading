@@ -18,17 +18,17 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.leon.counter_reading.MyApplication;
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 import org.osmdroid.config.Configuration;
 
 public class GPSTracker extends Service /*implements LocationListener*/ {
+    final Activity activity;
     boolean canGetLocation = false;
     double latitude;
     double longitude;
     boolean checkGPS = false;
     boolean checkNetwork = false;
-    final Activity activity;
     Location location;
     LocationManager locationManager;
     LocationRequest locationRequest;
@@ -69,6 +69,17 @@ public class GPSTracker extends Service /*implements LocationListener*/ {
                 }
             };
 
+    public GPSTracker(Activity activity) {
+        this.activity = activity;
+        Configuration.getInstance().load(activity,
+                PreferenceManager.getDefaultSharedPreferences(activity));
+        if (checkGooglePlayServices()) {
+            startFusedLocation();
+        } else {
+            getLocation();
+        }
+    }
+
     public double getLongitude() {
         return longitude;
     }
@@ -79,17 +90,6 @@ public class GPSTracker extends Service /*implements LocationListener*/ {
 
     public boolean canGetLocation() {
         return this.canGetLocation;
-    }
-
-    public GPSTracker(Activity activity) {
-        this.activity = activity;
-        Configuration.getInstance().load(activity,
-                PreferenceManager.getDefaultSharedPreferences(activity));
-        if (checkGooglePlayServices()) {
-            startFusedLocation();
-        } else {
-            getLocation();
-        }
     }
 
     @SuppressLint("MissingPermission")

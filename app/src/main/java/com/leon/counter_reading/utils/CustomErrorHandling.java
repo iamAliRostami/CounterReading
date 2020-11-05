@@ -2,7 +2,7 @@ package com.leon.counter_reading.utils;
 
 import android.content.Context;
 
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

@@ -17,8 +17,10 @@ import androidx.viewpager.widget.ViewPager;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.leon.counter_reading.MyApplication;
+import com.leon.counter_reading.R;
 import com.leon.counter_reading.adapters.ViewPagerAdapterReading;
 import com.leon.counter_reading.base_items.BaseActivity;
+import com.leon.counter_reading.databinding.ActivityReadingBinding;
 import com.leon.counter_reading.fragments.SearchFragment;
 import com.leon.counter_reading.infrastructure.IFlashLightManager;
 import com.leon.counter_reading.utils.CustomToast;
@@ -26,8 +28,6 @@ import com.leon.counter_reading.utils.DepthPageTransformer;
 import com.leon.counter_reading.utils.FlashLightManager;
 import com.leon.counter_reading.utils.GPSTracker;
 import com.leon.counter_reading.utils.PermissionManager;
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.ActivityReadingBinding;
 
 import java.util.ArrayList;
 
@@ -36,10 +36,10 @@ import static com.leon.counter_reading.utils.PermissionManager.isNetworkAvailabl
 public class ReadingActivity extends BaseActivity {
     ActivityReadingBinding binding;
     Activity activity;
+    GPSTracker gpsTracker;
     private boolean isFlashOn = false, isNight = false;
     private IFlashLightManager flashLightManager;
     private int previousState, currentState;
-    GPSTracker gpsTracker;
 
     @Override
     protected void initialize() {

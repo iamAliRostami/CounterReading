@@ -8,13 +8,13 @@ import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.widget.Toast;
 
+import com.leon.counter_reading.R;
 import com.leon.counter_reading.infrastructure.IFlashLightManager;
-import com.leon.reading_counter.R;
 
 public final class FlashLightManager implements IFlashLightManager {
+    public static Camera cam = null;// has to be static, otherwise onDestroy() destroys it
     private final Context context;
     private boolean isFlashOn = false;
-    public static Camera cam = null;// has to be static, otherwise onDestroy() destroys it
 
 
     public FlashLightManager(Context context) {

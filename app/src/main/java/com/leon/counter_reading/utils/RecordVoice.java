@@ -6,7 +6,7 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.util.Log;
 
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 import java.io.File;
 import java.io.IOException;

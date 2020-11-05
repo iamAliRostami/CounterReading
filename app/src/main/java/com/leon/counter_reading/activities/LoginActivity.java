@@ -12,6 +12,9 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.auth0.android.jwt.JWT;
+import com.leon.counter_reading.BuildConfig;
+import com.leon.counter_reading.R;
+import com.leon.counter_reading.databinding.ActivityLoginBinding;
 import com.leon.counter_reading.enums.DialogType;
 import com.leon.counter_reading.enums.ProgressType;
 import com.leon.counter_reading.enums.SharedReferenceKeys;
@@ -30,9 +33,6 @@ import com.leon.counter_reading.utils.CustomToast;
 import com.leon.counter_reading.utils.HttpClientWrapper;
 import com.leon.counter_reading.utils.NetworkHelper;
 import com.leon.counter_reading.utils.SharedPreferenceManager;
-import com.leon.reading_counter.BuildConfig;
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.ActivityLoginBinding;
 
 import java.util.List;
 
@@ -165,6 +165,44 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initialize();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        context = null;
+        binding.imageViewPerson.setImageDrawable(null);
+        binding.imageViewPassword.setImageDrawable(null);
+        binding.imageViewLogo.setImageDrawable(null);
+        binding.imageViewUsername.setImageDrawable(null);
+        System.gc();
+        Runtime.getRuntime().gc();
+        Runtime.getRuntime().totalMemory();
+        Runtime.getRuntime().freeMemory();
+        Runtime.getRuntime().maxMemory();
+        Debug.getNativeHeapAllocatedSize();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        context = null;
+        binding.imageViewPerson.setImageDrawable(null);
+        binding.imageViewPassword.setImageDrawable(null);
+        binding.imageViewLogo.setImageDrawable(null);
+        binding.imageViewUsername.setImageDrawable(null);
+        System.gc();
+        Runtime.getRuntime().gc();
+        Runtime.getRuntime().totalMemory();
+        Runtime.getRuntime().freeMemory();
+        Runtime.getRuntime().maxMemory();
+        Debug.getNativeHeapAllocatedSize();
+    }
+
     class Login implements ICallback<LoginFeedBack> {
         @Override
         public void execute(Response<LoginFeedBack> response) {
@@ -216,43 +254,5 @@ public class LoginActivity extends AppCompatActivity {
                     LoginActivity.this.getString(R.string.login),
                     LoginActivity.this.getString(R.string.accepted));
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initialize();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        context = null;
-        binding.imageViewPerson.setImageDrawable(null);
-        binding.imageViewPassword.setImageDrawable(null);
-        binding.imageViewLogo.setImageDrawable(null);
-        binding.imageViewUsername.setImageDrawable(null);
-        System.gc();
-        Runtime.getRuntime().gc();
-        Runtime.getRuntime().totalMemory();
-        Runtime.getRuntime().freeMemory();
-        Runtime.getRuntime().maxMemory();
-        Debug.getNativeHeapAllocatedSize();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        context = null;
-        binding.imageViewPerson.setImageDrawable(null);
-        binding.imageViewPassword.setImageDrawable(null);
-        binding.imageViewLogo.setImageDrawable(null);
-        binding.imageViewUsername.setImageDrawable(null);
-        System.gc();
-        Runtime.getRuntime().gc();
-        Runtime.getRuntime().totalMemory();
-        Runtime.getRuntime().freeMemory();
-        Runtime.getRuntime().maxMemory();
-        Debug.getNativeHeapAllocatedSize();
     }
 }

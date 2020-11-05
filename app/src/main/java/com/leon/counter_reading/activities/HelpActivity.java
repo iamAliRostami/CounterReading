@@ -5,10 +5,10 @@ import android.view.View;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.leon.counter_reading.BuildConfig;
+import com.leon.counter_reading.R;
 import com.leon.counter_reading.base_items.BaseActivity;
-import com.leon.reading_counter.BuildConfig;
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.ActivityHelpBinding;
+import com.leon.counter_reading.databinding.ActivityHelpBinding;
 
 public class HelpActivity extends BaseActivity {
     ActivityHelpBinding binding;

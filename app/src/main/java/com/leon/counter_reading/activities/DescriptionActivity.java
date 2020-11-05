@@ -7,12 +7,12 @@ import android.os.Debug;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.leon.counter_reading.MyApplication;
+import com.leon.counter_reading.R;
+import com.leon.counter_reading.databinding.ActivityDescriptionBinding;
 import com.leon.counter_reading.enums.SharedReferenceKeys;
 import com.leon.counter_reading.enums.SharedReferenceNames;
 import com.leon.counter_reading.infrastructure.ISharedPreferenceManager;
 import com.leon.counter_reading.utils.SharedPreferenceManager;
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.ActivityDescriptionBinding;
 
 public class DescriptionActivity extends AppCompatActivity {
 

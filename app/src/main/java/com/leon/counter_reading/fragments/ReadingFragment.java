@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 public class ReadingFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";

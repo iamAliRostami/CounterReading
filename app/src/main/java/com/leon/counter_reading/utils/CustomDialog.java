@@ -4,10 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 
+import com.leon.counter_reading.R;
 import com.leon.counter_reading.activities.HomeActivity;
 import com.leon.counter_reading.enums.DialogType;
 import com.leon.counter_reading.utils.custom_dialogue.LovelyStandardDialog;
-import com.leon.reading_counter.R;
 
 public class CustomDialog {
     @SuppressLint("StaticFieldLeak")

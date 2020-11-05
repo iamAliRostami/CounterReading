@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.leon.counter_reading.R;
+import com.leon.counter_reading.databinding.FragmentUploadBinding;
 import com.leon.counter_reading.enums.BundleEnum;
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.FragmentUploadBinding;
 
 import org.jetbrains.annotations.NotNull;
 

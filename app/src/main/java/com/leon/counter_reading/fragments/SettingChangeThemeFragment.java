@@ -9,21 +9,21 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.leon.counter_reading.R;
 import com.leon.counter_reading.activities.SettingActivity;
+import com.leon.counter_reading.databinding.FragmentSettingChangeThemeBinding;
 import com.leon.counter_reading.enums.BundleEnum;
 import com.leon.counter_reading.enums.SharedReferenceKeys;
 import com.leon.counter_reading.enums.SharedReferenceNames;
 import com.leon.counter_reading.infrastructure.ISharedPreferenceManager;
 import com.leon.counter_reading.utils.CustomToast;
 import com.leon.counter_reading.utils.SharedPreferenceManager;
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.FragmentSettingChangeThemeBinding;
 
 import org.jetbrains.annotations.NotNull;
 
 public class SettingChangeThemeFragment extends Fragment {
-    FragmentSettingChangeThemeBinding binding;
     static int theme;
+    FragmentSettingChangeThemeBinding binding;
     ISharedPreferenceManager sharedPreferenceManager;
 
     public SettingChangeThemeFragment() {

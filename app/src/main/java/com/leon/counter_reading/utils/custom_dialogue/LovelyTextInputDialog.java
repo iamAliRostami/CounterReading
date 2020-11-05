@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 public class LovelyTextInputDialog extends AbsLovelyDialog<LovelyTextInputDialog> {
 

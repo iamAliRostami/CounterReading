@@ -1,4 +1,4 @@
-package com.leon.reading_counter;
+package com.leon.counter_reading;
 
 import org.junit.Test;
 

@@ -20,7 +20,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.leon.counter_reading.BuildConfig;
 import com.leon.counter_reading.MyApplication;
+import com.leon.counter_reading.R;
 import com.leon.counter_reading.activities.DownloadActivity;
 import com.leon.counter_reading.activities.HelpActivity;
 import com.leon.counter_reading.activities.HomeActivity;
@@ -31,15 +33,13 @@ import com.leon.counter_reading.activities.ReportActivity;
 import com.leon.counter_reading.activities.SettingActivity;
 import com.leon.counter_reading.activities.UploadActivity;
 import com.leon.counter_reading.adapters.NavigationDrawerAdapter;
+import com.leon.counter_reading.databinding.BaseActivityBinding;
 import com.leon.counter_reading.enums.BundleEnum;
 import com.leon.counter_reading.enums.SharedReferenceKeys;
 import com.leon.counter_reading.enums.SharedReferenceNames;
 import com.leon.counter_reading.infrastructure.ISharedPreferenceManager;
 import com.leon.counter_reading.utils.CustomToast;
 import com.leon.counter_reading.utils.SharedPreferenceManager;
-import com.leon.reading_counter.BuildConfig;
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.BaseActivityBinding;
 
 import java.util.ArrayList;
 import java.util.List;

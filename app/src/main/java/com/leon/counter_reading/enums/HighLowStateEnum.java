@@ -1,4 +1,5 @@
 package com.leon.counter_reading.enums;
+
 public enum HighLowStateEnum {
     NORMAL(0),
     HIGH(2),

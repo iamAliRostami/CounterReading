@@ -1,4 +1,5 @@
 package com.leon.counter_reading.enums;
+
 public enum ProgressType {
     SHOW(1),
     SHOW_CANCELABLE(2),

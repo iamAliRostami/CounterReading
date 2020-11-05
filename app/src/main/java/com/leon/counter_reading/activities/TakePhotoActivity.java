@@ -23,6 +23,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.leon.counter_reading.MyApplication;
+import com.leon.counter_reading.R;
+import com.leon.counter_reading.databinding.ActivityTakePhotoBinding;
 import com.leon.counter_reading.enums.SharedReferenceKeys;
 import com.leon.counter_reading.enums.SharedReferenceNames;
 import com.leon.counter_reading.infrastructure.ISharedPreferenceManager;
@@ -30,7 +32,6 @@ import com.leon.counter_reading.utils.CustomFile;
 import com.leon.counter_reading.utils.CustomToast;
 import com.leon.counter_reading.utils.PermissionManager;
 import com.leon.counter_reading.utils.SharedPreferenceManager;
-import com.leon.reading_counter.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,7 +42,7 @@ import java.util.Objects;
 import static com.leon.counter_reading.utils.CustomFile.createImageFile;
 
 public class TakePhotoActivity extends AppCompatActivity {
-    com.leon.reading_counter.databinding.ActivityTakePhotoBinding binding;
+    ActivityTakePhotoBinding binding;
     ISharedPreferenceManager sharedPreferenceManager;
     int imageNumber = 1, imageNumberTemp = 0;
     ArrayList<Bitmap> bitmaps;
@@ -55,7 +56,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                 SharedReferenceNames.ACCOUNT.getValue());
         int theme = sharedPreferenceManager.getIntData(SharedReferenceKeys.THEME_STABLE.getValue());
         MyApplication.onActivitySetTheme(this, theme, true);
-        binding = com.leon.reading_counter.databinding.ActivityTakePhotoBinding.inflate(getLayoutInflater());
+        binding = ActivityTakePhotoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         activity = this;
         if (PermissionManager.checkStoragePermission(getApplicationContext()))

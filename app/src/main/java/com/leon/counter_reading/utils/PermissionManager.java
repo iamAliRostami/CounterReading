@@ -18,7 +18,7 @@ import androidx.core.location.LocationManagerCompat;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.leon.counter_reading.MyApplication;
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 import java.util.ArrayList;
 import java.util.Objects;

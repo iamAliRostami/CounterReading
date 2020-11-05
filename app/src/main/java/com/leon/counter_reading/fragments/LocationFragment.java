@@ -17,9 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.leon.counter_reading.MyApplication;
+import com.leon.counter_reading.R;
+import com.leon.counter_reading.databinding.FragmentLocationBinding;
 import com.leon.counter_reading.utils.CustomToast;
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.FragmentLocationBinding;
 
 import org.jetbrains.annotations.NotNull;
 import org.osmdroid.api.IMapController;
@@ -31,8 +31,8 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import static android.content.Context.LOCATION_SERVICE;
 
 public class LocationFragment extends Fragment implements LocationListener {
-    FragmentLocationBinding binding;
     protected LocationManager locationManager;
+    FragmentLocationBinding binding;
     boolean canGetLocation = false;
     boolean checkGPS = false;
     boolean checkNetwork = false;

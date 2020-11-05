@@ -21,7 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.leon.counter_reading.MyApplication;
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 import java.util.ArrayList;
 import java.util.List;

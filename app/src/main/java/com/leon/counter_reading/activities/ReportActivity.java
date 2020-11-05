@@ -8,14 +8,14 @@ import android.view.View;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import com.leon.counter_reading.R;
 import com.leon.counter_reading.adapters.ViewPagerAdapterTab;
 import com.leon.counter_reading.base_items.BaseActivity;
+import com.leon.counter_reading.databinding.ActivityReportBinding;
 import com.leon.counter_reading.fragments.ReportNotReadingFragment;
 import com.leon.counter_reading.fragments.ReportTemporaryFragment;
 import com.leon.counter_reading.fragments.ReportTotalFragment;
 import com.leon.counter_reading.utils.DepthPageTransformer;
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.ActivityReportBinding;
 
 public class ReportActivity extends BaseActivity {
     ActivityReportBinding binding;

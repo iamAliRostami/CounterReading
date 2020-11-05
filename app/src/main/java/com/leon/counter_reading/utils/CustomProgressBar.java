@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.leon.counter_reading.MyApplication;
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 public final class CustomProgressBar {
 

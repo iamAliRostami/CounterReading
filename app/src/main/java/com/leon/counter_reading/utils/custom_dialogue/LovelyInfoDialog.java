@@ -1,4 +1,3 @@
-
 package com.leon.counter_reading.utils.custom_dialogue;
 
 import android.app.Dialog;
@@ -11,7 +10,7 @@ import android.widget.CheckBox;
 
 import androidx.annotation.StringRes;
 
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 public class LovelyInfoDialog extends AbsLovelyDialog<LovelyInfoDialog> {
 

@@ -10,7 +10,7 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 import static android.view.View.VISIBLE;
 

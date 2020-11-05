@@ -9,12 +9,12 @@ import android.view.animation.Animation;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.leon.counter_reading.MyApplication;
+import com.leon.counter_reading.R;
+import com.leon.counter_reading.databinding.ActivityDistributionBillBinding;
 import com.leon.counter_reading.enums.SharedReferenceKeys;
 import com.leon.counter_reading.enums.SharedReferenceNames;
 import com.leon.counter_reading.infrastructure.ISharedPreferenceManager;
 import com.leon.counter_reading.utils.SharedPreferenceManager;
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.ActivityDistributionBillBinding;
 
 public class DistributionBillActivity extends AppCompatActivity {
     ActivityDistributionBillBinding binding;

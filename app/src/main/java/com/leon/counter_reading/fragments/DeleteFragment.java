@@ -8,7 +8,7 @@ import android.view.WindowManager;
 
 import androidx.fragment.app.DialogFragment;
 
-import com.leon.reading_counter.databinding.FragmentDeleteBinding;
+import com.leon.counter_reading.databinding.FragmentDeleteBinding;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -20,7 +20,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
-import com.leon.reading_counter.R;
+import com.leon.counter_reading.R;
 
 public abstract class AbsLovelyDialog<T extends AbsLovelyDialog> {
     private static final String KEY_SAVED_STATE_TOKEN = "key_saved_state_token";

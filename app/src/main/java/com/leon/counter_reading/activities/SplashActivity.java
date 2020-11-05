@@ -8,8 +8,8 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.ActivitySplashBinding;
+import com.leon.counter_reading.R;
+import com.leon.counter_reading.databinding.ActivitySplashBinding;
 
 public class SplashActivity extends AppCompatActivity {
     ActivitySplashBinding binding;

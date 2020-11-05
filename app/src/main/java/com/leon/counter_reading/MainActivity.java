@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.leon.reading_counter.databinding.ActivityMainBinding;
+import com.leon.counter_reading.databinding.ActivityMainBinding;
 
 import org.osmdroid.config.Configuration;
 

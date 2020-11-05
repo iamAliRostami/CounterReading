@@ -16,15 +16,15 @@ import androidx.viewpager.widget.ViewPager;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.leon.counter_reading.MyApplication;
+import com.leon.counter_reading.R;
 import com.leon.counter_reading.adapters.ViewPagerAdapterTab;
 import com.leon.counter_reading.base_items.BaseActivity;
+import com.leon.counter_reading.databinding.ActivityLocationBinding;
 import com.leon.counter_reading.fragments.LocationFragment;
 import com.leon.counter_reading.fragments.PlaceFragment;
 import com.leon.counter_reading.utils.CustomToast;
 import com.leon.counter_reading.utils.DepthPageTransformer;
 import com.leon.counter_reading.utils.PermissionManager;
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.ActivityLocationBinding;
 
 import java.util.ArrayList;
 

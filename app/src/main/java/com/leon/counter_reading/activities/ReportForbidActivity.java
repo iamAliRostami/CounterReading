@@ -6,11 +6,11 @@ import android.os.Debug;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.leon.counter_reading.MyApplication;
+import com.leon.counter_reading.databinding.ActivityReportForbidBinding;
 import com.leon.counter_reading.enums.SharedReferenceKeys;
 import com.leon.counter_reading.enums.SharedReferenceNames;
 import com.leon.counter_reading.infrastructure.ISharedPreferenceManager;
 import com.leon.counter_reading.utils.SharedPreferenceManager;
-import com.leon.reading_counter.databinding.ActivityReportForbidBinding;
 
 public class ReportForbidActivity extends AppCompatActivity {
     ActivityReportForbidBinding binding;

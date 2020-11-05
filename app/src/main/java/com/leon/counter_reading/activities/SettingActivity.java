@@ -8,8 +8,10 @@ import android.view.View;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import com.leon.counter_reading.R;
 import com.leon.counter_reading.adapters.ViewPagerAdapterTab;
 import com.leon.counter_reading.base_items.BaseActivity;
+import com.leon.counter_reading.databinding.ActivitySettingBinding;
 import com.leon.counter_reading.enums.SharedReferenceNames;
 import com.leon.counter_reading.fragments.SettingChangePasswordFragment;
 import com.leon.counter_reading.fragments.SettingChangeThemeFragment;
@@ -17,13 +19,11 @@ import com.leon.counter_reading.fragments.SettingUpdateFragment;
 import com.leon.counter_reading.infrastructure.ISharedPreferenceManager;
 import com.leon.counter_reading.utils.DepthPageTransformer;
 import com.leon.counter_reading.utils.SharedPreferenceManager;
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.ActivitySettingBinding;
 
 public class SettingActivity extends BaseActivity {
     ActivitySettingBinding binding;
-    private int previousState, currentState;
     ISharedPreferenceManager sharedPreferenceManager;
+    private int previousState, currentState;
 
     @Override
     protected void initialize() {

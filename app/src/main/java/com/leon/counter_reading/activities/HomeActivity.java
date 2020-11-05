@@ -14,11 +14,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.leon.counter_reading.MyApplication;
+import com.leon.counter_reading.R;
 import com.leon.counter_reading.base_items.BaseActivity;
+import com.leon.counter_reading.databinding.ActivityHomeBinding;
 import com.leon.counter_reading.utils.CustomToast;
 import com.leon.counter_reading.utils.PermissionManager;
-import com.leon.reading_counter.R;
-import com.leon.reading_counter.databinding.ActivityHomeBinding;
 
 import java.util.ArrayList;
 
