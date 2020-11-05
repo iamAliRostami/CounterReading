@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     Context context;
     boolean canGetLocation = false, checkGPS = false, checkNetwork = false;
-    LocationManager locationManager;
     Location location;
+    LocationManager locationManager;
     LocationRequest locationRequest;
     GoogleApiClient googleApiClient;
     double latitude, longitude;
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("MissingPermission")
     void initialize() {
-        if (!checkGooglePlayServices()) {
+        if (checkGooglePlayServices()) {
             startFusedLocation();
         } else {
             getLocation();
