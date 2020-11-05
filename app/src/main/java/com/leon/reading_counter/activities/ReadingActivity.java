@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.gun0912.tedpermission.PermissionListener;
@@ -19,6 +20,7 @@ import com.leon.reading_counter.R;
 import com.leon.reading_counter.adapters.ViewPagerAdapterReading;
 import com.leon.reading_counter.base_items.BaseActivity;
 import com.leon.reading_counter.databinding.ActivityReadingBinding;
+import com.leon.reading_counter.fragments.SearchFragment;
 import com.leon.reading_counter.infrastructure.IFlashLightManager;
 import com.leon.reading_counter.utils.CustomToast;
 import com.leon.reading_counter.utils.DepthPageTransformer;
@@ -74,6 +76,17 @@ public class ReadingActivity extends BaseActivity {
         ImageView imageViewCamera = findViewById(R.id.image_view_camera);
         imageViewCamera.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), TakePhotoActivity.class);
+            startActivity(intent);
+        });
+        ImageView imageViewSearch = findViewById(R.id.image_view_search);
+        imageViewSearch.setOnClickListener(v -> {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            SearchFragment searchFragment = SearchFragment.newInstance("", "");
+            searchFragment.show(fragmentTransaction, "");
+        });
+        ImageView imageViewCheck = findViewById(R.id.image_view_reading_report);
+        imageViewCheck.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), ReadingReportActivity.class);
             startActivity(intent);
         });
     }
