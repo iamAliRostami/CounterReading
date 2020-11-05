@@ -11,17 +11,14 @@ import androidx.multidex.MultiDex;
 import es.dmoral.toasty.Toasty;
 
 public class MyApplication extends Application {
-    public static final String fontName = "font/font_1.ttf";
-    public static int REQUEST_NETWORK_CODE = 1234;
-    public static int CAMERA_REQUEST = 1888;
-    public static int GALLERY_REQUEST = 1889;
-    public static int GPS_CODE = 1235;
-    public static int REQUEST_LOCATION_CODE = 1236;
-    public static int REQUEST_CODE_RECOVER_PLAY_SERVICES = 200;
-    public static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    public static long MIN_DISTANCE_CHANGE_FOR_UPDATES = 2;
-    public static long MIN_TIME_BW_UPDATES = 1000;
-    public static int TOAST_TEXT_SIZE = 20;
+    public static final String FONT_NAME = "font/font_1.ttf";
+    public static final int REQUEST_NETWORK_CODE = 1234;
+    public static final int CAMERA_REQUEST = 1888;
+    public static final int GALLERY_REQUEST = 1889;
+    public static final int GPS_CODE = 1235;
+    public static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 2;
+    public static final long MIN_TIME_BW_UPDATES = 1000;
+    public static final int TOAST_TEXT_SIZE = 20;
     public static int POSITION = -1;
 
     public static Bitmap bitmapSelectedImage;
@@ -43,7 +40,7 @@ public class MyApplication extends Application {
         appContext = getApplicationContext();
         Toasty.Config.getInstance()
                 .tintIcon(true)
-                .setToastTypeface(Typeface.createFromAsset(appContext.getAssets(), MyApplication.fontName))
+                .setToastTypeface(Typeface.createFromAsset(appContext.getAssets(), MyApplication.FONT_NAME))
                 .setTextSize(TOAST_TEXT_SIZE)
                 .allowQueue(true).apply();
         super.onCreate();
