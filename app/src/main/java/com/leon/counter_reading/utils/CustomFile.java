@@ -96,8 +96,8 @@ public class CustomFile {
     }
 
     @SuppressLint({"SimpleDateFormat"})
-    public static File createImageFile() throws IOException {
-        String timeStamp = (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date());
+    public static File createImageFile(Context context) throws IOException {
+        String timeStamp = (new SimpleDateFormat(context.getString(R.string.save_format_name))).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         storageDir.mkdirs();

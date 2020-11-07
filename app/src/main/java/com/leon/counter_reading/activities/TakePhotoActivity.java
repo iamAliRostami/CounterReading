@@ -243,7 +243,7 @@ public class TakePhotoActivity extends AppCompatActivity {
             if (cameraIntent.resolveActivity(TakePhotoActivity.this.getPackageManager()) != null) {
                 File photoFile = null;
                 try {
-                    photoFile = createImageFile();
+                    photoFile = createImageFile(activity);
                 } catch (IOException e) {
                     Log.e("Main", e.toString());
                 }
