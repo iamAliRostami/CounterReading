@@ -22,7 +22,7 @@ import com.leon.counter_reading.R;
 
 import org.osmdroid.config.Configuration;
 
-public class GPSTracker extends Service /*implements LocationListener*/ {
+public class GPSTracker extends Service {
     final Activity activity;
     boolean canGetLocation = false;
     double latitude;

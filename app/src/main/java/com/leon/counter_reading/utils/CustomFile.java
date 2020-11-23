@@ -80,7 +80,7 @@ public class CustomFile {
             }
         }
         String timeStamp = (new SimpleDateFormat(context.getString(R.string.save_format_name))).format(new Date());
-        String fileNameToSave = "JPEG_" + timeStamp + "_";
+        String fileNameToSave = "JPEG_" + timeStamp + ".jpg";
         File file = new File(mediaStorageDir, fileNameToSave);
         if (file.exists()) file.delete();
         try {
