@@ -32,7 +32,7 @@ public final class CustomProgressBar {
             Toast.makeText(MyApplication.getContext(),
                     MyApplication.getContext().getString(R.string.canceled),
                     Toast.LENGTH_LONG).show();
-            HttpClientWrapperOld.call.cancel();
+            HttpClientWrapper.call.cancel();
 //            Intent intent = new Intent(context, HomeActivity.class);
 //            context.startActivity(intent);
 //            ((Activity) context).finish();
@@ -44,7 +44,7 @@ public final class CustomProgressBar {
             Toast.makeText(MyApplication.getContext(),
                     MyApplication.getContext().getString(R.string.canceled),
                     Toast.LENGTH_LONG).show();
-            HttpClientWrapperOld.call.cancel();
+            HttpClientWrapper.call.cancel();
         });
     }
 
