@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,7 +46,6 @@ import java.util.List;
 public abstract class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
-    DrawerLayout drawer;
     RecyclerView recyclerView;
     RelativeLayout linearLayoutReadingHeader;
     NavigationDrawerAdapter adapter;
@@ -81,8 +79,8 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             new CustomToast().info(getString(R.string.how_to_exit));
         }
@@ -90,7 +88,7 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        drawer.closeDrawer(GravityCompat.START);
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -104,14 +102,14 @@ public abstract class BaseActivity extends AppCompatActivity
                 startActivity(intent);
                 finish();
             } else
-                drawer.closeDrawer(GravityCompat.START);
+                binding.drawerLayout.closeDrawer(GravityCompat.START);
         });
         recyclerView.addOnItemTouchListener(
                 new NavigationDrawerAdapter.RecyclerItemClickListener(MyApplication.getContext(),
                         recyclerView, new NavigationDrawerAdapter.RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        drawer.closeDrawer(GravityCompat.START);
+                        binding.drawerLayout.closeDrawer(GravityCompat.START);
                         if (position == 8) {
                             MyApplication.POSITION = -1;
                             finishAffinity();
@@ -163,22 +161,22 @@ public abstract class BaseActivity extends AppCompatActivity
         }
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);//TODO
-        drawer = binding.drawerLayout;
+
         recyclerView = binding.recyclerView;
         dataList = new ArrayList<>();
         fillDrawerListView();
         setOnDrawerItemClick();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle
-                (this, drawer, toolbar, R.string.navigation_drawer_open,
+                (this, binding.drawerLayout, toolbar, R.string.navigation_drawer_open,
                         R.string.navigation_drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
             }
         };
-        drawer.addDrawerListener(toggle);
+        binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        toolbar.setNavigationOnClickListener(view1 -> drawer.openDrawer(Gravity.START));
+        toolbar.setNavigationOnClickListener(view1 -> binding.drawerLayout.openDrawer(Gravity.START));
     }
 
     void fillDrawerListView() {
