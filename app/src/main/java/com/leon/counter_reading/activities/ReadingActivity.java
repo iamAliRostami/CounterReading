@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
@@ -98,7 +99,7 @@ public class ReadingActivity extends BaseActivity {
 
     private void setupViewPager() {
         ViewPagerAdapterReading adapter = new ViewPagerAdapterReading(getSupportFragmentManager(),
-                readingData);
+                FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, readingData);
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -124,16 +125,16 @@ public class ReadingActivity extends BaseActivity {
                 askStoragePermission();
             } else {
                 gpsTracker = new GPSTracker(activity);
-                new getData().execute();
+                new getDBData().execute();
                 setOnImageViewsClickListener();
             }
     }
 
     @SuppressLint("StaticFieldLeak")
-    class getData extends AsyncTask<Integer, Integer, Integer> {
+    class getDBData extends AsyncTask<Integer, Integer, Integer> {
         ProgressDialog dialog;
 
-        public getData() {
+        public getDBData() {
             super();
         }
 

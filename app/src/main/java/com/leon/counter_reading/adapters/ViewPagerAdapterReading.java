@@ -2,6 +2,7 @@ package com.leon.counter_reading.adapters;
 
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -16,8 +17,8 @@ public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
     static int position;
     ReadingData readingData;
 
-    public ViewPagerAdapterReading(FragmentManager fm, ReadingData readingData) {
-        super(fm);
+    public ViewPagerAdapterReading(@NonNull FragmentManager fm, int behavior, ReadingData readingData) {
+        super(fm, behavior);
         this.readingData = readingData;
     }
 
@@ -28,7 +29,13 @@ public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
     @NotNull
     @Override
     public Fragment getItem(int position) {
-        return ReadingFragment.newInstance(readingData.onOffLoadDtos.get(position));
+//        for (ReadingData.ReadingConfigDefaultDto readingConfigDefaultDto :
+//                readingData.readingConfigDefaultDtos
+//        ) {
+//            if (readingConfigDefaultDto.zoneId==readingData.onOffLoadDtos.get(position).)
+//        }
+        return ReadingFragment.newInstance(readingData.onOffLoadDtos.get(position),
+                readingData.readingConfigDefaultDtos.get(position));
     }
 
     @Override

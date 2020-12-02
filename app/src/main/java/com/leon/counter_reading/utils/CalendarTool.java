@@ -60,7 +60,7 @@ public class CalendarTool {
     }
 
     @SuppressLint("SimpleDateFormat")
-    public static long findDifferent(String preDate) {
+    public static long findDifferentDays(String preDate) {
         CalendarTool calendarToolPre = new CalendarTool();
         calendarToolPre.setIranianDate(1300 + Integer.parseInt(preDate.substring(0, 2)),
                 Integer.parseInt(preDate.substring(3, 5)),
