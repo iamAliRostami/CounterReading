@@ -45,7 +45,6 @@ public class ReadingActivity extends BaseActivity {
     GPSTracker gpsTracker;
     private boolean isFlashOn = false, isNight = false;
     private IFlashLightManager flashLightManager;
-    private int previousState, currentState;
     ReadingData readingData;
 
     @Override
@@ -97,7 +96,7 @@ public class ReadingActivity extends BaseActivity {
         });
     }
 
-    private void setupViewPager() {
+    void setupViewPager() {
         ViewPagerAdapterReading adapter = new ViewPagerAdapterReading(getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, readingData);
         binding.viewPager.setAdapter(adapter);

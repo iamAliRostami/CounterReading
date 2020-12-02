@@ -172,4 +172,8 @@
     <string name="network_setting">تنظیمات اینترنت</string>
     <string name="google_is_not_available">سرویس های گوگل برای شما در دسترس نیست.</string>
     <string name="google_is_available_but_not_installed">سرویس های گوگل در دسترس است، گوگل پلی نصب را نصب کنید.</string>
+
+    <string name="use_out_of_range">مصرف خارج از بازه</string>
+    <string name="less_than_pre">رقم فعلی کمتر از رقم پیشین است.</string>
+    <string name="counter_empty">رقم کنتور وارد نشده است.</string>
 </resources>
