@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.leon.counter_reading.MyApplication;
 import com.leon.counter_reading.R;
+import com.leon.counter_reading.tables.ReadingData;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -123,7 +124,7 @@ public class CustomFile {
         return null;
     }
 
-    public static void readData() {
+    public static ReadingData readData() {
         File root = Environment.getExternalStorageDirectory();
         File file = findFile(root, "json.txt");
 
@@ -143,49 +144,6 @@ public class CustomFile {
         Log.e("json", json);
 
         Gson gson = new GsonBuilder().create();
-//        Input input = gson.fromJson(json, Input.class);
-//        List<ExaminerDuties> examinerDutiesList = input.getExaminerDuties();
-//        for (int i = 0; i < examinerDutiesList.size(); i++) {
-//            Gson gson1 = new Gson();
-//            examinerDutiesList.get(i).setRequestDictionaryString(
-//                    gson1.toJson(examinerDutiesList.get(i).getRequestDictionary()));
-//        }
-//        dataBase = Room.databaseBuilder(context, MyDatabase.class, MyApplication.getDBNAME())
-//                .allowMainThreadQueries().build();
-//        DaoExaminerDuties daoExaminerDuties = dataBase.daoExaminerDuties();
-//        List<ExaminerDuties> examinerDutiesListTemp = daoExaminerDuties.getExaminerDuties();
-//        for (int i = 0; i < examinerDutiesList.size(); i++) {
-//            examinerDutiesList.get(i).setTrackNumber(
-//                    examinerDutiesList.get(i).getTrackNumber().replace(".0", ""));
-//            examinerDutiesList.get(i).setRadif(
-//                    examinerDutiesList.get(i).getRadif().replace(".0", ""));
-//            ExaminerDuties examinerDuties = examinerDutiesList.get(i);
-//            for (int j = 0; j < examinerDutiesListTemp.size(); j++) {
-//                ExaminerDuties examinerDutiesTemp = examinerDutiesListTemp.get(j);
-//                if (examinerDuties.getTrackNumber().equals(examinerDutiesTemp.getTrackNumber())) {
-//                    examinerDutiesList.remove(i);
-//                    j = examinerDutiesListTemp.size();
-//                    i--;
-//                }
-//            }
-//        }
-//        daoExaminerDuties.insertAll(examinerDutiesList);
-//        DaoNoeVagozariDictionary daoNoeVagozariDictionary = dataBase.daoNoeVagozariDictionary();
-//        daoNoeVagozariDictionary.insertAll(input.getNoeVagozariDictionary());
-//
-//        DaoQotrEnsheabDictionary daoQotrEnsheabDictionary = dataBase.daoQotrEnsheabDictionary();
-//        daoQotrEnsheabDictionary.insertAll(input.getQotrEnsheabDictionary());
-//
-//        DaoServiceDictionary daoServiceDictionary = dataBase.daoServiceDictionary();
-//        daoServiceDictionary.insertAll(input.getServiceDictionary());
-//
-//        DaoTaxfifDictionary daoTaxfifDictionary = dataBase.daoTaxfifDictionary();
-//        daoTaxfifDictionary.insertAll(input.getTaxfifDictionary());
-//
-//        DaoKarbariDictionary daoKarbariDictionary = dataBase.daoKarbariDictionary();
-//        daoKarbariDictionary.insertAll(input.getKarbariDictionary());
-//
-//        DaoResultDictionary daoResultDictionary = dataBase.daoResultDictionary();
-//        daoResultDictionary.insertAll(input.getResultDictionary());
+        return gson.fromJson(json, ReadingData.class);
     }
 }

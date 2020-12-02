@@ -8,18 +8,17 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.leon.counter_reading.fragments.ReadingFragment;
+import com.leon.counter_reading.tables.ReadingData;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
     static int position;
-    List<Integer> spinnerItemSelected;
+    ReadingData readingData;
 
-    public ViewPagerAdapterReading(FragmentManager fm, List<Integer> spinnerItemSelected) {
+    public ViewPagerAdapterReading(FragmentManager fm, ReadingData readingData) {
         super(fm);
-        this.spinnerItemSelected = spinnerItemSelected;
+        this.readingData = readingData;
     }
 
     public static int getPosition() {
@@ -29,12 +28,12 @@ public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
     @NotNull
     @Override
     public Fragment getItem(int position) {
-        return new ReadingFragment();
+        return ReadingFragment.newInstance(readingData.onOffLoadDtos.get(position));
     }
 
     @Override
     public int getCount() {
-        return spinnerItemSelected.size();
+        return readingData.onOffLoadDtos.size();
     }
 
     @Override

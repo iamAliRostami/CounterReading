@@ -7,24 +7,26 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.leon.counter_reading.R;
+import com.google.gson.Gson;
+import com.leon.counter_reading.databinding.FragmentReadingBinding;
+import com.leon.counter_reading.enums.BundleEnum;
+import com.leon.counter_reading.tables.ReadingData;
+
+import org.jetbrains.annotations.NotNull;
 
 public class ReadingFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
+    ReadingData.OnOffLoadDto onOffLoadDtos;
+    FragmentReadingBinding binding;
 
     public ReadingFragment() {
-        // Required empty public constructor
     }
 
-    public static ReadingFragment newInstance(String param1, String param2) {
+    public static ReadingFragment newInstance(ReadingData.OnOffLoadDto onOffLoadDtos) {
         ReadingFragment fragment = new ReadingFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        Gson gson = new Gson();
+        String json = gson.toJson(onOffLoadDtos);
+        args.putString(BundleEnum.ON_OFF_LOAD.getValue(), json);
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,15 +35,32 @@ public class ReadingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            Gson gson = new Gson();
+            onOffLoadDtos = gson.fromJson(getArguments().getString(
+                    BundleEnum.ON_OFF_LOAD.getValue()), ReadingData.OnOffLoadDto.class);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reading, container, false);
+        binding = FragmentReadingBinding.inflate(inflater, container, false);
+        initialize();
+        return binding.getRoot();
+    }
+
+    void initialize() {
+        initializeViews();
+    }
+
+    void initializeViews() {
+        binding.textViewAddress.setText(onOffLoadDtos.address);
+        binding.textViewName.setText(onOffLoadDtos.firstName.concat(" ")
+                .concat(onOffLoadDtos.sureName));
+        binding.textViewPreDate.setText(onOffLoadDtos.preDate);
+        binding.textViewPreNumber.setText(String.valueOf(onOffLoadDtos.preNumber));
+        binding.textViewSerial.setText(onOffLoadDtos.counterSerial);
+        binding.textViewRadif.setText(String.valueOf(onOffLoadDtos.radif));
+
     }
 }

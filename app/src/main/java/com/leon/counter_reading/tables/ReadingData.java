@@ -1,12 +1,11 @@
 package com.leon.counter_reading.tables;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 public class ReadingData {
-    public ArrayList<TrackingDto> trackingDtos;
-    public ArrayList<OnOffLoadDto> onOffLoadDtos;
-    public ArrayList<ReadingConfigDefaultDto> readingConfigDefaultDtos;
+    public List<TrackingDto> trackingDtos;
+    public List<OnOffLoadDto> onOffLoadDtos;
+    public List<ReadingConfigDefaultDto> readingConfigDefaultDtos;
 
     public class TrackingDto {
         public String id;
@@ -49,29 +48,29 @@ public class ReadingData {
         public String postalCode;
         public int preNumber;
         public String preDate;
-        public Date preDateMiladi;
+        public String preDateMiladi;//TODO
         public double preAverage;
         public int preCounterStateCode;
         public String counterSerial;
         public String counterInstallDate;
         public String tavizDate;
-        public Object tavizNumber;
+        public int tavizNumber;
         public int zarfiat;
         public String mobile;
         public int hazf;
         public int noeVagozariId;
-        public Object counterNumber;
-        public Object counterStateId;
-        public Object possibleAddress;
-        public Object possibleCounterSerial;
-        public Object possibleEshterak;
-        public Object possibleMobile;
-        public Object possiblePhoneNumber;
-        public Object possibleAhadMaskooniOrAsli;
-        public Object possibleAhadTejariOrFari;
-        public Object possibleAhadSaierOrAbBaha;
-        public Object possibleKarbariCode;
-        public Object description;
+        public int counterNumber;
+        public int counterStateId;
+        public String possibleAddress;
+        public String possibleCounterSerial;
+        public String possibleEshterak;
+        public String possibleMobile;
+        public String possiblePhoneNumber;
+        public String possibleAhadMaskooniOrAsli;
+        public String possibleAhadTejariOrFari;
+        public String possibleAhadSaierOrAbBaha;
+        public String possibleKarbariCode;
+        public String description;
     }
 
     public class ReadingConfigDefaultDto {
@@ -102,6 +101,6 @@ public class ReadingData {
         public int lowPercentRateBoundNonMaskooni;
         public int highPercentRateBoundNonMaskooni;
         public boolean isActive;
-        public Object zone;
+        public String zone;
     }
 }

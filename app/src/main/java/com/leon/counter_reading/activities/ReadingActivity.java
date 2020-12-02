@@ -1,9 +1,12 @@
 package com.leon.counter_reading.activities;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Debug;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +26,8 @@ import com.leon.counter_reading.base_items.BaseActivity;
 import com.leon.counter_reading.databinding.ActivityReadingBinding;
 import com.leon.counter_reading.fragments.SearchFragment;
 import com.leon.counter_reading.infrastructure.IFlashLightManager;
+import com.leon.counter_reading.tables.ReadingData;
+import com.leon.counter_reading.utils.CustomFile;
 import com.leon.counter_reading.utils.CustomToast;
 import com.leon.counter_reading.utils.DepthPageTransformer;
 import com.leon.counter_reading.utils.FlashLightManager;
@@ -40,6 +45,7 @@ public class ReadingActivity extends BaseActivity {
     private boolean isFlashOn = false, isNight = false;
     private IFlashLightManager flashLightManager;
     private int previousState, currentState;
+    ReadingData readingData;
 
     @Override
     protected void initialize() {
@@ -91,10 +97,8 @@ public class ReadingActivity extends BaseActivity {
     }
 
     private void setupViewPager() {
-        ArrayList<Integer> ints = new ArrayList<>();
-        for (int i = 0; i <= 4000; i++)
-            ints.add(i);
-        ViewPagerAdapterReading adapter = new ViewPagerAdapterReading(getSupportFragmentManager(), ints);
+        ViewPagerAdapterReading adapter = new ViewPagerAdapterReading(getSupportFragmentManager(),
+                readingData);
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -120,9 +124,42 @@ public class ReadingActivity extends BaseActivity {
                 askStoragePermission();
             } else {
                 gpsTracker = new GPSTracker(activity);
-                setupViewPager();
+                new getData().execute();
                 setOnImageViewsClickListener();
             }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    class getData extends AsyncTask<Integer, Integer, Integer> {
+        ProgressDialog dialog;
+
+        public getData() {
+            super();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(activity);
+            dialog.setMessage(getString(R.string.loading_getting_info));
+            dialog.setTitle(getString(R.string.loading_connecting));
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            dialog.dismiss();
+            super.onPostExecute(integer);
+        }
+
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            readingData = CustomFile.readData();
+            runOnUiThread(ReadingActivity.this::setupViewPager);
+            return null;
+        }
     }
 
     void askStoragePermission() {
