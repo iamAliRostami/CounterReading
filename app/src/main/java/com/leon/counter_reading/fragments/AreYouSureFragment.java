@@ -8,27 +8,28 @@ import android.view.WindowManager;
 
 import androidx.fragment.app.DialogFragment;
 
+import com.leon.counter_reading.R;
 import com.leon.counter_reading.databinding.FragmentAreYouSureBinding;
+import com.leon.counter_reading.enums.BundleEnum;
+import com.leon.counter_reading.enums.HighLowStateEnum;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
 public class AreYouSureFragment extends DialogFragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     FragmentAreYouSureBinding binding;
-    private String mParam1;
-    private String mParam2;
+    int position, number, type;
 
     public AreYouSureFragment() {
     }
 
-    public static AreYouSureFragment newInstance(String param1, String param2) {
+    public static AreYouSureFragment newInstance(int position, int number, int type) {
         AreYouSureFragment fragment = new AreYouSureFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(BundleEnum.POSITION.getValue(), position);
+        args.putInt(BundleEnum.NUMBER.getValue(), number);
+        args.putInt(BundleEnum.TYPE.getValue(), type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -37,8 +38,9 @@ public class AreYouSureFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            number = getArguments().getInt(BundleEnum.NUMBER.getValue());
+            position = getArguments().getInt(BundleEnum.POSITION.getValue());
+            type = getArguments().getInt(BundleEnum.TYPE.getValue());
         }
     }
 
@@ -51,6 +53,16 @@ public class AreYouSureFragment extends DialogFragment {
     }
 
     void initialize() {
+        setTextViewMessage();
+    }
+
+    void setTextViewMessage() {
+        if (type == HighLowStateEnum.HIGH.getValue())
+            binding.textViewAreYouSure.setText(getString(R.string.high_use));
+        else if (type == HighLowStateEnum.LOW.getValue())
+            binding.textViewAreYouSure.setText(getString(R.string.low_use));
+        else if (type == HighLowStateEnum.ZERO.getValue())
+            binding.textViewAreYouSure.setText(getString(R.string.zero_use));
     }
 
     @Override

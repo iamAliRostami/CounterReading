@@ -8,6 +8,7 @@ public enum BundleEnum {
     KARBARI_DICTONARY("karbari_dictionary"),
     QOTR_DICTIONARY("qotr_dictionary"),
     POSITION("position"),
+    NUMBER("number"),
     TYPE("type");
 
     private final String value;

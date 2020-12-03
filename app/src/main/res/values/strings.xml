@@ -176,4 +176,9 @@
     <string name="use_out_of_range">مصرف خارج از بازه</string>
     <string name="less_than_pre">رقم فعلی کمتر از رقم پیشین است.</string>
     <string name="counter_empty">رقم کنتور وارد نشده است.</string>
+
+    <string name="zero_use">مصرف صفر است. آیا اطمینان دارید؟</string>
+    <string name="high_use">رقم وارد شده بالاتر از میانگین بلند مدت است. آیا از رقم وارد شده اطمینان دارید؟</string>
+    <string name="low_use">رقم وارد شده پایین تر از میانگین بلند مدت است. آیا از رقم وارد شده اطمینان دارید؟</string>
+
 </resources>
