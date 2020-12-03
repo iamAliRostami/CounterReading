@@ -29,13 +29,27 @@ public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
     @NotNull
     @Override
     public Fragment getItem(int position) {
-//        for (ReadingData.ReadingConfigDefaultDto readingConfigDefaultDto :
-//                readingData.readingConfigDefaultDtos
-//        ) {
-//            if (readingConfigDefaultDto.zoneId==readingData.onOffLoadDtos.get(position).)
-//        }
+        ReadingData.ReadingConfigDefaultDto readingConfigDefaultDtoTemp = null;
+        ReadingData.QotrDictionary qotrDictionaryTemp = null;
+        ReadingData.KarbariDto karbariDtoTemp = null;
+        for (ReadingData.ReadingConfigDefaultDto readingConfigDefaultDto :
+                readingData.readingConfigDefaultDtos
+        ) {
+            if (readingConfigDefaultDto.zoneId == readingData.onOffLoadDtos.get(position).zoneId)
+                readingConfigDefaultDtoTemp = readingConfigDefaultDto;
+        }
+        for (ReadingData.QotrDictionary qotrDictionary : readingData.qotrDictionary) {
+            if (qotrDictionary.id == readingData.onOffLoadDtos.get(position).qotrCode)
+                qotrDictionaryTemp = qotrDictionary;
+
+        }
+        for (ReadingData.KarbariDto karbariDto : readingData.karbariDtos) {
+            if (karbariDto.id == readingData.onOffLoadDtos.get(position).karbariCode)
+                karbariDtoTemp = karbariDto;
+
+        }
         return ReadingFragment.newInstance(readingData.onOffLoadDtos.get(position),
-                readingData.readingConfigDefaultDtos.get(position));
+                readingConfigDefaultDtoTemp, karbariDtoTemp, qotrDictionaryTemp, position);
     }
 
     @Override

@@ -19,22 +19,33 @@ import org.jetbrains.annotations.NotNull;
 public class ReadingFragment extends Fragment {
     ReadingData.OnOffLoadDto onOffLoadDto;
     ReadingData.ReadingConfigDefaultDto readingConfigDefaultDto;
+    ReadingData.KarbariDto karbariDto;
+    ReadingData.QotrDictionary qotrDictionary;
     FragmentReadingBinding binding;
+    int position;
     Context context;
 
     public ReadingFragment() {
     }
 
-    public static ReadingFragment newInstance(ReadingData.OnOffLoadDto onOffLoadDto,
-                                              ReadingData.ReadingConfigDefaultDto readingConfigDefaultDto
-    ) {
+    public static ReadingFragment newInstance(
+            ReadingData.OnOffLoadDto onOffLoadDto,
+            ReadingData.ReadingConfigDefaultDto readingConfigDefaultDto,
+            ReadingData.KarbariDto karbariDto,
+            ReadingData.QotrDictionary qotrDictionary,
+            int position) {
         ReadingFragment fragment = new ReadingFragment();
         Bundle args = new Bundle();
         Gson gson = new Gson();
         String json1 = gson.toJson(onOffLoadDto);
         String json2 = gson.toJson(readingConfigDefaultDto);
+        String json3 = gson.toJson(karbariDto);
+        String json4 = gson.toJson(qotrDictionary);
         args.putString(BundleEnum.ON_OFF_LOAD.getValue(), json1);
-        args.putString(BundleEnum.READING_CONFIG_DEFAULT_DTOS.getValue(), json2);
+        args.putString(BundleEnum.READING_CONFIG.getValue(), json2);
+        args.putString(BundleEnum.KARBARI_DICTONARY.getValue(), json3);
+        args.putString(BundleEnum.QOTR_DICTIONARY.getValue(), json4);
+        args.putInt(BundleEnum.POSITION.getValue(), position);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,8 +58,15 @@ public class ReadingFragment extends Fragment {
             onOffLoadDto = gson.fromJson(getArguments().getString(
                     BundleEnum.ON_OFF_LOAD.getValue()), ReadingData.OnOffLoadDto.class);
             readingConfigDefaultDto = gson.fromJson(getArguments().getString(
-                    BundleEnum.READING_CONFIG_DEFAULT_DTOS.getValue()),
+                    BundleEnum.READING_CONFIG.getValue()),
                     ReadingData.ReadingConfigDefaultDto.class);
+            karbariDto = gson.fromJson(getArguments().getString(
+                    BundleEnum.KARBARI_DICTONARY.getValue()),
+                    ReadingData.KarbariDto.class);
+            qotrDictionary = gson.fromJson(getArguments().getString(
+                    BundleEnum.QOTR_DICTIONARY.getValue()),
+                    ReadingData.QotrDictionary.class);
+            position = getArguments().getInt(BundleEnum.POSITION.getValue());
         }
     }
 
@@ -73,6 +91,12 @@ public class ReadingFragment extends Fragment {
         binding.textViewPreNumber.setText(String.valueOf(onOffLoadDto.preNumber));
         binding.textViewSerial.setText(onOffLoadDto.counterSerial);
         binding.textViewRadif.setText(String.valueOf(onOffLoadDto.radif));
+        binding.textViewAhadAsli.setText(String.valueOf(onOffLoadDto.ahadMaskooniOrAsli));
+        binding.textViewAhadForosh.setText(String.valueOf(onOffLoadDto.ahadTejariOrFari));
+        binding.textViewAhadMasraf.setText(String.valueOf(onOffLoadDto.ahadSaierOrAbBaha));
+
+        binding.textViewKarbari.setText(karbariDto.title);
+        binding.textViewBranch.setText(qotrDictionary.title);
     }
 
     void onButtonSubmitClickListener() {

@@ -1,16 +1,18 @@
 package com.leon.counter_reading.tables;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ReadingData {
-    public List<TrackingDto> trackingDtos;
-    public List<OnOffLoadDto> onOffLoadDtos;
-    public List<ReadingConfigDefaultDto> readingConfigDefaultDtos;
+    public ArrayList<TrackingDto> trackingDtos;
+    public ArrayList<OnOffLoadDto> onOffLoadDtos;
+    public ArrayList<ReadingConfigDefaultDto> readingConfigDefaultDtos;
+    public ArrayList<KarbariDto> karbariDtos;
+    public ArrayList<QotrDictionary> qotrDictionary;
 
-    public class TrackingDto {
+    public class TrackingDto{
         public String id;
         public int trackNumber;
-        public Object listNumber;
+        public String listNumber;
         public String insertDateJalali;
         public int zoneId;
         public String zoneTitle;
@@ -29,7 +31,7 @@ public class ReadingData {
         public boolean displayRadif;
     }
 
-    public class OnOffLoadDto {
+    public class OnOffLoadDto{
         public String id;
         public String billId;
         public int radif;
@@ -48,19 +50,20 @@ public class ReadingData {
         public String postalCode;
         public int preNumber;
         public String preDate;
-        public String preDateMiladi;//TODO
+        public String preDateMiladi;
         public double preAverage;
         public int preCounterStateCode;
         public String counterSerial;
         public String counterInstallDate;
         public String tavizDate;
-        public int tavizNumber;
+        public String tavizNumber;
+        public String trackingId;
         public int zarfiat;
         public String mobile;
         public int hazf;
         public int noeVagozariId;
-        public int counterNumber;
-        public int counterStateId;
+        public String counterNumber;
+        public String counterStateId;
         public String possibleAddress;
         public String possibleCounterSerial;
         public String possibleEshterak;
@@ -71,9 +74,10 @@ public class ReadingData {
         public String possibleAhadSaierOrAbBaha;
         public String possibleKarbariCode;
         public String description;
+        public int zoneId;
     }
 
-    public class ReadingConfigDefaultDto {
+    public class ReadingConfigDefaultDto{
         public int id;
         public int zoneId;
         public int defaultAlalHesab;
@@ -102,5 +106,21 @@ public class ReadingData {
         public int highPercentRateBoundNonMaskooni;
         public boolean isActive;
         public String zone;
+    }
+
+    public class KarbariDto{
+        public int id;
+        public int moshtarakinId;
+        public String title;
+        public int provinceId;
+        public boolean isMaskooni;
+        public boolean isSaxt;
+        public boolean hasReadingVibrate;
+    }
+
+    public class QotrDictionary{
+        public int id;
+        public String title;
+        public boolean isSelected;
     }
 }
