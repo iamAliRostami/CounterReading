@@ -30,7 +30,6 @@ public class ReadingFragment extends Fragment {
     public ReadingFragment() {
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -135,23 +135,32 @@ public class ReadingActivity extends BaseActivity {
         });
     }
 
-    void setupViewPager() {
-        ViewPagerAdapterReading adapter = new ViewPagerAdapterReading(getSupportFragmentManager(),
-                FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, readingData);
-        binding.viewPager.setAdapter(adapter);
+    void setOnPageChangeListener() {
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
+                final String number = (position + 1) + "/" + readingData.onOffLoadDtos.size();
+                runOnUiThread(() -> binding.textViewPageNumber.setText(number));
             }
 
             @Override
             public void onPageSelected(int position) {
+
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
+
             }
         });
+    }
+
+    void setupViewPager() {
+        ViewPagerAdapterReading adapter = new ViewPagerAdapterReading(getSupportFragmentManager(),
+                FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, readingData);
+        binding.viewPager.setAdapter(adapter);
+        setOnPageChangeListener();
         binding.viewPager.setPageTransformer(true, new DepthPageTransformer());
     }
 

@@ -75,6 +75,11 @@ public class ReadingData {
         public String possibleKarbariCode;
         public String description;
         public int zoneId;
+
+        //TODO
+        public int offLoadStateId;
+        public int highLowStateId;
+        public Boolean isBazdid;
     }
 
     public class ReadingConfigDefaultDto{
