@@ -59,6 +59,39 @@ public class ReadingActivity extends BaseActivity {
         else PermissionManager.enableNetwork(this);
     }
 
+    @SuppressLint("StaticFieldLeak")
+    class getDBData extends AsyncTask<Integer, Integer, Integer> {
+        ProgressDialog dialog;
+
+        public getDBData() {
+            super();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(activity);
+            dialog.setMessage(getString(R.string.loading_getting_info));
+            dialog.setTitle(getString(R.string.loading_connecting));
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            dialog.dismiss();
+            super.onPostExecute(integer);
+        }
+
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            readingData = CustomFile.readData();
+            runOnUiThread(ReadingActivity.this::setupViewPager);
+            return null;
+        }
+    }
+
     void setOnImageViewsClickListener() {
         flashLightManager = new FlashLightManager(getApplicationContext());
         ImageView imageViewFlash = findViewById(R.id.image_view_flash);
@@ -127,39 +160,6 @@ public class ReadingActivity extends BaseActivity {
                 new getDBData().execute();
                 setOnImageViewsClickListener();
             }
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    class getDBData extends AsyncTask<Integer, Integer, Integer> {
-        ProgressDialog dialog;
-
-        public getDBData() {
-            super();
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dialog = new ProgressDialog(activity);
-            dialog.setMessage(getString(R.string.loading_getting_info));
-            dialog.setTitle(getString(R.string.loading_connecting));
-            dialog.setCancelable(false);
-            dialog.show();
-        }
-
-        @Override
-        protected void onPostExecute(Integer integer) {
-            dialog.dismiss();
-            super.onPostExecute(integer);
-        }
-
-
-        @Override
-        protected Integer doInBackground(Integer... integers) {
-            readingData = CustomFile.readData();
-            runOnUiThread(ReadingActivity.this::setupViewPager);
-            return null;
-        }
     }
 
     void askStoragePermission() {

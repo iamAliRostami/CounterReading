@@ -62,7 +62,7 @@ public class ReadingData {
         public String mobile;
         public int hazf;
         public int noeVagozariId;
-        public String counterNumber;
+        public int counterNumber;
         public String counterStateId;
         public String possibleAddress;
         public String possibleCounterSerial;

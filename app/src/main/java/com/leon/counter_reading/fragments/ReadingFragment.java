@@ -7,11 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.gson.Gson;
+import com.leon.counter_reading.R;
 import com.leon.counter_reading.databinding.FragmentReadingBinding;
 import com.leon.counter_reading.enums.BundleEnum;
+import com.leon.counter_reading.enums.HighLowStateEnum;
 import com.leon.counter_reading.tables.ReadingData;
+import com.leon.counter_reading.utils.Counting;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -100,7 +104,30 @@ public class ReadingFragment extends Fragment {
 
     void onButtonSubmitClickListener() {
         binding.buttonSubmit.setOnClickListener(v -> {
-
+            FragmentManager fragmentTransaction = getFragmentManager();
+            AreYouSureFragment areYouSureFragment;
+            if (binding.editTextNumber.getText().toString().isEmpty()) {
+                View view = binding.editTextNumber;
+                binding.editTextNumber.setError(getString(R.string.counter_empty));
+                view.requestFocus();
+            } else {
+                int currentNumber = Integer.parseInt(binding.editTextNumber.getText().toString());
+                switch (Counting.checkHighLow(onOffLoadDto, karbariDto, readingConfigDefaultDto, currentNumber)) {
+                    case 1:
+                        areYouSureFragment = AreYouSureFragment.newInstance(
+                                position, currentNumber, HighLowStateEnum.HIGH.getValue());
+                        fragmentTransaction.beginTransaction().show(areYouSureFragment);
+                        break;
+                    case -1:
+                        fragmentTransaction = getFragmentManager();
+                        areYouSureFragment = AreYouSureFragment.newInstance(
+                                position, currentNumber, HighLowStateEnum.LOW.getValue());
+                        fragmentTransaction.beginTransaction().show(areYouSureFragment);
+                        break;
+                    case 0:
+                        break;
+                }
+            }
         });
     }
 }

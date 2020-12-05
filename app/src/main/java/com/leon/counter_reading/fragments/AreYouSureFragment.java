@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class AreYouSureFragment extends DialogFragment {
     FragmentAreYouSureBinding binding;
-    int position, number, type;
+    int position, currentNumber, type;
 
     public AreYouSureFragment() {
     }
@@ -38,7 +38,7 @@ public class AreYouSureFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            number = getArguments().getInt(BundleEnum.NUMBER.getValue());
+            currentNumber = getArguments().getInt(BundleEnum.NUMBER.getValue());
             position = getArguments().getInt(BundleEnum.POSITION.getValue());
             type = getArguments().getInt(BundleEnum.TYPE.getValue());
         }
