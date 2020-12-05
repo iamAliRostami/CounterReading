@@ -1,12 +1,14 @@
 package com.leon.counter_reading.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
 import com.leon.counter_reading.R;
@@ -81,39 +83,45 @@ public class ReadingFragment extends Fragment {
 
     void onButtonSubmitClickListener() {
         binding.buttonSubmit.setOnClickListener(v -> {
-            FragmentManager fragmentTransaction = getFragmentManager();
-            AreYouSureFragment areYouSureFragment;
-            if (binding.editTextNumber.getText().toString().isEmpty()) {
-                View view = binding.editTextNumber;
-                binding.editTextNumber.setError(getString(R.string.counter_empty));
-                view.requestFocus();
-            } else {
-                int currentNumber = Integer.parseInt(binding.editTextNumber.getText().toString());
-                if (currentNumber == onOffLoadDto.preNumber) {
-                    areYouSureFragment = AreYouSureFragment.newInstance(
-                            position, currentNumber, HighLowStateEnum.ZERO.getValue());
-                    fragmentTransaction.beginTransaction().show(areYouSureFragment);
-                } else
-                    switch (Counting.checkHighLow(onOffLoadDto, karbariDto, readingConfigDefaultDto,
-                            currentNumber)) {
-                        case 1:
-                            areYouSureFragment = AreYouSureFragment.newInstance(
-                                    position, currentNumber, HighLowStateEnum.HIGH.getValue());
-                            fragmentTransaction.beginTransaction().show(areYouSureFragment);
-                            break;
-                        case -1:
-                            fragmentTransaction = getFragmentManager();
-                            areYouSureFragment = AreYouSureFragment.newInstance(
-                                    position, currentNumber, HighLowStateEnum.LOW.getValue());
-                            fragmentTransaction.beginTransaction().show(areYouSureFragment);
-                            break;
-                        case 0:
-                            ((ReadingActivity) getActivity()).updateOnOffLoad(position,
-                                    HighLowStateEnum.NORMAL.getValue(), currentNumber);
-                            break;
-                    }
-            }
+            editTextNumberCanNotBeEmpty();
         });
+    }
+
+    void editTextNumberCanNotBeEmpty() {
+        FragmentTransaction fragmentTransaction = ((FragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction();
+        AreYouSureFragment areYouSureFragment;
+        if (binding.editTextNumber.getText().toString().isEmpty()) {
+            View view = binding.editTextNumber;
+            binding.editTextNumber.setError(getString(R.string.counter_empty));
+            view.requestFocus();
+        } else {
+            int currentNumber = Integer.parseInt(binding.editTextNumber.getText().toString());
+            if (currentNumber == onOffLoadDto.preNumber) {
+                areYouSureFragment = AreYouSureFragment.newInstance(
+                        position, currentNumber, HighLowStateEnum.ZERO.getValue());
+                areYouSureFragment.show(fragmentTransaction, getString(R.string.use_out_of_range));
+            } else {
+                int status = Counting.checkHighLow(onOffLoadDto, karbariDto, readingConfigDefaultDto,
+                        currentNumber);
+                Log.e("status", String.valueOf(status));
+                switch (status){
+                    case 1:
+                        areYouSureFragment = AreYouSureFragment.newInstance(
+                                position, currentNumber, HighLowStateEnum.HIGH.getValue());
+                        areYouSureFragment.show(fragmentTransaction, getString(R.string.use_out_of_range));
+                        break;
+                    case -1:
+                        areYouSureFragment = AreYouSureFragment.newInstance(
+                                position, currentNumber, HighLowStateEnum.LOW.getValue());
+                        areYouSureFragment.show(fragmentTransaction, getString(R.string.use_out_of_range));
+                        break;
+                    case 0:
+                        ((ReadingActivity) getActivity()).updateOnOffLoad(position,
+                                HighLowStateEnum.NORMAL.getValue(), currentNumber);
+                        break;
+                }
+            }
+        }
     }
 
     public static ReadingFragment newInstance(

@@ -1,13 +1,13 @@
 package com.leon.counter_reading.enums;
 
 public enum OffloadStateEnum {
-    INSERTED(0),
-    REGISTERED(2),
-    SENT(4),
-    ARCHIVED(8),
+    INSERTED(8),
+    SENT(9),
+    REGISTERED(10),
+    SENT_WITH_ERROR(11),
+    ARCHIVED(12),
     LOGICAL_DELETED(16),
-    DELETED(32),
-    SENT_WITH_ERROR(64);
+    DELETED(32);
 
     private final int value;
 

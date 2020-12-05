@@ -78,8 +78,8 @@ public class ReadingData {
 
         //TODO
         public int offLoadStateId;
-        public int highLowStateId;
-        public Boolean isBazdid;
+        public Integer highLowStateId;
+        public boolean isBazdid;
     }
 
     public class ReadingConfigDefaultDto{

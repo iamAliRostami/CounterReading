@@ -26,23 +26,23 @@ public class Counting {
                 return 1;
             else if (readingConfigDefaultDto.lowConstBoundMaskooni > difference)
                 return -1;
-            else if ((100 + readingConfigDefaultDto.highPercentBoundMaskooni) * average < (preAverage * 100))
+            else if ((100 + readingConfigDefaultDto.highPercentBoundMaskooni) * preAverage < (average * 100))
                 return 1;
-            else if ((100 - readingConfigDefaultDto.lowPercentBoundMaskooni) * average > (preAverage * 100))
+            else if ((100 - readingConfigDefaultDto.lowPercentBoundMaskooni) * preAverage > (average * 100))
                 return -1;
         } else if (karbariDto.isSaxt) {
-            if (readingConfigDefaultDto.highConstBoundSaxt < average)
+            if (readingConfigDefaultDto.highConstBoundSaxt < difference)
                 return 1;
-            else if (readingConfigDefaultDto.lowConstBoundSaxt > average)
+            else if (readingConfigDefaultDto.lowConstBoundSaxt > difference)
                 return -1;
-            else if ((100 + readingConfigDefaultDto.highPercentBoundSaxt) * average < (preAverage * 100))
+            else if ((100 + readingConfigDefaultDto.highPercentBoundSaxt) * preAverage < (average * 100))
                 return 1;
-            else if ((100 - readingConfigDefaultDto.lowPercentBoundSaxt) * average > (preAverage * 100))
+            else if ((100 - readingConfigDefaultDto.lowPercentBoundSaxt) * preAverage > (average * 100))
                 return -1;
         } else if (onOffLoadDto.ahadTejariOrFari > 0) {
-            if ((100 + readingConfigDefaultDto.highPercentRateBoundNonMaskooni) * average < (preAverage * 100))
+            if ((100 + readingConfigDefaultDto.highPercentRateBoundNonMaskooni) * preAverage < (average * 100))
                 return 1;
-            else if ((100 - readingConfigDefaultDto.lowPercentRateBoundNonMaskooni) * average > (preAverage * 100))
+            else if ((100 - readingConfigDefaultDto.lowPercentRateBoundNonMaskooni) * preAverage > (average * 100))
                 return -1;
         }
         return 0;

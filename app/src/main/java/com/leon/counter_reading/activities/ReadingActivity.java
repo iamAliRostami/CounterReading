@@ -25,6 +25,7 @@ import com.leon.counter_reading.R;
 import com.leon.counter_reading.adapters.ViewPagerAdapterReading;
 import com.leon.counter_reading.base_items.BaseActivity;
 import com.leon.counter_reading.databinding.ActivityReadingBinding;
+import com.leon.counter_reading.enums.OffloadStateEnum;
 import com.leon.counter_reading.fragments.SearchFragment;
 import com.leon.counter_reading.infrastructure.IFlashLightManager;
 import com.leon.counter_reading.tables.ReadingData;
@@ -46,6 +47,9 @@ public class ReadingActivity extends BaseActivity {
     IFlashLightManager flashLightManager;
     ReadingData readingData;
     boolean isFlashOn = false, isNight = false;
+    final int[] imageSrc = new int[11];
+    int[] imageSrcCurrentHighLow;
+    boolean[] currentRead;
 
     @Override
     protected void initialize() {
@@ -61,41 +65,48 @@ public class ReadingActivity extends BaseActivity {
 
     public void updateOnOffLoad(int position, int type, int number) {
         //TODO
-        if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
-            binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
+        readingData.onOffLoadDtos.get(position).isBazdid = true;
+        readingData.onOffLoadDtos.get(position).highLowStateId = type;
+        readingData.onOffLoadDtos.get(position).offLoadStateId = OffloadStateEnum.INSERTED.getValue();
+        attemptSend(imageSrc[type]);
+//        if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
+//            binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
     }
 
-    @SuppressLint("StaticFieldLeak")
-    class getDBData extends AsyncTask<Integer, Integer, Integer> {
-        ProgressDialog dialog;
+    void attemptSend(int src) {
+        //TODO
+//        currentRead[binding.viewPager.getCurrentItem()] = true;
+//        imageSrcCurrentHighLow[binding.viewPager.getCurrentItem()] = src;
+        setAboveIconsSrc(binding.viewPager.getCurrentItem());
+    }
 
-        public getDBData() {
-            super();
-        }
+    void setAboveIconsSrc(int position) {
+        runOnUiThread(() -> {
+            setHighLowImage(position);
+            setReadStatusImage(position);
+            setIsBazdidImage(position);
+        });
+    }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dialog = new ProgressDialog(activity);
-            dialog.setMessage(getString(R.string.loading_getting_info));
-            dialog.setTitle(getString(R.string.loading_connecting));
-            dialog.setCancelable(false);
-            dialog.show();
-        }
+    void setReadStatusImage(int position) {
+        binding.imageViewOffLoadState.setImageResource(
+                imageSrc[readingData.onOffLoadDtos.get(position).offLoadStateId]);
+    }
 
-        @Override
-        protected void onPostExecute(Integer integer) {
-            dialog.dismiss();
-            super.onPostExecute(integer);
-        }
+    void setIsBazdidImage(int position) {
+        if (readingData.onOffLoadDtos.get(position).isBazdid)
+            binding.imageViewReadingType.setImageResource(imageSrc[6]);
+        else binding.imageViewReadingType.setImageResource(imageSrc[7]);
+    }
 
-
-        @Override
-        protected Integer doInBackground(Integer... integers) {
-            readingData = CustomFile.readData();
-            runOnUiThread(ReadingActivity.this::setupViewPager);
-            return null;
-        }
+    void setHighLowImage(int position) {
+        if (!currentRead[binding.viewPager.getCurrentItem()]) {
+            if (readingData.onOffLoadDtos.get(position).highLowStateId == null)
+                binding.imageViewHighLowState.setImageResource(imageSrc[0]);
+            else
+                binding.imageViewHighLowState.setImageResource(
+                        imageSrc[readingData.onOffLoadDtos.get(position).highLowStateId]);
+        } else binding.imageViewHighLowState.setImageResource(imageSrcCurrentHighLow[position]);
     }
 
     void setOnImageViewsClickListener() {
@@ -135,6 +146,59 @@ public class ReadingActivity extends BaseActivity {
         });
     }
 
+    void setAboveIcons() {
+        imageSrc[0] = R.drawable.img_default_level;
+        imageSrc[1] = R.drawable.img_normal_level;
+        imageSrc[2] = R.drawable.img_high_level;
+        imageSrc[3] = R.drawable.img_low_level;
+        imageSrc[4] = R.drawable.img_low_level;
+        imageSrc[5] = R.drawable.img_visit_default;
+        imageSrc[6] = R.drawable.img_visit;
+        imageSrc[7] = R.drawable.img_writing;
+        imageSrc[8] = R.drawable.img_successful_default;
+        imageSrc[9] = R.drawable.img_successful;
+        imageSrc[10] = R.drawable.img_mistake;
+        imageSrc[11] = R.drawable.img_failure;
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    class getDBData extends AsyncTask<Integer, Integer, Integer> {
+        ProgressDialog dialog;
+
+        public getDBData() {
+            super();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(activity);
+            dialog.setMessage(getString(R.string.loading_getting_info));
+            dialog.setTitle(getString(R.string.loading_connecting));
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            dialog.dismiss();
+            super.onPostExecute(integer);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            //TODO
+            readingData = CustomFile.readData();
+            if (readingData.onOffLoadDtos != null && readingData.onOffLoadDtos.size() > 0) {
+                imageSrcCurrentHighLow = new int[readingData.onOffLoadDtos.size()];
+                currentRead = new boolean[readingData.onOffLoadDtos.size()];
+                setAboveIconsSrc(0);
+                runOnUiThread(ReadingActivity.this::setupViewPager);
+            }
+            return null;
+        }
+    }
+
     void setOnPageChangeListener() {
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -142,6 +206,7 @@ public class ReadingActivity extends BaseActivity {
                                        int positionOffsetPixels) {
                 final String number = (position + 1) + "/" + readingData.onOffLoadDtos.size();
                 runOnUiThread(() -> binding.textViewPageNumber.setText(number));
+                setAboveIconsSrc(position);
             }
 
             @Override
@@ -172,6 +237,7 @@ public class ReadingActivity extends BaseActivity {
                 askStoragePermission();
             } else {
                 gpsTracker = new GPSTracker(activity);
+                setAboveIcons();
                 new getDBData().execute();
                 setOnImageViewsClickListener();
             }
