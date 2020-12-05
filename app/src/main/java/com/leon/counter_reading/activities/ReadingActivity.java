@@ -60,7 +60,9 @@ public class ReadingActivity extends BaseActivity {
     }
 
     public void updateOnOffLoad(int position, int type, int number) {
-
+        //TODO
+        if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
+            binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
     }
 
     @SuppressLint("StaticFieldLeak")
