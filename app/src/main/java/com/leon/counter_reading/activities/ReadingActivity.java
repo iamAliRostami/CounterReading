@@ -43,9 +43,9 @@ public class ReadingActivity extends BaseActivity {
     ActivityReadingBinding binding;
     Activity activity;
     GPSTracker gpsTracker;
-    private boolean isFlashOn = false, isNight = false;
-    private IFlashLightManager flashLightManager;
+    IFlashLightManager flashLightManager;
     ReadingData readingData;
+    boolean isFlashOn = false, isNight = false;
 
     @Override
     protected void initialize() {
@@ -57,6 +57,10 @@ public class ReadingActivity extends BaseActivity {
         if (isNetworkAvailable(getApplicationContext()))
             checkPermissions();
         else PermissionManager.enableNetwork(this);
+    }
+
+    public void updateOnOffLoad(int position, int type, int number) {
+
     }
 
     @SuppressLint("StaticFieldLeak")

@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import androidx.fragment.app.DialogFragment;
 
 import com.leon.counter_reading.R;
+import com.leon.counter_reading.activities.ReadingActivity;
 import com.leon.counter_reading.databinding.FragmentAreYouSureBinding;
 import com.leon.counter_reading.enums.BundleEnum;
 import com.leon.counter_reading.enums.HighLowStateEnum;
@@ -54,6 +55,7 @@ public class AreYouSureFragment extends DialogFragment {
 
     void initialize() {
         setTextViewMessage();
+        setOnButtonsClickListener();
     }
 
     void setTextViewMessage() {
@@ -63,6 +65,14 @@ public class AreYouSureFragment extends DialogFragment {
             binding.textViewAreYouSure.setText(getString(R.string.low_use));
         else if (type == HighLowStateEnum.ZERO.getValue())
             binding.textViewAreYouSure.setText(getString(R.string.zero_use));
+    }
+
+    void setOnButtonsClickListener() {
+        binding.buttonSubmit.setOnClickListener(v -> {
+            ((ReadingActivity) getActivity()).updateOnOffLoad(position, type, currentNumber);
+            dismiss();
+        });
+        binding.buttonClose.setOnClickListener(v -> dismiss());
     }
 
     @Override

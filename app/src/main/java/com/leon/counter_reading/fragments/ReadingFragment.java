@@ -1,6 +1,5 @@
 package com.leon.counter_reading.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.gson.Gson;
 import com.leon.counter_reading.R;
+import com.leon.counter_reading.activities.ReadingActivity;
 import com.leon.counter_reading.databinding.FragmentReadingBinding;
 import com.leon.counter_reading.enums.BundleEnum;
 import com.leon.counter_reading.enums.HighLowStateEnum;
@@ -26,32 +26,10 @@ public class ReadingFragment extends Fragment {
     ReadingData.QotrDictionary qotrDictionary;
     FragmentReadingBinding binding;
     int position;
-    Context context;
 
     public ReadingFragment() {
     }
 
-    public static ReadingFragment newInstance(
-            ReadingData.OnOffLoadDto onOffLoadDto,
-            ReadingData.ReadingConfigDefaultDto readingConfigDefaultDto,
-            ReadingData.KarbariDto karbariDto,
-            ReadingData.QotrDictionary qotrDictionary,
-            int position) {
-        ReadingFragment fragment = new ReadingFragment();
-        Bundle args = new Bundle();
-        Gson gson = new Gson();
-        String json1 = gson.toJson(onOffLoadDto);
-        String json2 = gson.toJson(readingConfigDefaultDto);
-        String json3 = gson.toJson(karbariDto);
-        String json4 = gson.toJson(qotrDictionary);
-        args.putString(BundleEnum.ON_OFF_LOAD.getValue(), json1);
-        args.putString(BundleEnum.READING_CONFIG.getValue(), json2);
-        args.putString(BundleEnum.KARBARI_DICTONARY.getValue(), json3);
-        args.putString(BundleEnum.QOTR_DICTIONARY.getValue(), json4);
-        args.putInt(BundleEnum.POSITION.getValue(), position);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,22 +90,61 @@ public class ReadingFragment extends Fragment {
                 view.requestFocus();
             } else {
                 int currentNumber = Integer.parseInt(binding.editTextNumber.getText().toString());
-                switch (Counting.checkHighLow(onOffLoadDto, karbariDto, readingConfigDefaultDto, currentNumber)) {
-                    case 1:
-                        areYouSureFragment = AreYouSureFragment.newInstance(
-                                position, currentNumber, HighLowStateEnum.HIGH.getValue());
-                        fragmentTransaction.beginTransaction().show(areYouSureFragment);
-                        break;
-                    case -1:
-                        fragmentTransaction = getFragmentManager();
-                        areYouSureFragment = AreYouSureFragment.newInstance(
-                                position, currentNumber, HighLowStateEnum.LOW.getValue());
-                        fragmentTransaction.beginTransaction().show(areYouSureFragment);
-                        break;
-                    case 0:
-                        break;
-                }
+                if (currentNumber == onOffLoadDto.preNumber) {
+                    areYouSureFragment = AreYouSureFragment.newInstance(
+                            position, currentNumber, HighLowStateEnum.ZERO.getValue());
+                    fragmentTransaction.beginTransaction().show(areYouSureFragment);
+                } else
+                    switch (Counting.checkHighLow(onOffLoadDto, karbariDto, readingConfigDefaultDto,
+                            currentNumber)) {
+                        case 1:
+                            areYouSureFragment = AreYouSureFragment.newInstance(
+                                    position, currentNumber, HighLowStateEnum.HIGH.getValue());
+                            fragmentTransaction.beginTransaction().show(areYouSureFragment);
+                            break;
+                        case -1:
+                            fragmentTransaction = getFragmentManager();
+                            areYouSureFragment = AreYouSureFragment.newInstance(
+                                    position, currentNumber, HighLowStateEnum.LOW.getValue());
+                            fragmentTransaction.beginTransaction().show(areYouSureFragment);
+                            break;
+                        case 0:
+                            ((ReadingActivity) getActivity()).updateOnOffLoad(position,
+                                    HighLowStateEnum.NORMAL.getValue(), currentNumber);
+                            break;
+                    }
             }
         });
+    }
+
+    public static ReadingFragment newInstance(
+            ReadingData.OnOffLoadDto onOffLoadDto,
+            ReadingData.ReadingConfigDefaultDto readingConfigDefaultDto,
+            ReadingData.KarbariDto karbariDto,
+            ReadingData.QotrDictionary qotrDictionary,
+            int position) {
+        ReadingFragment fragment = new ReadingFragment();
+        fragment.setArguments(putBundle(onOffLoadDto, readingConfigDefaultDto, karbariDto,
+                qotrDictionary, position));
+        return fragment;
+    }
+
+    static Bundle putBundle(ReadingData.OnOffLoadDto onOffLoadDto,
+                            ReadingData.ReadingConfigDefaultDto readingConfigDefaultDto,
+                            ReadingData.KarbariDto karbariDto,
+                            ReadingData.QotrDictionary qotrDictionary,
+                            int position) {
+        Bundle args = new Bundle();
+        Gson gson = new Gson();
+        String json1 = gson.toJson(onOffLoadDto);
+        String json2 = gson.toJson(readingConfigDefaultDto);
+        String json3 = gson.toJson(karbariDto);
+        String json4 = gson.toJson(qotrDictionary);
+        args.putString(BundleEnum.ON_OFF_LOAD.getValue(), json1);
+        args.putString(BundleEnum.READING_CONFIG.getValue(), json2);
+        args.putString(BundleEnum.KARBARI_DICTONARY.getValue(), json3);
+        args.putString(BundleEnum.QOTR_DICTIONARY.getValue(), json4);
+        args.putInt(BundleEnum.POSITION.getValue(), position);
+        return args;
     }
 }
