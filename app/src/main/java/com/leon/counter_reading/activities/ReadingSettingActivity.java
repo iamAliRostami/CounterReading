@@ -1,7 +1,10 @@
 package com.leon.counter_reading.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Debug;
 import android.view.View;
 
@@ -14,11 +17,17 @@ import com.leon.counter_reading.base_items.BaseActivity;
 import com.leon.counter_reading.databinding.ActivityReadingSettingBinding;
 import com.leon.counter_reading.fragments.ReadingSettingDeleteFragment;
 import com.leon.counter_reading.fragments.ReadingSettingFragment;
+import com.leon.counter_reading.tables.ReadingData;
+import com.leon.counter_reading.utils.CustomFile;
 import com.leon.counter_reading.utils.DepthPageTransformer;
+
+import java.util.ArrayList;
 
 public class ReadingSettingActivity extends BaseActivity {
     ActivityReadingSettingBinding binding;
-    private int previousState, currentState;
+    int previousState, currentState;
+    ArrayList<ReadingData.ReadingConfigDefaultDto> readingConfigDefaultDtos;
+    Activity activity;
 
     @Override
     protected void initialize() {
@@ -26,8 +35,46 @@ public class ReadingSettingActivity extends BaseActivity {
         View childLayout = binding.getRoot();
         ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
-        setupViewPager();
+        activity = this;
+        new getDBData().execute();
         initializeTextViews();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    class getDBData extends AsyncTask<Integer, Integer, Integer> {
+        ProgressDialog dialog;
+
+        public getDBData() {
+            super();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(activity);
+            dialog.setMessage(getString(R.string.loading_getting_info));
+            dialog.setTitle(getString(R.string.loading_connecting));
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            dialog.dismiss();
+            super.onPostExecute(integer);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            //TODO
+            readingConfigDefaultDtos = new ArrayList<>();
+            ReadingData readingData = CustomFile.readData();
+            if (readingData.onOffLoadDtos != null && readingData.onOffLoadDtos.size() > 0) {
+                readingConfigDefaultDtos = readingData.readingConfigDefaultDtos;
+            }
+            runOnUiThread(ReadingSettingActivity.this::setupViewPager);
+            return null;
+        }
     }
 
     void initializeTextViews() {

@@ -8,8 +8,9 @@ public class ReadingData {
     public ArrayList<ReadingConfigDefaultDto> readingConfigDefaultDtos;
     public ArrayList<KarbariDto> karbariDtos;
     public ArrayList<QotrDictionary> qotrDictionary;
+    public ArrayList<CounterStateDto> counterStateDtos;
 
-    public class TrackingDto{
+    public class TrackingDto {
         public String id;
         public int trackNumber;
         public String listNumber;
@@ -31,7 +32,7 @@ public class ReadingData {
         public boolean displayRadif;
     }
 
-    public class OnOffLoadDto{
+    public class OnOffLoadDto {
         public String id;
         public String billId;
         public int radif;
@@ -63,7 +64,7 @@ public class ReadingData {
         public int hazf;
         public int noeVagozariId;
         public int counterNumber;
-        public String counterStateId;
+        public int counterStateId;
         public String possibleAddress;
         public String possibleCounterSerial;
         public String possibleEshterak;
@@ -75,14 +76,13 @@ public class ReadingData {
         public String possibleKarbariCode;
         public String description;
         public int zoneId;
-
         //TODO
         public int offLoadStateId;
-        public Integer highLowStateId;
+        public int highLowStateId;
         public boolean isBazdid;
     }
 
-    public class ReadingConfigDefaultDto{
+    public class ReadingConfigDefaultDto {
         public int id;
         public int zoneId;
         public int defaultAlalHesab;
@@ -113,7 +113,7 @@ public class ReadingData {
         public String zone;
     }
 
-    public class KarbariDto{
+    public class KarbariDto {
         public int id;
         public int moshtarakinId;
         public String title;
@@ -123,9 +123,24 @@ public class ReadingData {
         public boolean hasReadingVibrate;
     }
 
-    public class QotrDictionary{
+    public class QotrDictionary {
         public int id;
         public String title;
         public boolean isSelected;
+    }
+
+    public class CounterStateDto {
+        public int id;
+        public int moshtarakinId;
+        public String title;
+        public int zoneId;
+        public int clientOrder;
+        public boolean canEnterNumber;
+        public boolean isMane;
+        public boolean canNumberBeLessThanPre;
+        public boolean isTavizi;
+        public boolean shouldEnterNumber;
+        public boolean isXarab;
+        public boolean isFaqed;
     }
 }

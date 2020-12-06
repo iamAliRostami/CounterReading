@@ -141,7 +141,7 @@ public class CustomFile {
             Log.e("Error", ignored.toString());
         }
         String json = text.toString();
-        Log.e("json", json);
+//        Log.e("json", json);
 
         Gson gson = new GsonBuilder().create();
         return gson.fromJson(json, ReadingData.class);

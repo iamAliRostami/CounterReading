@@ -45,11 +45,11 @@ public class ReadingActivity extends BaseActivity {
     Activity activity;
     GPSTracker gpsTracker;
     IFlashLightManager flashLightManager;
-    ReadingData readingData;
     boolean isFlashOn = false, isNight = false;
-    final int[] imageSrc = new int[11];
-    int[] imageSrcCurrentHighLow;
+    final int[] imageSrc = new int[12];
     boolean[] currentRead;
+    ReadingData readingData;
+    ArrayList<String> items = new ArrayList<>();
 
     @Override
     protected void initialize() {
@@ -63,34 +63,29 @@ public class ReadingActivity extends BaseActivity {
         else PermissionManager.enableNetwork(this);
     }
 
-    public void updateOnOffLoad(int position, int type, int number) {
+    public void updateOnOffLoadByCounterNumber(int position, int type, int number) {
         //TODO
         readingData.onOffLoadDtos.get(position).isBazdid = true;
         readingData.onOffLoadDtos.get(position).highLowStateId = type;
         readingData.onOffLoadDtos.get(position).offLoadStateId = OffloadStateEnum.INSERTED.getValue();
-        attemptSend(imageSrc[type]);
-//        if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
-//            binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
+        readingData.onOffLoadDtos.get(position).counterNumber = number;
+        attemptSend(position);
+        if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
+            binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
     }
 
-    void attemptSend(int src) {
+    void attemptSend(int position) {
         //TODO
-//        currentRead[binding.viewPager.getCurrentItem()] = true;
-//        imageSrcCurrentHighLow[binding.viewPager.getCurrentItem()] = src;
-        setAboveIconsSrc(binding.viewPager.getCurrentItem());
+        currentRead[binding.viewPager.getCurrentItem()] = true;
+        setAboveIconsSrc(position);
     }
 
     void setAboveIconsSrc(int position) {
         runOnUiThread(() -> {
+            setIsBazdidImage(position);
             setHighLowImage(position);
             setReadStatusImage(position);
-            setIsBazdidImage(position);
         });
-    }
-
-    void setReadStatusImage(int position) {
-        binding.imageViewOffLoadState.setImageResource(
-                imageSrc[readingData.onOffLoadDtos.get(position).offLoadStateId]);
     }
 
     void setIsBazdidImage(int position) {
@@ -99,14 +94,16 @@ public class ReadingActivity extends BaseActivity {
         else binding.imageViewReadingType.setImageResource(imageSrc[7]);
     }
 
+    void setReadStatusImage(int position) {
+        binding.imageViewOffLoadState.setImageResource(
+                imageSrc[readingData.onOffLoadDtos.get(position).offLoadStateId]);
+        if (readingData.onOffLoadDtos.get(position).offLoadStateId == 0)
+            binding.imageViewOffLoadState.setImageResource(imageSrc[8]);
+    }
+
     void setHighLowImage(int position) {
-        if (!currentRead[binding.viewPager.getCurrentItem()]) {
-            if (readingData.onOffLoadDtos.get(position).highLowStateId == null)
-                binding.imageViewHighLowState.setImageResource(imageSrc[0]);
-            else
-                binding.imageViewHighLowState.setImageResource(
-                        imageSrc[readingData.onOffLoadDtos.get(position).highLowStateId]);
-        } else binding.imageViewHighLowState.setImageResource(imageSrcCurrentHighLow[position]);
+        binding.imageViewHighLowState.setImageResource(
+                imageSrc[readingData.onOffLoadDtos.get(position).highLowStateId]);
     }
 
     void setOnImageViewsClickListener() {
@@ -190,10 +187,9 @@ public class ReadingActivity extends BaseActivity {
             //TODO
             readingData = CustomFile.readData();
             if (readingData.onOffLoadDtos != null && readingData.onOffLoadDtos.size() > 0) {
-                imageSrcCurrentHighLow = new int[readingData.onOffLoadDtos.size()];
                 currentRead = new boolean[readingData.onOffLoadDtos.size()];
-                setAboveIconsSrc(0);
                 runOnUiThread(ReadingActivity.this::setupViewPager);
+                setAboveIconsSrc(0);
             }
             return null;
         }
@@ -222,11 +218,13 @@ public class ReadingActivity extends BaseActivity {
     }
 
     void setupViewPager() {
-        ViewPagerAdapterReading adapter = new ViewPagerAdapterReading(getSupportFragmentManager(),
-                FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, readingData);
-        binding.viewPager.setAdapter(adapter);
-        setOnPageChangeListener();
+        ViewPagerAdapterReading viewPagerAdapterReading =
+                new ViewPagerAdapterReading(getSupportFragmentManager(),
+                        FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
+                        readingData);
+        binding.viewPager.setAdapter(viewPagerAdapterReading);
         binding.viewPager.setPageTransformer(true, new DepthPageTransformer());
+        setOnPageChangeListener();
     }
 
     void checkPermissions() {

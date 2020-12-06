@@ -13,17 +13,19 @@ import com.leon.counter_reading.tables.ReadingData;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
-    static int position;
-    ReadingData readingData;
+import java.util.ArrayList;
 
-    public ViewPagerAdapterReading(@NonNull FragmentManager fm, int behavior, ReadingData readingData) {
+public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
+    ReadingData readingData;
+    ArrayList<String> items = new ArrayList<>();
+
+    public ViewPagerAdapterReading(@NonNull FragmentManager fm, int behavior,
+                                   ReadingData readingData) {
         super(fm, behavior);
         this.readingData = readingData;
-    }
-
-    public static int getPosition() {
-        return position;
+        for (int i = 0; i < readingData.counterStateDtos.size(); i++) {
+            items.add(readingData.counterStateDtos.get(i).title);
+        }
     }
 
     @NotNull
@@ -49,7 +51,8 @@ public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
 
         }
         return ReadingFragment.newInstance(readingData.onOffLoadDtos.get(position),
-                readingConfigDefaultDtoTemp, karbariDtoTemp, qotrDictionaryTemp, position);
+                readingConfigDefaultDtoTemp, karbariDtoTemp, qotrDictionaryTemp,
+                readingData.counterStateDtos, items, position);
     }
 
     @Override

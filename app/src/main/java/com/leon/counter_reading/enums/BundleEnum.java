@@ -7,6 +7,8 @@ public enum BundleEnum {
     READING_CONFIG("reading_config"),
     KARBARI_DICTONARY("karbari_dictionary"),
     QOTR_DICTIONARY("qotr_dictionary"),
+    COUNTER_STATE("counter_State"),
+    COUNTER_STATE_ADAPTER("counter_State_adapter"),
     POSITION("position"),
     NUMBER("number"),
     TYPE("type");
