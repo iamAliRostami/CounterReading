@@ -8,4 +8,7 @@
         android:right="@dimen/small_dp"
         android:top="@dimen/small_dp" />
     <solid android:color="@color/milky" />
+    <stroke
+        android:width="@dimen/small_dp"
+        android:color="@color/gray" />
 </shape>
