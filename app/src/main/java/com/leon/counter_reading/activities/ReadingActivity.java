@@ -47,9 +47,9 @@ public class ReadingActivity extends BaseActivity {
     GPSTracker gpsTracker;
     IFlashLightManager flashLightManager;
     boolean isFlashOn = false, isNight = false;
+    ReadingData readingData;
     final int[] imageSrc = new int[12];
     boolean[] currentRead;
-    ReadingData readingData;
 
     @Override
     protected void initialize() {
@@ -63,6 +63,13 @@ public class ReadingActivity extends BaseActivity {
         else PermissionManager.enableNetwork(this);
     }
 
+    public void updateOnOffLoadWithoutCounterNumber(int position, int counterStateCode,
+                                                    int counterStatePosition) {
+        readingData.onOffLoadDtos.get(position).counterStatePosition = counterStatePosition;
+        readingData.onOffLoadDtos.get(position).counterStateId = counterStateCode;
+        //TODO
+    }
+
     public void updateOnOffLoadByCounterSerial(int position, int counterStatePosition,
                                                int counterStateCode, String counterSerial) {
         //TODO
@@ -71,12 +78,21 @@ public class ReadingActivity extends BaseActivity {
         readingData.onOffLoadDtos.get(position).counterStatePosition = counterStatePosition;
     }
 
-    public void updateOnOffLoadByCounterNumber(int position, int type, int number) {
+    public void updateOnOffLoadByCounterNumber(int position, int number, int counterStateCode,
+                                               int counterStatePosition) {
         //TODO
         readingData.onOffLoadDtos.get(position).isBazdid = true;
-        readingData.onOffLoadDtos.get(position).highLowStateId = type;
         readingData.onOffLoadDtos.get(position).offLoadStateId = OffloadStateEnum.INSERTED.getValue();
         readingData.onOffLoadDtos.get(position).counterNumber = number;
+        readingData.onOffLoadDtos.get(position).counterStatePosition = counterStatePosition;
+        readingData.onOffLoadDtos.get(position).counterStateId = counterStateCode;
+    }
+
+    public void updateOnOffLoadByCounterNumber(int position, int number, int counterStateCode,
+                                               int counterStatePosition, int type) {
+        //TODO
+        updateOnOffLoadByCounterNumber(position, number, counterStateCode, counterStatePosition);
+        readingData.onOffLoadDtos.get(position).highLowStateId = type;
         attemptSend(position);
         if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
             binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);

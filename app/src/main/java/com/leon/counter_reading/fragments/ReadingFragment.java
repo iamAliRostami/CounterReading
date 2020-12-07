@@ -26,15 +26,18 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class ReadingFragment extends Fragment {
-    ArrayList<ReadingData.CounterStateDto> counterStateDtos = new ArrayList<>();
     SpinnerCustomAdapter adapter;
     ReadingData.OnOffLoadDto onOffLoadDto;
     ReadingData.ReadingConfigDefaultDto readingConfigDefaultDto;
     ReadingData.KarbariDto karbariDto;
     ReadingData.QotrDictionary qotrDictionary;
+    ArrayList<ReadingData.CounterStateDto> counterStateDtos = new ArrayList<>();
     ArrayList<String> items = new ArrayList<>();
     FragmentReadingBinding binding;
     int position;
+    int counterStateCode;
+    int counterStatePosition;
+    boolean canBeEmpty, canLessThanPre;
 
     public ReadingFragment() {
     }
@@ -62,9 +65,13 @@ public class ReadingFragment extends Fragment {
     void initializeSpinner() {
         adapter = new SpinnerCustomAdapter(getActivity(), items);
         binding.spinner.setAdapter(adapter);
-        for (int i = 0; i < counterStateDtos.size(); i++)
-            if (counterStateDtos.get(i).moshtarakinId == onOffLoadDto.preCounterStateCode)
-                binding.spinner.setSelection(i);
+        if (onOffLoadDto.counterStatePosition != null)
+            binding.spinner.setSelection(onOffLoadDto.counterStatePosition);
+        else {
+            for (int i = 0; i < counterStateDtos.size(); i++)
+                if (counterStateDtos.get(i).moshtarakinId == onOffLoadDto.preCounterStateCode)
+                    binding.spinner.setSelection(i);
+        }
         setOnSpinnerSelectedListener();
     }
 
@@ -72,8 +79,24 @@ public class ReadingFragment extends Fragment {
         //TODO
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("selected", String.valueOf(position));
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
+                Log.e("selected", String.valueOf(i));
+                counterStatePosition = i;
+                counterStateCode = counterStateDtos.get(counterStatePosition).moshtarakinId;
+                if (onOffLoadDto.counterStatePosition == null ||
+                        onOffLoadDto.counterStatePosition != binding.spinner.getSelectedItemPosition()) {
+                    ReadingData.CounterStateDto counterStateDto = counterStateDtos.get(i);
+                    binding.editTextNumber.setEnabled(counterStateDto.canEnterNumber
+                            || counterStateDto.shouldEnterNumber);
+                    canBeEmpty = !counterStateDto.shouldEnterNumber;
+                    canLessThanPre = counterStateDto.canNumberBeLessThanPre;
+                    if ((counterStateDto.isTavizi || counterStateDto.isXarab) &&
+                            counterStateDto.moshtarakinId != onOffLoadDto.preCounterStateCode) {
+                        SerialFragment serialFragment = SerialFragment.newInstance(position,
+                                counterStateDto.moshtarakinId, counterStatePosition);
+                        serialFragment.show(getFragmentManager(), getString(R.string.counter_serial));
+                    }
+                }
             }
 
             @Override
@@ -94,6 +117,9 @@ public class ReadingFragment extends Fragment {
         binding.textViewAhadAsli.setText(String.valueOf(onOffLoadDto.ahadMaskooniOrAsli));
         binding.textViewAhadForosh.setText(String.valueOf(onOffLoadDto.ahadTejariOrFari));
         binding.textViewAhadMasraf.setText(String.valueOf(onOffLoadDto.ahadSaierOrAbBaha));
+        if (readingConfigDefaultDto.isOnQeraatCode)
+            binding.textViewCode.setText(onOffLoadDto.qeraatCode);
+        else binding.textViewCode.setText(onOffLoadDto.eshterak);
 
         binding.textViewKarbari.setText(karbariDto.title);
         binding.textViewBranch.setText(qotrDictionary.title);
@@ -101,42 +127,73 @@ public class ReadingFragment extends Fragment {
 
     void onButtonSubmitClickListener() {
         binding.buttonSubmit.setOnClickListener(v -> {
-            editTextNumberCanNotBeEmpty();
+            if (canBeEmpty) {
+                canBeEmpty();
+            } else {
+                canNotBeEmpty();
+            }
         });
     }
 
-    void editTextNumberCanNotBeEmpty() {
-        FragmentTransaction fragmentTransaction = ((FragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction();
-        AreYouSureFragment areYouSureFragment;
+    void canBeEmpty() {
+        //TODO
+    }
+
+    void canNotBeEmpty() {
+        View view = binding.editTextNumber;
         if (binding.editTextNumber.getText().toString().isEmpty()) {
-            View view = binding.editTextNumber;
             binding.editTextNumber.setError(getString(R.string.counter_empty));
             view.requestFocus();
         } else {
             int currentNumber = Integer.parseInt(binding.editTextNumber.getText().toString());
-            if (currentNumber == onOffLoadDto.preNumber) {
-                areYouSureFragment = AreYouSureFragment.newInstance(
-                        position, currentNumber, HighLowStateEnum.ZERO.getValue());
-                areYouSureFragment.show(fragmentTransaction, getString(R.string.use_out_of_range));
+            int use = currentNumber - onOffLoadDto.preNumber;
+            if (canLessThanPre) {
+                lessThanPre(currentNumber);
+            } else if (!canLessThanPre && use < 0) {
+                binding.editTextNumber.setError(getString(R.string.counter_empty));
+                view.requestFocus();
             } else {
-                int status = Counting.checkHighLow(onOffLoadDto, karbariDto, readingConfigDefaultDto,
-                        currentNumber);
-                switch (status) {
-                    case 1:
-                        areYouSureFragment = AreYouSureFragment.newInstance(
-                                position, currentNumber, HighLowStateEnum.HIGH.getValue());
-                        areYouSureFragment.show(fragmentTransaction, getString(R.string.use_out_of_range));
-                        break;
-                    case -1:
-                        areYouSureFragment = AreYouSureFragment.newInstance(
-                                position, currentNumber, HighLowStateEnum.LOW.getValue());
-                        areYouSureFragment.show(fragmentTransaction, getString(R.string.use_out_of_range));
-                        break;
-                    case 0:
-                        ((ReadingActivity) getActivity()).updateOnOffLoadByCounterNumber(position,
-                                HighLowStateEnum.NORMAL.getValue(), currentNumber);
-                        break;
-                }
+                notEmpty(currentNumber);
+            }
+        }
+    }
+
+    void lessThanPre(int currentNumber) {
+        //TODO
+        ((ReadingActivity) getActivity()).updateOnOffLoadByCounterNumber(position,
+                currentNumber, counterStateCode, counterStatePosition);
+    }
+
+    void notEmpty(int currentNumber) {
+        FragmentTransaction fragmentTransaction = ((FragmentActivity) getActivity())
+                .getSupportFragmentManager().beginTransaction();
+        AreYouSureFragment areYouSureFragment;
+        if (currentNumber == onOffLoadDto.preNumber) {
+            areYouSureFragment = AreYouSureFragment.newInstance(
+                    position, currentNumber, HighLowStateEnum.ZERO.getValue(),
+                    counterStateCode, counterStatePosition);
+            areYouSureFragment.show(fragmentTransaction, getString(R.string.use_out_of_range));
+        } else {
+            int status = Counting.checkHighLow(onOffLoadDto, karbariDto, readingConfigDefaultDto,
+                    currentNumber);
+            switch (status) {
+                case 1:
+                    areYouSureFragment = AreYouSureFragment.newInstance(
+                            position, currentNumber, HighLowStateEnum.HIGH.getValue(),
+                            counterStateCode, counterStatePosition);
+                    areYouSureFragment.show(fragmentTransaction, getString(R.string.use_out_of_range));
+                    break;
+                case -1:
+                    areYouSureFragment = AreYouSureFragment.newInstance(
+                            position, currentNumber, HighLowStateEnum.LOW.getValue(),
+                            counterStateCode, counterStatePosition);
+                    areYouSureFragment.show(fragmentTransaction, getString(R.string.use_out_of_range));
+                    break;
+                case 0:
+                    ((ReadingActivity) getActivity()).updateOnOffLoadByCounterNumber(position,
+                            currentNumber, counterStateCode, counterStatePosition,
+                            HighLowStateEnum.NORMAL.getValue());
+                    break;
             }
         }
     }

@@ -20,17 +20,22 @@ import java.util.Objects;
 
 public class AreYouSureFragment extends DialogFragment {
     FragmentAreYouSureBinding binding;
-    int position, currentNumber, type;
+    int position, currentNumber, type, counterStateCode, counterStatePosition;
 
     public AreYouSureFragment() {
     }
 
-    public static AreYouSureFragment newInstance(int position, int number, int type) {
+    public static AreYouSureFragment newInstance(int position, int number, int type,
+                                                 int counterStateCode, int counterStatePosition
+
+    ) {
         AreYouSureFragment fragment = new AreYouSureFragment();
         Bundle args = new Bundle();
         args.putInt(BundleEnum.POSITION.getValue(), position);
         args.putInt(BundleEnum.NUMBER.getValue(), number);
         args.putInt(BundleEnum.TYPE.getValue(), type);
+        args.putInt(BundleEnum.COUNTER_STATE_CODE.getValue(), counterStateCode);
+        args.putInt(BundleEnum.COUNTER_STATE_POSITION.getValue(), counterStatePosition);
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,6 +47,8 @@ public class AreYouSureFragment extends DialogFragment {
             currentNumber = getArguments().getInt(BundleEnum.NUMBER.getValue());
             position = getArguments().getInt(BundleEnum.POSITION.getValue());
             type = getArguments().getInt(BundleEnum.TYPE.getValue());
+            counterStateCode = getArguments().getInt(BundleEnum.COUNTER_STATE_CODE.getValue());
+            counterStatePosition = getArguments().getInt(BundleEnum.COUNTER_STATE_POSITION.getValue());
         }
     }
 
@@ -69,7 +76,8 @@ public class AreYouSureFragment extends DialogFragment {
 
     void setOnButtonsClickListener() {
         binding.buttonSubmit.setOnClickListener(v -> {
-            ((ReadingActivity) getActivity()).updateOnOffLoadByCounterNumber(position, type, currentNumber);
+            ((ReadingActivity) getActivity()).updateOnOffLoadByCounterNumber(position,
+                    currentNumber, counterStateCode, counterStatePosition, type);
             dismiss();
         });
         binding.buttonClose.setOnClickListener(v -> dismiss());

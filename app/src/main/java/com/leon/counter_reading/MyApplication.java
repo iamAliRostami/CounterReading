@@ -16,8 +16,8 @@ public class MyApplication extends Application {
     public static final int CAMERA_REQUEST = 1888;
     public static final int GALLERY_REQUEST = 1889;
     public static final int GPS_CODE = 1235;
-    public static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 2;
-    public static final long MIN_TIME_BW_UPDATES = 1000;
+    public static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
+    public static final long MIN_TIME_BW_UPDATES = 10000;
     public static final int TOAST_TEXT_SIZE = 20;
     public static int POSITION = -1;
 
