@@ -9,6 +9,8 @@ public enum BundleEnum {
     QOTR_DICTIONARY("qotr_dictionary"),
     COUNTER_STATE("counter_State"),
     COUNTER_STATE_ADAPTER("counter_State_adapter"),
+    COUNTER_STATE_POSITION("counter_state_position"),
+    COUNTER_STATE_CODE("counter_state_position"),
     POSITION("position"),
     NUMBER("number"),
     TYPE("type");

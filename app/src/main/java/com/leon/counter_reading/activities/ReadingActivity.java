@@ -37,6 +37,7 @@ import com.leon.counter_reading.utils.GPSTracker;
 import com.leon.counter_reading.utils.PermissionManager;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static com.leon.counter_reading.utils.PermissionManager.isNetworkAvailable;
 
@@ -49,7 +50,6 @@ public class ReadingActivity extends BaseActivity {
     final int[] imageSrc = new int[12];
     boolean[] currentRead;
     ReadingData readingData;
-    ArrayList<String> items = new ArrayList<>();
 
     @Override
     protected void initialize() {
@@ -61,6 +61,14 @@ public class ReadingActivity extends BaseActivity {
         if (isNetworkAvailable(getApplicationContext()))
             checkPermissions();
         else PermissionManager.enableNetwork(this);
+    }
+
+    public void updateOnOffLoadByCounterSerial(int position, int counterStatePosition,
+                                               int counterStateCode, String counterSerial) {
+        //TODO
+        readingData.onOffLoadDtos.get(position).possibleCounterSerial = counterSerial;
+        readingData.onOffLoadDtos.get(position).counterStateId = counterStateCode;
+        readingData.onOffLoadDtos.get(position).counterStatePosition = counterStatePosition;
     }
 
     public void updateOnOffLoadByCounterNumber(int position, int type, int number) {
@@ -187,6 +195,10 @@ public class ReadingActivity extends BaseActivity {
             //TODO
             readingData = CustomFile.readData();
             if (readingData.onOffLoadDtos != null && readingData.onOffLoadDtos.size() > 0) {
+                for (int i = 0; i < readingData.onOffLoadDtos.size(); i++) {
+                    Random random = new Random();
+                    readingData.onOffLoadDtos.get(i).preCounterStateCode = random.nextInt(9);
+                }
                 currentRead = new boolean[readingData.onOffLoadDtos.size()];
                 runOnUiThread(ReadingActivity.this::setupViewPager);
                 setAboveIconsSrc(0);

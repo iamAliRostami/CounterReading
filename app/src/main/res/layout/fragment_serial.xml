@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.leon.counter_reading.fragments.AreYouSureFragment">
+    tools:context=".fragments.SerialFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/low_dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/border_white_3"
         android:gravity="center"
         android:orientation="vertical"
         tools:ignore="UselessParent">
@@ -18,15 +18,22 @@
             android:layout_height="@dimen/small_dp"
             android:background="?attr/colorAccent" />
 
-        <TextView
-            android:id="@+id/text_view_are_you_sure"
+        <EditText
+            android:layout_margin="@dimen/low_dp"
+            android:id="@+id/edit_text_serial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/low_dp"
+            android:layout_marginLeft="@dimen/medium_dp"
+            android:layout_marginRight="@dimen/medium_dp"
+            android:background="@drawable/border_gray_2"
             android:gravity="center"
+            android:hint="@string/counter_body_number"
+            android:inputType="number"
+            android:maxLength="10"
+            android:maxLines="1"
             android:padding="@dimen/medium_dp"
-            android:textColor="@color/text_color_dark"
-            android:textSize="@dimen/text_size_large" />
+            android:textSize="@dimen/text_size_large"
+            tools:ignore="Autofill" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,7 +68,6 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_large"
                 android:textStyle="bold" />
-
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

@@ -15,7 +15,7 @@
         tools:ignore="UselessParent">
 
         <Spinner
-            android:id="@+id/spinnerSearch"
+            android:id="@+id/spinner_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -26,7 +26,7 @@
             android:gravity="center" />
 
         <EditText
-            android:id="@+id/editTextSearch"
+            android:id="@+id/edit_text_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/large_dp"
@@ -41,7 +41,7 @@
             tools:ignore="Autofill" />
 
         <Button
-            android:id="@+id/buttonSearch"
+            android:id="@+id/button_search"
             style="@style/text_bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

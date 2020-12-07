@@ -62,11 +62,14 @@ public class ReadingFragment extends Fragment {
     void initializeSpinner() {
         adapter = new SpinnerCustomAdapter(getActivity(), items);
         binding.spinner.setAdapter(adapter);
-        binding.spinner.setSelection(onOffLoadDto.counterStateId);
+        for (int i = 0; i < counterStateDtos.size(); i++)
+            if (counterStateDtos.get(i).moshtarakinId == onOffLoadDto.preCounterStateCode)
+                binding.spinner.setSelection(i);
         setOnSpinnerSelectedListener();
     }
 
     void setOnSpinnerSelectedListener() {
+        //TODO
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

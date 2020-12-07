@@ -80,6 +80,7 @@ public class ReadingData {
         public int offLoadStateId;
         public int highLowStateId;
         public boolean isBazdid;
+        public Integer counterStatePosition;
     }
 
     public class ReadingConfigDefaultDto {
