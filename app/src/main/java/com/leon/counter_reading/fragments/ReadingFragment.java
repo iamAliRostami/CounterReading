@@ -83,13 +83,13 @@ public class ReadingFragment extends Fragment {
                 Log.e("selected", String.valueOf(i));
                 counterStatePosition = i;
                 counterStateCode = counterStateDtos.get(counterStatePosition).moshtarakinId;
+                ReadingData.CounterStateDto counterStateDto = counterStateDtos.get(counterStatePosition);
+                binding.editTextNumber.setEnabled(counterStateDto.canEnterNumber
+                        || counterStateDto.shouldEnterNumber);
+                canBeEmpty = !counterStateDto.shouldEnterNumber;
+                canLessThanPre = counterStateDto.canNumberBeLessThanPre;
                 if (onOffLoadDto.counterStatePosition == null ||
                         onOffLoadDto.counterStatePosition != binding.spinner.getSelectedItemPosition()) {
-                    ReadingData.CounterStateDto counterStateDto = counterStateDtos.get(i);
-                    binding.editTextNumber.setEnabled(counterStateDto.canEnterNumber
-                            || counterStateDto.shouldEnterNumber);
-                    canBeEmpty = !counterStateDto.shouldEnterNumber;
-                    canLessThanPre = counterStateDto.canNumberBeLessThanPre;
                     if ((counterStateDto.isTavizi || counterStateDto.isXarab) &&
                             counterStateDto.moshtarakinId != onOffLoadDto.preCounterStateCode) {
                         SerialFragment serialFragment = SerialFragment.newInstance(position,
@@ -137,6 +137,21 @@ public class ReadingFragment extends Fragment {
 
     void canBeEmpty() {
         //TODO
+        if (binding.editTextNumber.getText().toString().isEmpty()) {
+            ((ReadingActivity) getActivity()).updateOnOffLoadWithoutCounterNumber(position,
+                    counterStateCode, counterStatePosition);
+
+        } else {
+            View view = binding.editTextNumber;
+            int currentNumber = Integer.parseInt(binding.editTextNumber.getText().toString());
+            int use = currentNumber - onOffLoadDto.preNumber;
+            if (canLessThanPre) {
+                lessThanPre(currentNumber);
+            } else if (!canLessThanPre && use < 0) {
+                binding.editTextNumber.setError(getString(R.string.less_than_pre));
+                view.requestFocus();
+            }
+        }
     }
 
     void canNotBeEmpty() {
@@ -150,7 +165,7 @@ public class ReadingFragment extends Fragment {
             if (canLessThanPre) {
                 lessThanPre(currentNumber);
             } else if (!canLessThanPre && use < 0) {
-                binding.editTextNumber.setError(getString(R.string.counter_empty));
+                binding.editTextNumber.setError(getString(R.string.less_than_pre));
                 view.requestFocus();
             } else {
                 notEmpty(currentNumber);

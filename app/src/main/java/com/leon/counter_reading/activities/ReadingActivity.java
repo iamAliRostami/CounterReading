@@ -67,6 +67,8 @@ public class ReadingActivity extends BaseActivity {
                                                     int counterStatePosition) {
         readingData.onOffLoadDtos.get(position).counterStatePosition = counterStatePosition;
         readingData.onOffLoadDtos.get(position).counterStateId = counterStateCode;
+        if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
+            binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
         //TODO
     }
 
@@ -76,6 +78,8 @@ public class ReadingActivity extends BaseActivity {
         readingData.onOffLoadDtos.get(position).possibleCounterSerial = counterSerial;
         readingData.onOffLoadDtos.get(position).counterStateId = counterStateCode;
         readingData.onOffLoadDtos.get(position).counterStatePosition = counterStatePosition;
+        if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
+            binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
     }
 
     public void updateOnOffLoadByCounterNumber(int position, int number, int counterStateCode,
@@ -86,6 +90,8 @@ public class ReadingActivity extends BaseActivity {
         readingData.onOffLoadDtos.get(position).counterNumber = number;
         readingData.onOffLoadDtos.get(position).counterStatePosition = counterStatePosition;
         readingData.onOffLoadDtos.get(position).counterStateId = counterStateCode;
+        if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
+            binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
     }
 
     public void updateOnOffLoadByCounterNumber(int position, int number, int counterStateCode,
@@ -94,8 +100,6 @@ public class ReadingActivity extends BaseActivity {
         updateOnOffLoadByCounterNumber(position, number, counterStateCode, counterStatePosition);
         readingData.onOffLoadDtos.get(position).highLowStateId = type;
         attemptSend(position);
-        if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
-            binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
     }
 
     void attemptSend(int position) {
