@@ -140,7 +140,6 @@ public class ReadingFragment extends Fragment {
         if (binding.editTextNumber.getText().toString().isEmpty()) {
             ((ReadingActivity) getActivity()).updateOnOffLoadWithoutCounterNumber(position,
                     counterStateCode, counterStatePosition);
-
         } else {
             View view = binding.editTextNumber;
             int currentNumber = Integer.parseInt(binding.editTextNumber.getText().toString());
