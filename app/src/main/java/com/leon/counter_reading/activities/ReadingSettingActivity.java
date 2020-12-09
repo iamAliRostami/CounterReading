@@ -17,8 +17,7 @@ import com.leon.counter_reading.base_items.BaseActivity;
 import com.leon.counter_reading.databinding.ActivityReadingSettingBinding;
 import com.leon.counter_reading.fragments.ReadingSettingDeleteFragment;
 import com.leon.counter_reading.fragments.ReadingSettingFragment;
-import com.leon.counter_reading.tables.ReadingData;
-import com.leon.counter_reading.utils.CustomFile;
+import com.leon.counter_reading.tables.ReadingConfigDefaultDto;
 import com.leon.counter_reading.utils.DepthPageTransformer;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ import java.util.ArrayList;
 public class ReadingSettingActivity extends BaseActivity {
     ActivityReadingSettingBinding binding;
     int previousState, currentState;
-    ArrayList<ReadingData.ReadingConfigDefaultDto> readingConfigDefaultDtos;
+    ArrayList<ReadingConfigDefaultDto> readingConfigDefaultDtos;
     Activity activity;
 
     @Override
@@ -67,12 +66,12 @@ public class ReadingSettingActivity extends BaseActivity {
         @Override
         protected Integer doInBackground(Integer... integers) {
             //TODO
-            readingConfigDefaultDtos = new ArrayList<>();
-            ReadingData readingData = CustomFile.readData();
-            if (readingData.onOffLoadDtos != null && readingData.onOffLoadDtos.size() > 0) {
-                readingConfigDefaultDtos = readingData.readingConfigDefaultDtos;
-            }
-            runOnUiThread(ReadingSettingActivity.this::setupViewPager);
+//            readingConfigDefaultDtos = new ArrayList<>();
+//            ReadingData readingData = CustomFile.readData();
+//            if (readingData.onOffLoadDtos != null && readingData.onOffLoadDtos.size() > 0) {
+//                readingConfigDefaultDtos = readingData.readingConfigDefaultDtos;
+//            }
+//            runOnUiThread(ReadingSettingActivity.this::setupViewPager);
             return null;
         }
     }

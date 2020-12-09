@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Debug;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -18,6 +19,7 @@ import com.leon.counter_reading.R;
 import com.leon.counter_reading.base_items.BaseActivity;
 import com.leon.counter_reading.databinding.ActivityHomeBinding;
 import com.leon.counter_reading.utils.CustomToast;
+import com.leon.counter_reading.utils.MyDatabaseClient;
 import com.leon.counter_reading.utils.PermissionManager;
 
 import java.util.ArrayList;
@@ -81,6 +83,7 @@ public class HomeActivity extends BaseActivity {
         ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
         activity = this;
+
         if (isNetworkAvailable(getApplicationContext()))
             checkPermissions();
         else PermissionManager.enableNetwork(this);

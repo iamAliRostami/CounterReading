@@ -1,6 +1,8 @@
 package com.leon.counter_reading.utils;
 
-import com.leon.counter_reading.tables.ReadingData;
+import com.leon.counter_reading.tables.KarbariDto;
+import com.leon.counter_reading.tables.OnOffLoadDto;
+import com.leon.counter_reading.tables.ReadingConfigDefaultDto;
 
 import static com.leon.counter_reading.utils.CalendarTool.findDifferentDays;
 
@@ -14,9 +16,9 @@ public class Counting {
         return dailyAverage(preNumber, currentNumber, preDate) * 30;
     }
 
-    public static int checkHighLow(ReadingData.OnOffLoadDto onOffLoadDto,
-                                   ReadingData.KarbariDto karbariDto,
-                                   ReadingData.ReadingConfigDefaultDto readingConfigDefaultDto,
+    public static int checkHighLow(OnOffLoadDto onOffLoadDto,
+                                   KarbariDto karbariDto,
+                                   ReadingConfigDefaultDto readingConfigDefaultDto,
                                    int currentNumber) {
         double average = monthlyAverage(onOffLoadDto.preNumber, currentNumber, onOffLoadDto.preDate);
         double preAverage = onOffLoadDto.preAverage;

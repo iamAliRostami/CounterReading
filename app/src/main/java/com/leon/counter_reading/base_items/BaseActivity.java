@@ -3,6 +3,7 @@ package com.leon.counter_reading.base_items;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +40,7 @@ import com.leon.counter_reading.enums.SharedReferenceNames;
 import com.leon.counter_reading.infrastructure.ISharedPreferenceManager;
 import com.leon.counter_reading.utils.CustomToast;
 import com.leon.counter_reading.utils.GPSTracker;
+import com.leon.counter_reading.utils.MyDatabaseClient;
 import com.leon.counter_reading.utils.SharedPreferenceManager;
 
 import java.util.ArrayList;
@@ -76,6 +78,10 @@ public abstract class BaseActivity extends AppCompatActivity
         overridePendingTransition(R.anim.slide_up_info, R.anim.no_change);
         binding = BaseActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        MyDatabaseClient.migration(this);
+        Log.e("size", String.valueOf(MyDatabaseClient.getInstance(this).getMyDatabase().savedLocationDao().getAllSavedLocations().size()));
+
         initializeBase();
         initialize();
     }

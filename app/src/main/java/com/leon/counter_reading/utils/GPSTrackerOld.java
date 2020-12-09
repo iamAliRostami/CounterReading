@@ -19,7 +19,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.leon.counter_reading.MyApplication;
 import com.leon.counter_reading.R;
-import com.leon.counter_reading.tables.SavedLocations;
+import com.leon.counter_reading.tables.SavedLocation;
 
 import org.osmdroid.config.Configuration;
 
@@ -38,7 +38,7 @@ public class GPSTrackerOld extends Service {
 
     GoogleApiClient googleApiClient;
 
-    ArrayList<SavedLocations> savedLocations = new ArrayList<>();
+    ArrayList<SavedLocation> savedLocations = new ArrayList<>();
     android.location.LocationListener locationListener = new android.location.LocationListener() {
         public void onLocationChanged(Location location) {
             if (locationManager != null)
@@ -46,7 +46,7 @@ public class GPSTrackerOld extends Service {
             if (location != null) {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
-                savedLocations.add(new SavedLocations(location.getAccuracy(), longitude, latitude));
+                savedLocations.add(new SavedLocation(location.getAccuracy(), longitude, latitude));
                 Log.e("accuracy 1", String.valueOf(location.getAccuracy()));
             }
         }
@@ -66,7 +66,7 @@ public class GPSTrackerOld extends Service {
                     if (location != null) {
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
-                        savedLocations.add(new SavedLocations(location.getAccuracy(), longitude, latitude));
+                        savedLocations.add(new SavedLocation(location.getAccuracy(), longitude, latitude));
                         Log.e("accuracy 2", String.valueOf(location.getAccuracy()));
                     }
                 }

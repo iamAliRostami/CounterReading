@@ -23,11 +23,14 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.leon.counter_reading.MyApplication;
 import com.leon.counter_reading.R;
-import com.leon.counter_reading.tables.SavedLocations;
+import com.leon.counter_reading.tables.SavedLocation;
 
 import org.osmdroid.config.Configuration;
 
 import java.util.ArrayList;
+
+import static com.leon.counter_reading.MyApplication.FASTEST_INTERVAL;
+import static com.leon.counter_reading.MyApplication.MIN_DISTANCE_CHANGE_FOR_UPDATES;
 
 public class GPSTracker extends Service {
     final Activity activity;
@@ -36,7 +39,7 @@ public class GPSTracker extends Service {
     double longitude;
     boolean checkGPS = false;
     boolean checkNetwork = false;
-    ArrayList<SavedLocations> savedLocations = new ArrayList<>();
+    ArrayList<SavedLocation> savedLocations = new ArrayList<>();
     Location location;
     LocationManager locationManager;
     FusedLocationProviderClient fusedLocationClient;
@@ -48,36 +51,16 @@ public class GPSTracker extends Service {
                 return;
             }
             for (Location location : locationResult.getLocations()) {
-                if (location != null) {
-                    latitude = location.getLatitude();
-                    longitude = location.getLongitude();
-                    savedLocations.add(new SavedLocations(location.getAccuracy(), longitude, latitude));
-                    Log.e("accuracy 3", String.valueOf(location.getAccuracy()));
-                }
+                addLocation(location);
             }
         }
     };
-    OnSuccessListener<Location> onSuccessListener = new OnSuccessListener<Location>() {
-        @Override
-        public void onSuccess(Location location) {
-            if (location != null) {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-                savedLocations.add(new SavedLocations(location.getAccuracy(), longitude, latitude));
-                Log.e("accuracy 2", String.valueOf(location.getAccuracy()));
-            }
-        }
-    };
+    OnSuccessListener<Location> onSuccessListener = this::addLocation;
     LocationListener locationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
             if (locationManager != null)
                 locationManager.removeUpdates(locationListener);
-            if (location != null) {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-                savedLocations.add(new SavedLocations(location.getAccuracy(), longitude, latitude));
-                Log.e("accuracy 1", String.valueOf(location.getAccuracy()));
-            }
+            addLocation(location);
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -101,6 +84,17 @@ public class GPSTracker extends Service {
         }
     }
 
+    void addLocation(Location location) {
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+            SavedLocation savedLocation = new SavedLocation(location.getAccuracy(), longitude, latitude);
+            MyDatabaseClient.getInstance(activity).getMyDatabase().savedLocationDao().insertSavedLocation(savedLocation);
+            savedLocations.add(savedLocation);
+            Log.e("accuracy " + String.valueOf(savedLocations.size() + 1), String.valueOf(savedLocation.accuracy));
+        }
+    }
+
     @SuppressLint("MissingPermission")
     void getLocation() {
         try {
@@ -119,7 +113,7 @@ public class GPSTracker extends Service {
                     locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
                             MyApplication.MIN_TIME_BW_UPDATES,
-                            MyApplication.MIN_DISTANCE_CHANGE_FOR_UPDATES, locationListener);//TODO
+                            MIN_DISTANCE_CHANGE_FOR_UPDATES, locationListener);//TODO
                     if (locationManager != null) {
                         location = locationManager
                                 .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -134,7 +128,7 @@ public class GPSTracker extends Service {
                         locationManager.requestLocationUpdates(
                                 LocationManager.GPS_PROVIDER,
                                 MyApplication.MIN_TIME_BW_UPDATES,
-                                MyApplication.MIN_DISTANCE_CHANGE_FOR_UPDATES, locationListener);//TODO
+                                MIN_DISTANCE_CHANGE_FOR_UPDATES, locationListener);//TODO
                     }
                     if (locationManager != null) {
                         location = locationManager
@@ -172,8 +166,9 @@ public class GPSTracker extends Service {
 
     void startFusedLocation() {
         locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(MyApplication.MIN_TIME_BW_UPDATES);
+        locationRequest.setFastestInterval(FASTEST_INTERVAL);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
         registerRequestUpdateGoogle();
     }
