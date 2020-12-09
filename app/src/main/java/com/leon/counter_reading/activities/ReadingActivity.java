@@ -33,7 +33,6 @@ import com.leon.counter_reading.utils.CustomFile;
 import com.leon.counter_reading.utils.CustomToast;
 import com.leon.counter_reading.utils.DepthPageTransformer;
 import com.leon.counter_reading.utils.FlashLightManager;
-import com.leon.counter_reading.utils.GPSTracker;
 import com.leon.counter_reading.utils.PermissionManager;
 
 import java.util.ArrayList;
@@ -44,7 +43,6 @@ import static com.leon.counter_reading.utils.PermissionManager.isNetworkAvailabl
 public class ReadingActivity extends BaseActivity {
     ActivityReadingBinding binding;
     Activity activity;
-    GPSTracker gpsTracker;
     IFlashLightManager flashLightManager;
     boolean isFlashOn = false, isNight = false;
     ReadingData readingData;
@@ -266,7 +264,6 @@ public class ReadingActivity extends BaseActivity {
             } else if (!PermissionManager.checkStoragePermission(getApplicationContext())) {
                 askStoragePermission();
             } else {
-                gpsTracker = new GPSTracker(activity);
                 setAboveIcons();
                 new getDBData().execute();
                 setOnImageViewsClickListener();
@@ -354,7 +351,6 @@ public class ReadingActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        gpsTracker.onBind(getIntent());
         Runtime.getRuntime().totalMemory();
         Runtime.getRuntime().freeMemory();
         Runtime.getRuntime().maxMemory();

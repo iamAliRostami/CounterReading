@@ -62,6 +62,25 @@ public class ReadingFragment extends Fragment {
         onButtonSubmitClickListener();
     }
 
+    void initializeViews() {
+        binding.textViewAddress.setText(onOffLoadDto.address);
+        binding.textViewName.setText(onOffLoadDto.firstName.concat(" ")
+                .concat(onOffLoadDto.sureName));
+        binding.textViewPreDate.setText(onOffLoadDto.preDate);
+        binding.textViewPreNumber.setText(String.valueOf(onOffLoadDto.preNumber));
+        binding.textViewSerial.setText(onOffLoadDto.counterSerial);
+        binding.textViewRadif.setText(String.valueOf(onOffLoadDto.radif));
+        binding.textViewAhadAsli.setText(String.valueOf(onOffLoadDto.ahadMaskooniOrAsli));
+        binding.textViewAhadForosh.setText(String.valueOf(onOffLoadDto.ahadTejariOrFari));
+        binding.textViewAhadMasraf.setText(String.valueOf(onOffLoadDto.ahadSaierOrAbBaha));
+        if (readingConfigDefaultDto.isOnQeraatCode)
+            binding.textViewCode.setText(onOffLoadDto.qeraatCode);
+        else binding.textViewCode.setText(onOffLoadDto.eshterak);
+
+        binding.textViewKarbari.setText(karbariDto.title);
+        binding.textViewBranch.setText(qotrDictionary.title);
+    }
+
     void initializeSpinner() {
         adapter = new SpinnerCustomAdapter(getActivity(), items);
         binding.spinner.setAdapter(adapter);
@@ -104,25 +123,6 @@ public class ReadingFragment extends Fragment {
 
             }
         });
-    }
-
-    void initializeViews() {
-        binding.textViewAddress.setText(onOffLoadDto.address);
-        binding.textViewName.setText(onOffLoadDto.firstName.concat(" ")
-                .concat(onOffLoadDto.sureName));
-        binding.textViewPreDate.setText(onOffLoadDto.preDate);
-        binding.textViewPreNumber.setText(String.valueOf(onOffLoadDto.preNumber));
-        binding.textViewSerial.setText(onOffLoadDto.counterSerial);
-        binding.textViewRadif.setText(String.valueOf(onOffLoadDto.radif));
-        binding.textViewAhadAsli.setText(String.valueOf(onOffLoadDto.ahadMaskooniOrAsli));
-        binding.textViewAhadForosh.setText(String.valueOf(onOffLoadDto.ahadTejariOrFari));
-        binding.textViewAhadMasraf.setText(String.valueOf(onOffLoadDto.ahadSaierOrAbBaha));
-        if (readingConfigDefaultDto.isOnQeraatCode)
-            binding.textViewCode.setText(onOffLoadDto.qeraatCode);
-        else binding.textViewCode.setText(onOffLoadDto.eshterak);
-
-        binding.textViewKarbari.setText(karbariDto.title);
-        binding.textViewBranch.setText(qotrDictionary.title);
     }
 
     void onButtonSubmitClickListener() {

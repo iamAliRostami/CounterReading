@@ -11,23 +11,21 @@ import androidx.multidex.MultiDex;
 import es.dmoral.toasty.Toasty;
 
 public class MyApplication extends Application {
-    public static final String FONT_NAME = "font/font_1.ttf";
+    public static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
+    public static final long MIN_TIME_BW_UPDATES = 10000;
     public static final int REQUEST_NETWORK_CODE = 1234;
     public static final int CAMERA_REQUEST = 1888;
     public static final int GALLERY_REQUEST = 1889;
     public static final int GPS_CODE = 1235;
-    public static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-    public static final long MIN_TIME_BW_UPDATES = 10000;
     public static final int TOAST_TEXT_SIZE = 20;
+    public static final String FONT_NAME = "font/font_1.ttf";
     public static int POSITION = -1;
-
     public static Bitmap bitmapSelectedImage;
     public static String fileName;
-    static Context appContext;
-
     public static Context getContext() {
         return appContext;
     }
+    static Context appContext;
 
     public static void onActivitySetTheme(Activity activity, int theme, boolean actionBar) {
         if (!actionBar) {

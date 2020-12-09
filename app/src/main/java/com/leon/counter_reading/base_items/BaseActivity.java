@@ -38,6 +38,7 @@ import com.leon.counter_reading.enums.SharedReferenceKeys;
 import com.leon.counter_reading.enums.SharedReferenceNames;
 import com.leon.counter_reading.infrastructure.ISharedPreferenceManager;
 import com.leon.counter_reading.utils.CustomToast;
+import com.leon.counter_reading.utils.GPSTracker;
 import com.leon.counter_reading.utils.SharedPreferenceManager;
 
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity
     List<NavigationDrawerAdapter.DrawerItem> dataList;
     BaseActivityBinding binding;
     ISharedPreferenceManager sharedPreferenceManager;
+    GPSTracker gpsTracker;
 
     protected abstract void initialize();
 
@@ -69,6 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity
             theme = sharedPreferenceManager.getIntData(SharedReferenceKeys.THEME_STABLE.getValue());
         }
         MyApplication.onActivitySetTheme(this, theme, false);
+        gpsTracker = new GPSTracker(this);
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         overridePendingTransition(R.anim.slide_up_info, R.anim.no_change);
         binding = BaseActivityBinding.inflate(getLayoutInflater());
@@ -189,8 +192,13 @@ public abstract class BaseActivity extends AppCompatActivity
         recyclerView.setNestedScrollingEnabled(true);
     }
 
+    public GPSTracker getGpsTracker() {
+        return gpsTracker;
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        gpsTracker.onBind(getIntent());
     }
 }

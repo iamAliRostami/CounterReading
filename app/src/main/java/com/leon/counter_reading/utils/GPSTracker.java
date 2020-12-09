@@ -19,8 +19,11 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.leon.counter_reading.MyApplication;
 import com.leon.counter_reading.R;
+import com.leon.counter_reading.tables.SavedLocations;
 
 import org.osmdroid.config.Configuration;
+
+import java.util.ArrayList;
 
 public class GPSTracker extends Service {
     final Activity activity;
@@ -33,13 +36,14 @@ public class GPSTracker extends Service {
     LocationManager locationManager;
     LocationRequest locationRequest;
     GoogleApiClient googleApiClient;
+    ArrayList<SavedLocations> savedLocations = new ArrayList<>();
     android.location.LocationListener locationListener = new android.location.LocationListener() {
         public void onLocationChanged(Location location) {
             if (locationManager != null)
                 locationManager.removeUpdates(locationListener);
             latitude = location.getLatitude();
             longitude = location.getLongitude();
-            Log.e("accuracy2", String.valueOf(location.getAccuracy()));
+            savedLocations.add(new SavedLocations(location.getAccuracy(), longitude, latitude));
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -56,7 +60,7 @@ public class GPSTracker extends Service {
                 public void onLocationChanged(Location location) {
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
-                    Log.e("accuracy1", String.valueOf(location.getAccuracy()));
+                    savedLocations.add(new SavedLocations(location.getAccuracy(), longitude, latitude));
                 }
 
                 public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -139,7 +143,7 @@ public class GPSTracker extends Service {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("error", e.toString());
+            Log.e("error on location", e.toString());
         }
         new Handler().postDelayed(this::getLocation, MyApplication.MIN_TIME_BW_UPDATES);
     }
