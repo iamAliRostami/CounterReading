@@ -3,7 +3,6 @@ package com.leon.counter_reading.base_items;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,7 +79,6 @@ public abstract class BaseActivity extends AppCompatActivity
         setContentView(binding.getRoot());
 
         MyDatabaseClient.migration(this);
-        Log.e("size", String.valueOf(MyDatabaseClient.getInstance(this).getMyDatabase().savedLocationDao().getAllSavedLocations().size()));
 
         initializeBase();
         initialize();

@@ -91,7 +91,7 @@ public class GPSTracker extends Service {
             SavedLocation savedLocation = new SavedLocation(location.getAccuracy(), longitude, latitude);
             MyDatabaseClient.getInstance(activity).getMyDatabase().savedLocationDao().insertSavedLocation(savedLocation);
             savedLocations.add(savedLocation);
-            Log.e("accuracy " + String.valueOf(savedLocations.size() + 1), String.valueOf(savedLocation.accuracy));
+            Log.e("accuracy " + (savedLocations.size() + 1), String.valueOf(savedLocation.accuracy));
         }
     }
 

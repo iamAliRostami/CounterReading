@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class OnOffLoadDto {
     @PrimaryKey(autoGenerate = true)
     public int customId;
-    public int id;
+    public String id;
     public String billId;
     public int radif;
     public String eshterak;

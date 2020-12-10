@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class TrackingDto {
     @PrimaryKey(autoGenerate = true)
     public int customId;
-    public int id;
+    public String id;
     public int trackNumber;
     public String listNumber;
     public String insertDateJalali;
