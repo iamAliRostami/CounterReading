@@ -132,6 +132,7 @@ public class ReadingFragment extends Fragment {
     }
 
     void onButtonSubmitClickListener() {
+        //TODO
         binding.buttonSubmit.setOnClickListener(v -> {
             if (canBeEmpty) {
                 canBeEmpty();
@@ -157,7 +158,7 @@ public class ReadingFragment extends Fragment {
                 binding.editTextNumber.setError(getString(R.string.less_than_pre));
                 view.requestFocus();
             } else {
-
+                canLessThanPre(currentNumber);
             }
         }
     }
@@ -179,6 +180,12 @@ public class ReadingFragment extends Fragment {
                 notEmpty(currentNumber);
             }
         }
+    }
+
+    void canLessThanPre(int currentNumber) {
+        ((ReadingActivity) Objects.requireNonNull(getActivity())).
+                updateOnOffLoadByCounterNumber(position, currentNumber, counterStateCode,
+                        counterStatePosition);
     }
 
     void lessThanPre(int currentNumber) {
@@ -279,7 +286,6 @@ public class ReadingFragment extends Fragment {
         args.putString(BundleEnum.KARBARI_DICTONARY.getValue(), json3);
         String json4 = gson.toJson(qotrDictionary);
         args.putString(BundleEnum.QOTR_DICTIONARY.getValue(), json4);
-
         ArrayList<String> json5 = new ArrayList<>();
         for (CounterStateDto counterStateDto : counterStateDtos) {
             String json = gson.toJson(counterStateDto);
