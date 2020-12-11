@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/text1"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeightSmall"
-    android:layout_margin="@dimen/low_dp"
-    android:background="@drawable/border_gray_3"
-    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-    android:gravity="center_vertical"
-    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    android:textColor="@color/text_color_dark" />
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:padding="@dimen/low_dp"
+    tools:ignore="UnusedAttribute">
+
+    <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@android:id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_white_3"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+        android:gravity="center_vertical"
+        android:padding="@dimen/medium_dp"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:textColor="@color/text_color_dark"
+        tools:ignore="RedundantNamespace,RtlCompat" />
+</LinearLayout>

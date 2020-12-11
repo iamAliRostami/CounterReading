@@ -18,14 +18,18 @@ import com.leon.counter_reading.databinding.ActivityReadingSettingBinding;
 import com.leon.counter_reading.fragments.ReadingSettingDeleteFragment;
 import com.leon.counter_reading.fragments.ReadingSettingFragment;
 import com.leon.counter_reading.tables.ReadingConfigDefaultDto;
+import com.leon.counter_reading.tables.TrackingDto;
 import com.leon.counter_reading.utils.DepthPageTransformer;
+import com.leon.counter_reading.utils.MyDatabaseClient;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReadingSettingActivity extends BaseActivity {
     ActivityReadingSettingBinding binding;
     int previousState, currentState;
-    ArrayList<ReadingConfigDefaultDto> readingConfigDefaultDtos;
+    ArrayList<TrackingDto> trackingDtos = new ArrayList<>();
+    ArrayList<ReadingConfigDefaultDto> readingConfigDefaultDtos = new ArrayList<>();
     Activity activity;
 
     @Override
@@ -66,12 +70,15 @@ public class ReadingSettingActivity extends BaseActivity {
         @Override
         protected Integer doInBackground(Integer... integers) {
             //TODO
-//            readingConfigDefaultDtos = new ArrayList<>();
-//            ReadingData readingData = CustomFile.readData();
-//            if (readingData.onOffLoadDtos != null && readingData.onOffLoadDtos.size() > 0) {
-//                readingConfigDefaultDtos = readingData.readingConfigDefaultDtos;
-//            }
-//            runOnUiThread(ReadingSettingActivity.this::setupViewPager);
+            List<TrackingDto> trackingDtosTemp =
+                    MyDatabaseClient.getInstance(activity).getMyDatabase().
+                            trackingDao().getTrackingDtos();
+            List<ReadingConfigDefaultDto> readingConfigDefaultDtosTemp = MyDatabaseClient.
+                    getInstance(activity).getMyDatabase().readingConfigDefaultDao().
+                    getReadingConfigDefaultDtos();
+            readingConfigDefaultDtos.addAll(readingConfigDefaultDtosTemp);
+            trackingDtos.addAll(trackingDtosTemp);
+            runOnUiThread(ReadingSettingActivity.this::setupViewPager);
             return null;
         }
     }
@@ -119,7 +126,8 @@ public class ReadingSettingActivity extends BaseActivity {
 
     private void setupViewPager() {
         ViewPagerAdapterTab adapter = new ViewPagerAdapterTab(getSupportFragmentManager());
-        adapter.addFragment(new ReadingSettingFragment(), "تنظیمات قرائت");
+        adapter.addFragment(ReadingSettingFragment.newInstance(trackingDtos,
+                readingConfigDefaultDtos), "تنظیمات قرائت");
         adapter.addFragment(new ReadingSettingDeleteFragment(), "حذف");
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

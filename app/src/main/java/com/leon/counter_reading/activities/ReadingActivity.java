@@ -28,15 +28,16 @@ import com.leon.counter_reading.databinding.ActivityReadingBinding;
 import com.leon.counter_reading.enums.OffloadStateEnum;
 import com.leon.counter_reading.fragments.SearchFragment;
 import com.leon.counter_reading.infrastructure.IFlashLightManager;
+import com.leon.counter_reading.tables.ReadingConfigDefaultDto;
 import com.leon.counter_reading.tables.ReadingData;
-import com.leon.counter_reading.utils.CustomFile;
+import com.leon.counter_reading.tables.TrackingDto;
 import com.leon.counter_reading.utils.CustomToast;
 import com.leon.counter_reading.utils.DepthPageTransformer;
 import com.leon.counter_reading.utils.FlashLightManager;
+import com.leon.counter_reading.utils.MyDatabaseClient;
 import com.leon.counter_reading.utils.PermissionManager;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import static com.leon.counter_reading.utils.PermissionManager.isNetworkAvailable;
 
@@ -211,12 +212,29 @@ public class ReadingActivity extends BaseActivity {
         @Override
         protected Integer doInBackground(Integer... integers) {
             //TODO
-            readingData = CustomFile.readData();
+            readingData = new ReadingData();
+            readingData.counterStateDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
+                    counterStateDao().getCounterStateDtos());
+            readingData.karbariDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
+                    karbariDao().getAllKarbariDto());
+            readingData.qotrDictionary.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
+                    qotrDictionaryDao().getAllQotrDictionaries());
+            readingData.trackingDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
+                    trackingDao().getTrackingDtos());
+            for (TrackingDto trackingDto : readingData.trackingDtos) {
+                readingData.readingConfigDefaultDtos.addAll(MyDatabaseClient.getInstance(activity).
+                        getMyDatabase().readingConfigDefaultDao().
+                        getActiveReadingConfigDefaultDtosByZoneId(true, trackingDto.zoneId));
+            }
+            for (ReadingConfigDefaultDto readingConfigDefaultDto : readingData.readingConfigDefaultDtos) {
+                readingData.onOffLoadDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
+                        onOffLoadDao().getAllOnOffLoadByZone(readingConfigDefaultDto.zoneId));
+            }
             if (readingData.onOffLoadDtos != null && readingData.onOffLoadDtos.size() > 0) {
-                for (int i = 0; i < readingData.onOffLoadDtos.size(); i++) {
-                    Random random = new Random();
-                    readingData.onOffLoadDtos.get(i).preCounterStateCode = random.nextInt(9);
-                }
+//                for (int i = 0; i < readingData.onOffLoadDtos.size(); i++) {
+//                    Random random = new Random();
+//                    readingData.onOffLoadDtos.get(i).preCounterStateCode = random.nextInt(9);
+//                }
                 currentRead = new boolean[readingData.onOffLoadDtos.size()];
                 runOnUiThread(ReadingActivity.this::setupViewPager);
                 setAboveIconsSrc(0);

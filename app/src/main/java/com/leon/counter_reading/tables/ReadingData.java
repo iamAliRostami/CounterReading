@@ -9,4 +9,13 @@ public class ReadingData {
     public ArrayList<KarbariDto> karbariDtos;
     public ArrayList<QotrDictionary> qotrDictionary;
     public ArrayList<CounterStateDto> counterStateDtos;
+
+    public ReadingData() {
+        trackingDtos = new ArrayList<>();
+        onOffLoadDtos = new ArrayList<>();
+        readingConfigDefaultDtos = new ArrayList<>();
+        karbariDtos = new ArrayList<>();
+        qotrDictionary = new ArrayList<>();
+        counterStateDtos = new ArrayList<>();
+    }
 }

@@ -20,18 +20,18 @@ import static com.leon.counter_reading.utils.PermissionManager.isNetworkAvailabl
 public class HttpClientWrapper {
     public static Call call;
 
-    public static <T> void callHttpAsync(Call<T> call, int dialogType,
+    public static <T> void callHttpAsync(Call<T> call, int progressType,
                                          final Context context,
                                          final ICallback<T> callback,
                                          final ICallbackIncomplete<T> callbackIncomplete,
                                          final ICallbackError callbackError) {
         HttpClientWrapper.call = call;
         CustomProgressBar progressBar = new CustomProgressBar();
-        if (dialogType == ProgressType.SHOW.getValue()) {
+        if (progressType == ProgressType.SHOW.getValue()) {
             progressBar.show(context, context.getString(R.string.waiting));
-        } else if (dialogType == ProgressType.SHOW_CANCELABLE.getValue()) {
+        } else if (progressType == ProgressType.SHOW_CANCELABLE.getValue()) {
             progressBar.show(context, context.getString(R.string.waiting), true);
-        } else if (dialogType == ProgressType.SHOW_CANCELABLE_REDIRECT.getValue()) {
+        } else if (progressType == ProgressType.SHOW_CANCELABLE_REDIRECT.getValue()) {
             progressBar.show(context, context.getString(R.string.waiting), true);
         }
         if (isNetworkAvailable(context)) {

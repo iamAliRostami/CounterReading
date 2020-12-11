@@ -12,7 +12,7 @@ import es.dmoral.toasty.Toasty;
 
 public class MyApplication extends Application {
     public static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-    public static final long MIN_TIME_BW_UPDATES = 10;
+    public static final long MIN_TIME_BW_UPDATES = 10000;
     public static final long FASTEST_INTERVAL = 5;
     public static final int REQUEST_NETWORK_CODE = 1234;
     public static final int CAMERA_REQUEST = 1888;

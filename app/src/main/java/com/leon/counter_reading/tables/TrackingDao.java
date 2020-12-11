@@ -5,6 +5,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -16,5 +17,5 @@ public interface TrackingDao {
     void insertTrackingDto(TrackingDto trackingDto);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAllTrackingDtos(List<TrackingDto> trackingDtos);
+    void insertAllTrackingDtos(ArrayList<TrackingDto> trackingDtos);
 }

@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.imageViewLogo.setImageResource(R.drawable.img_login_logo);
         binding.imageViewPerson.setImageResource(R.drawable.img_profile);
         binding.imageViewUsername.setImageResource(R.drawable.img_user);
-        setOnLoginClickListener();
+        setOnButtonLoginClickListener();
         setOnImageViewPasswordClickListener();
         setEditTextUsernameOnFocusChangeListener();
         setEditTextPasswordOnFocusChangeListener();
@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         }));
     }
 
-    void setOnLoginClickListener() {
+    void setOnButtonLoginClickListener() {
         binding.buttonLogin.setOnClickListener(v -> {
             View view;
             boolean cancel = false;

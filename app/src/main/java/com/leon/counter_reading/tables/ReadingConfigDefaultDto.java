@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class ReadingConfigDefaultDto {
     @PrimaryKey(autoGenerate = true)
     public int customId;
-    public int id;
+    public String id;
     public int zoneId;
     public int defaultAlalHesab;
     public int maxAlalHesab;

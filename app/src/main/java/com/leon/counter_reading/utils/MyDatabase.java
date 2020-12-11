@@ -23,7 +23,7 @@ import com.leon.counter_reading.tables.TrackingDto;
 @Database(entities = {SavedLocation.class, KarbariDto.class, OnOffLoadDto.class,
         QotrDictionary.class, ReadingConfigDefaultDto.class, TrackingDto.class,
         CounterStateDto.class},
-        version = 3, exportSchema = false)
+        version = 4, exportSchema = false)
 public abstract class MyDatabase extends RoomDatabase {
     public abstract KarbariDao karbariDao();
 
@@ -76,6 +76,17 @@ public abstract class MyDatabase extends RoomDatabase {
             database.execSQL("CREATE TABLE t1_backup AS SELECT * FROM CounterStateDto");
             database.execSQL("DROP TABLE CounterStateDto");
             database.execSQL("ALTER TABLE t1_backup RENAME TO CounterStateDto");
+            database.execSQL("DROP TABLE t1_backup");
+        }
+    };
+
+
+    public static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE t1_backup AS SELECT * FROM TrackingDto");
+            database.execSQL("DROP TABLE TrackingDto");
+            database.execSQL("ALTER TABLE t1_backup RENAME TO TrackingDto");
             database.execSQL("DROP TABLE t1_backup");
         }
     };

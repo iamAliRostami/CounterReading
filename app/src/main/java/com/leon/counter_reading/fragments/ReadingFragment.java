@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
@@ -28,6 +27,7 @@ import com.leon.counter_reading.utils.Counting;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ReadingFragment extends Fragment {
     SpinnerCustomAdapter adapter;
@@ -117,7 +117,9 @@ public class ReadingFragment extends Fragment {
                             counterStateDto.moshtarakinId != onOffLoadDto.preCounterStateCode) {
                         SerialFragment serialFragment = SerialFragment.newInstance(position,
                                 counterStateDto.moshtarakinId, counterStatePosition);
-                        serialFragment.show(getFragmentManager(), getString(R.string.counter_serial));
+                        if (getFragmentManager() != null) {
+                            serialFragment.show(getFragmentManager(), getString(R.string.counter_serial));
+                        }
                     }
                 }
             }
@@ -142,17 +144,20 @@ public class ReadingFragment extends Fragment {
     void canBeEmpty() {
         //TODO
         if (binding.editTextNumber.getText().toString().isEmpty()) {
-            ((ReadingActivity) getActivity()).updateOnOffLoadWithoutCounterNumber(position,
-                    counterStateCode, counterStatePosition);
+            ((ReadingActivity) Objects.requireNonNull(getActivity())).
+                    updateOnOffLoadWithoutCounterNumber(position, counterStateCode,
+                            counterStatePosition);
         } else {
             View view = binding.editTextNumber;
             int currentNumber = Integer.parseInt(binding.editTextNumber.getText().toString());
             int use = currentNumber - onOffLoadDto.preNumber;
             if (canLessThanPre) {
                 lessThanPre(currentNumber);
-            } else if (!canLessThanPre && use < 0) {
+            } else if (use < 0) {
                 binding.editTextNumber.setError(getString(R.string.less_than_pre));
                 view.requestFocus();
+            } else {
+
             }
         }
     }
@@ -167,7 +172,7 @@ public class ReadingFragment extends Fragment {
             int use = currentNumber - onOffLoadDto.preNumber;
             if (canLessThanPre) {
                 lessThanPre(currentNumber);
-            } else if (!canLessThanPre && use < 0) {
+            } else if (use < 0) {
                 binding.editTextNumber.setError(getString(R.string.less_than_pre));
                 view.requestFocus();
             } else {
@@ -178,13 +183,14 @@ public class ReadingFragment extends Fragment {
 
     void lessThanPre(int currentNumber) {
         //TODO
-        ((ReadingActivity) getActivity()).updateOnOffLoadByCounterNumber(position,
-                currentNumber, counterStateCode, counterStatePosition);
+        ((ReadingActivity) Objects.requireNonNull(getActivity())).
+                updateOnOffLoadByCounterNumber(position, currentNumber, counterStateCode,
+                        counterStatePosition);
     }
 
     void notEmpty(int currentNumber) {
-        FragmentTransaction fragmentTransaction = ((FragmentActivity) getActivity())
-                .getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = Objects.requireNonNull(getActivity()).
+                getSupportFragmentManager().beginTransaction();
         AreYouSureFragment areYouSureFragment;
         if (currentNumber == onOffLoadDto.preNumber) {
             areYouSureFragment = AreYouSureFragment.newInstance(

@@ -12,6 +12,9 @@ public interface OnOffLoadDao {
     @Query("select * From OnOffLoadDto")
     List<OnOffLoadDto> getAllOnOffLoad();
 
+    @Query("select * From OnOffLoadDto Where zoneId = :zoneId")
+    List<OnOffLoadDto> getAllOnOffLoadByZone(int zoneId);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertOnOffLoad(OnOffLoadDto onOffLoadDto);
 
