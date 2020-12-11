@@ -162,9 +162,7 @@ public class ReadingActivity extends BaseActivity {
         ImageView imageViewSearch = findViewById(R.id.image_view_search);
         imageViewSearch.setOnClickListener(v -> {
             if (readingData.onOffLoadDtos.isEmpty()) {
-                new CustomDialog(DialogType.Yellow, activity, getString(R.string.no_eshterak_found),
-                        getString(R.string.dear_user), getString(R.string.eshterak),
-                        getString(R.string.accepted));
+                showNoEshterakFound();
             } else {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 SearchFragment searchFragment = SearchFragment.newInstance("", "");
@@ -176,6 +174,12 @@ public class ReadingActivity extends BaseActivity {
             Intent intent = new Intent(getApplicationContext(), ReadingReportActivity.class);
             startActivity(intent);
         });
+    }
+
+    void showNoEshterakFound() {
+        new CustomDialog(DialogType.Yellow, activity, getString(R.string.no_eshterak_found),
+                getString(R.string.dear_user), getString(R.string.eshterak),
+                getString(R.string.accepted));
     }
 
     void setAboveIcons() {
