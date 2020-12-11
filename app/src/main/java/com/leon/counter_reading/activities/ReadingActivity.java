@@ -25,12 +25,14 @@ import com.leon.counter_reading.R;
 import com.leon.counter_reading.adapters.ViewPagerAdapterReading;
 import com.leon.counter_reading.base_items.BaseActivity;
 import com.leon.counter_reading.databinding.ActivityReadingBinding;
+import com.leon.counter_reading.enums.DialogType;
 import com.leon.counter_reading.enums.OffloadStateEnum;
 import com.leon.counter_reading.fragments.SearchFragment;
 import com.leon.counter_reading.infrastructure.IFlashLightManager;
 import com.leon.counter_reading.tables.ReadingConfigDefaultDto;
 import com.leon.counter_reading.tables.ReadingData;
 import com.leon.counter_reading.tables.TrackingDto;
+import com.leon.counter_reading.utils.CustomDialog;
 import com.leon.counter_reading.utils.CustomToast;
 import com.leon.counter_reading.utils.DepthPageTransformer;
 import com.leon.counter_reading.utils.FlashLightManager;
@@ -159,9 +161,15 @@ public class ReadingActivity extends BaseActivity {
         });
         ImageView imageViewSearch = findViewById(R.id.image_view_search);
         imageViewSearch.setOnClickListener(v -> {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            SearchFragment searchFragment = SearchFragment.newInstance("", "");
-            searchFragment.show(fragmentTransaction, "");
+            if (readingData.onOffLoadDtos.isEmpty()) {
+                new CustomDialog(DialogType.Yellow, activity, getString(R.string.no_eshterak_found),
+                        getString(R.string.dear_user), getString(R.string.eshterak),
+                        getString(R.string.accepted));
+            } else {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                SearchFragment searchFragment = SearchFragment.newInstance("", "");
+                searchFragment.show(fragmentTransaction, "");
+            }
         });
         ImageView imageViewCheck = findViewById(R.id.image_view_reading_report);
         imageViewCheck.setOnClickListener(v -> {
