@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -20,4 +21,7 @@ public interface OnOffLoadDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAllOnOffLoad(List<OnOffLoadDto> onOffLoadDtos);
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void updateOnOffLoad(OnOffLoadDto onOffLoadDto);
 }

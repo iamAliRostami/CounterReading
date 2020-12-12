@@ -71,6 +71,8 @@ public class ReadingActivity extends BaseActivity {
                                                     int counterStatePosition) {
         readingData.onOffLoadDtos.get(position).counterStatePosition = counterStatePosition;
         readingData.onOffLoadDtos.get(position).counterStateId = counterStateCode;
+        MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().updateOnOffLoad(
+                readingData.onOffLoadDtos.get(position));
         if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
             binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
         //TODO
@@ -82,6 +84,8 @@ public class ReadingActivity extends BaseActivity {
         readingData.onOffLoadDtos.get(position).possibleCounterSerial = counterSerial;
         readingData.onOffLoadDtos.get(position).counterStateId = counterStateCode;
         readingData.onOffLoadDtos.get(position).counterStatePosition = counterStatePosition;
+        MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().updateOnOffLoad(
+                readingData.onOffLoadDtos.get(position));
         if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
             binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
     }
@@ -94,6 +98,8 @@ public class ReadingActivity extends BaseActivity {
         readingData.onOffLoadDtos.get(position).counterNumber = number;
         readingData.onOffLoadDtos.get(position).counterStatePosition = counterStatePosition;
         readingData.onOffLoadDtos.get(position).counterStateId = counterStateCode;
+        MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().updateOnOffLoad(
+                readingData.onOffLoadDtos.get(position));
         if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
             binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
     }
@@ -103,6 +109,8 @@ public class ReadingActivity extends BaseActivity {
         //TODO
         updateOnOffLoadByCounterNumber(position, number, counterStateCode, counterStatePosition);
         readingData.onOffLoadDtos.get(position).highLowStateId = type;
+        MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().updateOnOffLoad(
+                readingData.onOffLoadDtos.get(position));
         attemptSend(position);
     }
 
@@ -126,7 +134,7 @@ public class ReadingActivity extends BaseActivity {
         else binding.imageViewReadingType.setImageResource(imageSrc[7]);
     }
 
-    void setReadStatusImage(int position) {
+    void setReadStatusImage(int position) {//TODO
         binding.imageViewOffLoadState.setImageResource(
                 imageSrc[readingData.onOffLoadDtos.get(position).offLoadStateId]);
         if (readingData.onOffLoadDtos.get(position).offLoadStateId == 0)
