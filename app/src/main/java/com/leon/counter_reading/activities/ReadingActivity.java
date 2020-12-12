@@ -3,7 +3,6 @@ package com.leon.counter_reading.activities;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -29,10 +28,12 @@ import com.leon.counter_reading.enums.DialogType;
 import com.leon.counter_reading.enums.OffloadStateEnum;
 import com.leon.counter_reading.fragments.SearchFragment;
 import com.leon.counter_reading.infrastructure.IFlashLightManager;
+import com.leon.counter_reading.tables.OnOffLoadDto;
 import com.leon.counter_reading.tables.ReadingConfigDefaultDto;
 import com.leon.counter_reading.tables.ReadingData;
 import com.leon.counter_reading.tables.TrackingDto;
 import com.leon.counter_reading.utils.CustomDialog;
+import com.leon.counter_reading.utils.CustomProgressBar;
 import com.leon.counter_reading.utils.CustomToast;
 import com.leon.counter_reading.utils.DepthPageTransformer;
 import com.leon.counter_reading.utils.FlashLightManager;
@@ -49,8 +50,10 @@ public class ReadingActivity extends BaseActivity {
     IFlashLightManager flashLightManager;
     boolean isFlashOn = false, isNight = false;
     ReadingData readingData;
+    ReadingData readingDataTemp;
     final int[] imageSrc = new int[12];
     boolean[] currentRead;
+    ViewPagerAdapterReading viewPagerAdapterReading;
 
     @Override
     protected void initialize() {
@@ -161,11 +164,11 @@ public class ReadingActivity extends BaseActivity {
         });
         ImageView imageViewSearch = findViewById(R.id.image_view_search);
         imageViewSearch.setOnClickListener(v -> {
-            if (readingData.onOffLoadDtos.isEmpty()) {
+            if (readingDataTemp.onOffLoadDtos.isEmpty()) {
                 showNoEshterakFound();
             } else {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                SearchFragment searchFragment = SearchFragment.newInstance("", "");
+                SearchFragment searchFragment = new SearchFragment();
                 searchFragment.show(fragmentTransaction, "");
             }
         });
@@ -174,6 +177,51 @@ public class ReadingActivity extends BaseActivity {
             Intent intent = new Intent(getApplicationContext(), ReadingReportActivity.class);
             startActivity(intent);
         });
+    }
+
+    public void search(int type, String key) {
+        if (type == 4) {
+            binding.viewPager.setCurrentItem(Integer.parseInt(key) - 1);
+        } else if (type == 5) {
+            readingData.onOffLoadDtos.clear();
+            readingData.onOffLoadDtos.addAll(readingDataTemp.onOffLoadDtos);
+            runOnUiThread(() -> viewPagerAdapterReading.notifyDataSetChanged());
+        } else {
+            switch (type) {
+                case 0:
+                    readingData.onOffLoadDtos.clear();
+                    for (OnOffLoadDto onOffLoadDto : readingDataTemp.onOffLoadDtos) {
+                        if (onOffLoadDto.eshterak.toLowerCase().contains(key))
+                            readingData.onOffLoadDtos.add(onOffLoadDto);
+                    }
+                    break;
+                case 1:
+                    readingData.onOffLoadDtos.clear();
+                    for (OnOffLoadDto onOffLoadDto : readingDataTemp.onOffLoadDtos) {
+                        if (onOffLoadDto.radif == Integer.parseInt(key))
+                            readingData.onOffLoadDtos.add(onOffLoadDto);
+                    }
+                    break;
+                case 2:
+                    readingData.onOffLoadDtos.clear();
+                    for (OnOffLoadDto onOffLoadDto : readingDataTemp.onOffLoadDtos) {
+                        if (onOffLoadDto.counterSerial.toLowerCase().contains(key))
+                            readingData.onOffLoadDtos.add(onOffLoadDto);
+                    }
+                    break;
+                case 3:
+                    readingData.onOffLoadDtos.clear();
+                    for (OnOffLoadDto onOffLoadDto : readingDataTemp.onOffLoadDtos) {
+                        if (onOffLoadDto.firstName.toLowerCase().contains(key))
+                            readingData.onOffLoadDtos.add(onOffLoadDto);
+                        if (onOffLoadDto.sureName.toLowerCase().contains(key))
+                            readingData.onOffLoadDtos.add(onOffLoadDto);
+                    }
+                    break;
+            }
+            runOnUiThread(() -> viewPagerAdapterReading.notifyDataSetChanged());
+        }
+
     }
 
     void showNoEshterakFound() {
@@ -199,7 +247,7 @@ public class ReadingActivity extends BaseActivity {
 
     @SuppressLint("StaticFieldLeak")
     class getDBData extends AsyncTask<Integer, Integer, Integer> {
-        ProgressDialog dialog;
+        CustomProgressBar customProgressBar;
 
         public getDBData() {
             super();
@@ -208,16 +256,13 @@ public class ReadingActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new ProgressDialog(activity);
-            dialog.setMessage(getString(R.string.loading_getting_info));
-            dialog.setTitle(getString(R.string.loading_connecting));
-            dialog.setCancelable(false);
-            dialog.show();
+            customProgressBar = new CustomProgressBar();
+            customProgressBar.show(activity, false);
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
-            dialog.dismiss();
+            customProgressBar.getDialog().dismiss();
             super.onPostExecute(integer);
         }
 
@@ -225,6 +270,7 @@ public class ReadingActivity extends BaseActivity {
         protected Integer doInBackground(Integer... integers) {
             //TODO
             readingData = new ReadingData();
+            readingDataTemp = new ReadingData();
             readingData.counterStateDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
                     counterStateDao().getCounterStateDtos());
             readingData.karbariDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
@@ -248,6 +294,12 @@ public class ReadingActivity extends BaseActivity {
 //                    readingData.onOffLoadDtos.get(i).preCounterStateCode = random.nextInt(9);
 //                }
                 currentRead = new boolean[readingData.onOffLoadDtos.size()];
+                readingDataTemp.onOffLoadDtos.addAll(readingData.onOffLoadDtos);
+                readingDataTemp.counterStateDtos.addAll(readingData.counterStateDtos);
+                readingDataTemp.qotrDictionary.addAll(readingData.qotrDictionary);
+                readingDataTemp.trackingDtos.addAll(readingData.trackingDtos);
+                readingDataTemp.karbariDtos.addAll(readingData.karbariDtos);
+                readingDataTemp.readingConfigDefaultDtos.addAll(readingData.readingConfigDefaultDtos);
                 runOnUiThread(ReadingActivity.this::setupViewPager);
                 setAboveIconsSrc(0);
             }
@@ -278,7 +330,7 @@ public class ReadingActivity extends BaseActivity {
     }
 
     void setupViewPager() {
-        ViewPagerAdapterReading viewPagerAdapterReading =
+        viewPagerAdapterReading =
                 new ViewPagerAdapterReading(getSupportFragmentManager(),
                         FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
                         readingData);

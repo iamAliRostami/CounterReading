@@ -19,16 +19,29 @@
             android:layout_height="@dimen/small_dp"
             android:background="?attr/colorAccent" />
 
-        <Spinner
-            android:id="@+id/spinner_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/large_dp"
             android:layout_marginTop="@dimen/low_dp"
             android:layout_marginRight="@dimen/large_dp"
             android:layout_marginBottom="@dimen/low_dp"
-            android:gravity="center" />
+            android:background="@drawable/border_gray_6"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/medium_dp">
+
+            <Spinner
+                android:id="@+id/spinner_search"
+                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_spinner"
+                android:gravity="center"
+                android:popupBackground="@drawable/border_gray_5"
+                android:spinnerMode="dialog"
+                tools:listitem="@layout/item_dropdown_menu" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/edit_text_search"

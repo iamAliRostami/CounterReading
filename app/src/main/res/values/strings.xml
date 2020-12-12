@@ -183,5 +183,10 @@
     <string name="high_use">رقم وارد شده بالاتر از میانگین بلند مدت است. آیا از رقم وارد شده اطمینان دارید؟</string>
     <string name="low_use">رقم وارد شده پایین تر از میانگین بلند مدت است. آیا از رقم وارد شده اطمینان دارید؟</string>
     <string name="counter_body_number">شماره بدنه کنتور</string>
+    <string name="parvande_number">شماره پرونده</string>
+    <string name="shenase">شناسه</string>
+    <string name="page_number">شماره صفحه</string>
+    <string name="name">نام</string>
+    <string name="all">همه</string>
 
 </resources>
