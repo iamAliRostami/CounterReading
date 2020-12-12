@@ -193,7 +193,7 @@ public class ReadingActivity extends BaseActivity {
         } else if (type == 5) {
             readingData.onOffLoadDtos.clear();
             readingData.onOffLoadDtos.addAll(readingDataTemp.onOffLoadDtos);
-            runOnUiThread(() -> viewPagerAdapterReading.notifyDataSetChanged());
+            runOnUiThread(this::setupViewPager);
         } else {
             switch (type) {
                 case 0:
@@ -227,7 +227,7 @@ public class ReadingActivity extends BaseActivity {
                     }
                     break;
             }
-            runOnUiThread(() -> viewPagerAdapterReading.notifyDataSetChanged());
+            runOnUiThread(this::setupViewPager);
         }
 
     }
@@ -308,9 +308,9 @@ public class ReadingActivity extends BaseActivity {
                 readingDataTemp.trackingDtos.addAll(readingData.trackingDtos);
                 readingDataTemp.karbariDtos.addAll(readingData.karbariDtos);
                 readingDataTemp.readingConfigDefaultDtos.addAll(readingData.readingConfigDefaultDtos);
-                runOnUiThread(ReadingActivity.this::setupViewPager);
                 setAboveIconsSrc(0);
             }
+            runOnUiThread(ReadingActivity.this::setupViewPager);
             return null;
         }
     }
@@ -338,6 +338,9 @@ public class ReadingActivity extends BaseActivity {
     }
 
     void setupViewPager() {
+        binding.textViewNotFound.setVisibility(!(readingData.onOffLoadDtos.size() > 0) ? View.VISIBLE : View.GONE);
+        binding.linearLayoutAbove.setVisibility(readingData.onOffLoadDtos.size() > 0 ? View.VISIBLE : View.GONE);
+        binding.viewPager.setVisibility(readingData.onOffLoadDtos.size() > 0 ? View.VISIBLE : View.GONE);
         viewPagerAdapterReading =
                 new ViewPagerAdapterReading(getSupportFragmentManager(),
                         FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,

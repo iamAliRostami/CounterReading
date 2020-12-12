@@ -12,6 +12,7 @@
         tools:ignore="UselessParent">
 
         <LinearLayout
+            android:id="@+id/linear_layout_above"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -54,6 +55,18 @@
 
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_view_not_found"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/data_not_found"
+            android:textColor="@color/red"
+            android:textSize="@dimen/text_size_large"
+            android:visibility="gone" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
