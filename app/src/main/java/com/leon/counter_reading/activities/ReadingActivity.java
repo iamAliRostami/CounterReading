@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Debug;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -52,7 +53,6 @@ public class ReadingActivity extends BaseActivity {
     ReadingData readingData;
     ReadingData readingDataTemp;
     final int[] imageSrc = new int[12];
-    boolean[] currentRead;
     ViewPagerAdapterReading viewPagerAdapterReading;
 
     @Override
@@ -67,56 +67,57 @@ public class ReadingActivity extends BaseActivity {
         else PermissionManager.enableNetwork(this);
     }
 
-    public void updateOnOffLoadWithoutCounterNumber(int position, int counterStateCode,
-                                                    int counterStatePosition) {
+    public void updateOnOffLoad(int position, int counterStateCode, int counterStatePosition) {
+        readingData.onOffLoadDtos.get(position).isBazdid = true;
+        readingData.onOffLoadDtos.get(position).offLoadStateId = OffloadStateEnum.INSERTED.getValue();
         readingData.onOffLoadDtos.get(position).counterStatePosition = counterStatePosition;
         readingData.onOffLoadDtos.get(position).counterStateId = counterStateCode;
-        MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().updateOnOffLoad(
-                readingData.onOffLoadDtos.get(position));
+    }
+
+    public void updateOnOffLoadWithoutCounterNumber(int position, int counterStateCode,
+                                                    int counterStatePosition) {
+        //TODO
+        Log.e("here", "updateOnOffLoadWithoutCounterNumber");
+        updateOnOffLoad(position, counterStateCode, counterStatePosition);
         if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
             binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
-        //TODO
+        attemptSend(position);
     }
 
     public void updateOnOffLoadByCounterSerial(int position, int counterStatePosition,
                                                int counterStateCode, String counterSerial) {
         //TODO
+        Log.e("here", "updateOnOffLoadByCounterSerial");
+        updateOnOffLoad(position, counterStateCode, counterStatePosition);
         readingData.onOffLoadDtos.get(position).possibleCounterSerial = counterSerial;
-        readingData.onOffLoadDtos.get(position).counterStateId = counterStateCode;
-        readingData.onOffLoadDtos.get(position).counterStatePosition = counterStatePosition;
-        MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().updateOnOffLoad(
-                readingData.onOffLoadDtos.get(position));
         if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
             binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
+        attemptSend(position);
     }
 
     public void updateOnOffLoadByCounterNumber(int position, int number, int counterStateCode,
                                                int counterStatePosition) {
         //TODO
-        readingData.onOffLoadDtos.get(position).isBazdid = true;
-        readingData.onOffLoadDtos.get(position).offLoadStateId = OffloadStateEnum.INSERTED.getValue();
+        Log.e("here", "updateOnOffLoadByCounterNumber");
+        updateOnOffLoad(position, counterStateCode, counterStatePosition);
         readingData.onOffLoadDtos.get(position).counterNumber = number;
-        readingData.onOffLoadDtos.get(position).counterStatePosition = counterStatePosition;
-        readingData.onOffLoadDtos.get(position).counterStateId = counterStateCode;
-        MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().updateOnOffLoad(
-                readingData.onOffLoadDtos.get(position));
         if (binding.viewPager.getCurrentItem() < readingData.onOffLoadDtos.size())
             binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
+        attemptSend(position);
     }
 
     public void updateOnOffLoadByCounterNumber(int position, int number, int counterStateCode,
                                                int counterStatePosition, int type) {
         //TODO
-        updateOnOffLoadByCounterNumber(position, number, counterStateCode, counterStatePosition);
+        Log.e("here", "updateOnOffLoadByCounterNumber");
         readingData.onOffLoadDtos.get(position).highLowStateId = type;
-        MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().updateOnOffLoad(
-                readingData.onOffLoadDtos.get(position));
-        attemptSend(position);
+        updateOnOffLoadByCounterNumber(position, number, counterStateCode, counterStatePosition);
     }
 
     void attemptSend(int position) {
         //TODO
-        currentRead[binding.viewPager.getCurrentItem()] = true;
+        MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().updateOnOffLoad(
+                readingData.onOffLoadDtos.get(position));
         setAboveIconsSrc(position);
     }
 
@@ -193,7 +194,7 @@ public class ReadingActivity extends BaseActivity {
         } else if (type == 5) {
             readingData.onOffLoadDtos.clear();
             readingData.onOffLoadDtos.addAll(readingDataTemp.onOffLoadDtos);
-            runOnUiThread(this::setupViewPager);
+            runOnUiThread(() -> setupViewPager(false));
         } else {
             switch (type) {
                 case 0:
@@ -227,7 +228,7 @@ public class ReadingActivity extends BaseActivity {
                     }
                     break;
             }
-            runOnUiThread(this::setupViewPager);
+            runOnUiThread(() -> setupViewPager(false));
         }
 
     }
@@ -301,7 +302,6 @@ public class ReadingActivity extends BaseActivity {
 //                    Random random = new Random();
 //                    readingData.onOffLoadDtos.get(i).preCounterStateCode = random.nextInt(9);
 //                }
-                currentRead = new boolean[readingData.onOffLoadDtos.size()];
                 readingDataTemp.onOffLoadDtos.addAll(readingData.onOffLoadDtos);
                 readingDataTemp.counterStateDtos.addAll(readingData.counterStateDtos);
                 readingDataTemp.qotrDictionary.addAll(readingData.qotrDictionary);
@@ -310,7 +310,7 @@ public class ReadingActivity extends BaseActivity {
                 readingDataTemp.readingConfigDefaultDtos.addAll(readingData.readingConfigDefaultDtos);
                 setAboveIconsSrc(0);
             }
-            runOnUiThread(ReadingActivity.this::setupViewPager);
+            runOnUiThread(() -> setupViewPager(true));
             return null;
         }
     }
@@ -337,7 +337,7 @@ public class ReadingActivity extends BaseActivity {
         });
     }
 
-    void setupViewPager() {
+    void setupViewPager(boolean lastUnseen) {
         binding.textViewNotFound.setVisibility(!(readingData.onOffLoadDtos.size() > 0) ? View.VISIBLE : View.GONE);
         binding.linearLayoutAbove.setVisibility(readingData.onOffLoadDtos.size() > 0 ? View.VISIBLE : View.GONE);
         binding.viewPager.setVisibility(readingData.onOffLoadDtos.size() > 0 ? View.VISIBLE : View.GONE);
@@ -348,6 +348,16 @@ public class ReadingActivity extends BaseActivity {
         binding.viewPager.setAdapter(viewPagerAdapterReading);
         binding.viewPager.setPageTransformer(true, new DepthPageTransformer());
         setOnPageChangeListener();
+        if (lastUnseen) {
+            for (int i = 0; i < readingData.onOffLoadDtos.size(); i++) {
+                OnOffLoadDto onOffLoadDto = readingData.onOffLoadDtos.get(i);
+                if (!onOffLoadDto.isBazdid) {
+                    binding.viewPager.setCurrentItem(i);
+                    i = readingData.onOffLoadDtos.size();
+                }
+            }
+        } else
+            binding.viewPager.setCurrentItem(0);
     }
 
     void checkPermissions() {
