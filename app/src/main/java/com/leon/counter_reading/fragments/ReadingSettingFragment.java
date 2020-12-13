@@ -10,7 +10,7 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
-import com.leon.counter_reading.adapters.ListViewCustomAdapter;
+import com.leon.counter_reading.adapters.ReadingSettingCustomAdapter;
 import com.leon.counter_reading.databinding.FragmentReadingSettingBinding;
 import com.leon.counter_reading.enums.BundleEnum;
 import com.leon.counter_reading.tables.ReadingConfigDefaultDto;
@@ -83,20 +83,23 @@ public class ReadingSettingFragment extends Fragment {
     }
 
     void setupListView() {
-        ArrayList<String> titles = new ArrayList<>();
+        trackingDtos.addAll(trackingDtos);
+        trackingDtos.addAll(trackingDtos);
+        trackingDtos.addAll(trackingDtos);
+        trackingDtos.addAll(trackingDtos);
+        trackingDtos.addAll(trackingDtos);
         if (trackingDtos.size() > 0) {
             for (int i = 0; i < trackingDtos.size(); i++) {
-                titles.add(trackingDtos.get(i).trackNumber + " * " + trackingDtos.get(i).listNumber);
                 for (ReadingConfigDefaultDto readingConfigDefaultDto : readingConfigDefaultDtos)
                     if (readingConfigDefaultDto.zoneId == trackingDtos.get(i).zoneId) {
                         isActives.add(readingConfigDefaultDto.isActive);
                         zoneIds.add(readingConfigDefaultDto.zoneId);
                     }
             }
-            ListViewCustomAdapter listViewCustomAdapter = new ListViewCustomAdapter(context, titles,
-                    isActives,zoneIds);
+            ReadingSettingCustomAdapter readingSettingCustomAdapter =
+                    new ReadingSettingCustomAdapter(context, trackingDtos, isActives, zoneIds);
             binding.listViewRead.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-            binding.listViewRead.setAdapter(listViewCustomAdapter);
+            binding.listViewRead.setAdapter(readingSettingCustomAdapter);
         }
 
     }

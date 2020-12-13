@@ -296,4 +296,21 @@ public class ReadingFragment extends Fragment {
         args.putInt(BundleEnum.POSITION.getValue(), position);
         return args;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        karbariDto = null;
+        readingConfigDefaultDto = null;
+        adapter = null;
+        qotrDictionary = null;
+        counterStateDtos = null;
+        items = null;
+    }
 }

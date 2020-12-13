@@ -147,9 +147,12 @@ public class ReadingActivity extends BaseActivity {
                 imageSrc[readingData.onOffLoadDtos.get(position).highLowStateId]);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     void setOnImageViewsClickListener() {
+        //TODO
         flashLightManager = new FlashLightManager(getApplicationContext());
         ImageView imageViewFlash = findViewById(R.id.image_view_flash);
+        imageViewFlash.setImageDrawable(activity.getDrawable(R.drawable.img_flash));
         imageViewFlash.setOnClickListener(v -> {
             if (isFlashOn) {
                 isFlashOn = flashLightManager.turnOff();
@@ -158,6 +161,7 @@ public class ReadingActivity extends BaseActivity {
             }
         });
         ImageView imageViewReverse = findViewById(R.id.image_view_reverse);
+        imageViewReverse.setImageDrawable(activity.getDrawable(R.drawable.img_inverse));
         imageViewReverse.setOnClickListener(v -> {
             if (!isNight) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -167,11 +171,13 @@ public class ReadingActivity extends BaseActivity {
             isNight = !isNight;
         });
         ImageView imageViewCamera = findViewById(R.id.image_view_camera);
+        imageViewCamera.setImageDrawable(activity.getDrawable(R.drawable.img_camera));
         imageViewCamera.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), TakePhotoActivity.class);
             startActivity(intent);
         });
         ImageView imageViewSearch = findViewById(R.id.image_view_search);
+        imageViewSearch.setImageDrawable(activity.getDrawable(R.drawable.img_search));
         imageViewSearch.setOnClickListener(v -> {
             if (readingDataTemp.onOffLoadDtos.isEmpty()) {
                 showNoEshterakFound();
@@ -182,6 +188,7 @@ public class ReadingActivity extends BaseActivity {
             }
         });
         ImageView imageViewCheck = findViewById(R.id.image_view_reading_report);
+        imageViewCheck.setImageDrawable(activity.getDrawable(R.drawable.img_checked));
         imageViewCheck.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), ReadingReportActivity.class);
             startActivity(intent);
@@ -300,10 +307,6 @@ public class ReadingActivity extends BaseActivity {
                         onOffLoadDao().getAllOnOffLoadByZone(readingConfigDefaultDto.zoneId));
             }
             if (readingData.onOffLoadDtos != null && readingData.onOffLoadDtos.size() > 0) {
-//                for (int i = 0; i < readingData.onOffLoadDtos.size(); i++) {
-//                    Random random = new Random();
-//                    readingData.onOffLoadDtos.get(i).preCounterStateCode = random.nextInt(9);
-//                }
                 readingDataTemp.onOffLoadDtos.addAll(readingData.onOffLoadDtos);
                 readingDataTemp.counterStateDtos.addAll(readingData.counterStateDtos);
                 readingDataTemp.qotrDictionary.addAll(readingData.qotrDictionary);
@@ -456,6 +459,22 @@ public class ReadingActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ImageView imageViewFlash = findViewById(R.id.image_view_flash);
+        imageViewFlash.setImageDrawable(null);
+        ImageView imageViewReverse = findViewById(R.id.image_view_reverse);
+        imageViewReverse.setImageDrawable(null);
+        ImageView imageViewCamera = findViewById(R.id.image_view_camera);
+        imageViewCamera.setImageDrawable(null);
+        ImageView imageViewSearch = findViewById(R.id.image_view_search);
+        imageViewSearch.setImageDrawable(null);
+        ImageView imageViewCheck = findViewById(R.id.image_view_reading_report);
+        imageViewCheck.setImageDrawable(null);
+        binding.imageViewHighLowState.setImageDrawable(null);
+        binding.imageViewOffLoadState.setImageDrawable(null);
+        binding.imageViewReadingType.setImageDrawable(null);
+        readingData = null;
+        readingDataTemp = null;
+        viewPagerAdapterReading = null;
         Runtime.getRuntime().totalMemory();
         Runtime.getRuntime().freeMemory();
         Runtime.getRuntime().maxMemory();
