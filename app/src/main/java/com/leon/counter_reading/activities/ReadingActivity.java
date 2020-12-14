@@ -135,7 +135,7 @@ public class ReadingActivity extends BaseActivity {
         else binding.imageViewReadingType.setImageResource(imageSrc[7]);
     }
 
-    void setReadStatusImage(int position) {//TODO
+    void setReadStatusImage(int position) {
         binding.imageViewOffLoadState.setImageResource(
                 imageSrc[readingData.onOffLoadDtos.get(position).offLoadStateId]);
         if (readingData.onOffLoadDtos.get(position).offLoadStateId == 0)
@@ -149,7 +149,6 @@ public class ReadingActivity extends BaseActivity {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     void setOnImageViewsClickListener() {
-        //TODO
         flashLightManager = new FlashLightManager(getApplicationContext());
         ImageView imageViewFlash = findViewById(R.id.image_view_flash);
         imageViewFlash.setImageDrawable(activity.getDrawable(R.drawable.img_flash));
@@ -170,10 +169,18 @@ public class ReadingActivity extends BaseActivity {
             }
             isNight = !isNight;
         });
+        //TODO
         ImageView imageViewCamera = findViewById(R.id.image_view_camera);
         imageViewCamera.setImageDrawable(activity.getDrawable(R.drawable.img_camera));
         imageViewCamera.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), TakePhotoActivity.class);
+            startActivity(intent);
+        });
+        //TODO
+        ImageView imageViewCheck = findViewById(R.id.image_view_reading_report);
+        imageViewCheck.setImageDrawable(activity.getDrawable(R.drawable.img_checked));
+        imageViewCheck.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), ReadingReportActivity.class);
             startActivity(intent);
         });
         ImageView imageViewSearch = findViewById(R.id.image_view_search);
@@ -186,12 +193,6 @@ public class ReadingActivity extends BaseActivity {
                 SearchFragment searchFragment = new SearchFragment();
                 searchFragment.show(fragmentTransaction, "");
             }
-        });
-        ImageView imageViewCheck = findViewById(R.id.image_view_reading_report);
-        imageViewCheck.setImageDrawable(activity.getDrawable(R.drawable.img_checked));
-        imageViewCheck.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), ReadingReportActivity.class);
-            startActivity(intent);
         });
     }
 
