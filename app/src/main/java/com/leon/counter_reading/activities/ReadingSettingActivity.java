@@ -2,7 +2,6 @@ package com.leon.counter_reading.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Debug;
@@ -19,6 +18,7 @@ import com.leon.counter_reading.fragments.ReadingSettingDeleteFragment;
 import com.leon.counter_reading.fragments.ReadingSettingFragment;
 import com.leon.counter_reading.tables.ReadingConfigDefaultDto;
 import com.leon.counter_reading.tables.TrackingDto;
+import com.leon.counter_reading.utils.CustomProgressBar;
 import com.leon.counter_reading.utils.DepthPageTransformer;
 import com.leon.counter_reading.utils.MyDatabaseClient;
 
@@ -45,7 +45,7 @@ public class ReadingSettingActivity extends BaseActivity {
 
     @SuppressLint("StaticFieldLeak")
     class getDBData extends AsyncTask<Integer, Integer, Integer> {
-        ProgressDialog dialog;
+        CustomProgressBar customProgressBar;
 
         public getDBData() {
             super();
@@ -54,16 +54,13 @@ public class ReadingSettingActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new ProgressDialog(activity);
-            dialog.setMessage(getString(R.string.loading_getting_info));
-            dialog.setTitle(getString(R.string.loading_connecting));
-            dialog.setCancelable(false);
-            dialog.show();
+            customProgressBar = new CustomProgressBar();
+            customProgressBar.show(activity, false);
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
-            dialog.dismiss();
+            customProgressBar.getDialog().dismiss();
             super.onPostExecute(integer);
         }
 
@@ -128,7 +125,8 @@ public class ReadingSettingActivity extends BaseActivity {
         ViewPagerAdapterTab adapter = new ViewPagerAdapterTab(getSupportFragmentManager());
         adapter.addFragment(ReadingSettingFragment.newInstance(trackingDtos,
                 readingConfigDefaultDtos), "تنظیمات قرائت");
-        adapter.addFragment(new ReadingSettingDeleteFragment(), "حذف");
+        adapter.addFragment(ReadingSettingDeleteFragment.newInstance(trackingDtos,
+                readingConfigDefaultDtos), "حذف");
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

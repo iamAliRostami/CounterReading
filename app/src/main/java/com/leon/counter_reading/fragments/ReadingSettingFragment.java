@@ -23,9 +23,9 @@ import java.util.ArrayList;
 public class ReadingSettingFragment extends Fragment {
     FragmentReadingSettingBinding binding;
     ArrayList<TrackingDto> trackingDtos = new ArrayList<>();
+    ArrayList<ReadingConfigDefaultDto> readingConfigDefaultDtos = new ArrayList<>();
     ArrayList<Boolean> isActives = new ArrayList<>();
     ArrayList<Integer> zoneIds = new ArrayList<>();
-    ArrayList<ReadingConfigDefaultDto> readingConfigDefaultDtos = new ArrayList<>();
     Context context;
 
     public ReadingSettingFragment() {
@@ -83,11 +83,6 @@ public class ReadingSettingFragment extends Fragment {
     }
 
     void setupListView() {
-        trackingDtos.addAll(trackingDtos);
-        trackingDtos.addAll(trackingDtos);
-        trackingDtos.addAll(trackingDtos);
-        trackingDtos.addAll(trackingDtos);
-        trackingDtos.addAll(trackingDtos);
         if (trackingDtos.size() > 0) {
             for (int i = 0; i < trackingDtos.size(); i++) {
                 for (ReadingConfigDefaultDto readingConfigDefaultDto : readingConfigDefaultDtos)
@@ -101,7 +96,6 @@ public class ReadingSettingFragment extends Fragment {
             binding.listViewRead.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
             binding.listViewRead.setAdapter(readingSettingCustomAdapter);
         }
-
     }
 
     @Override

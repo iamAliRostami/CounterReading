@@ -191,5 +191,6 @@
     <string name="date">تاریخ</string>
     <string name="end">تا</string>
     <string name="from">از</string>
+    <string name="all_items">همه موارد</string>
 
 </resources>

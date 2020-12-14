@@ -17,19 +17,16 @@ import com.leon.counter_reading.utils.MyDatabaseClient;
 import java.util.ArrayList;
 
 public class ReadingSettingCustomAdapter extends BaseAdapter {
-
-    //    ArrayList<String> titles;
     ArrayList<Boolean> selected;
     ArrayList<Integer> zoneIds;
     ArrayList<TrackingDto> trackingDtos;
     LayoutInflater inflater;
     Context context;
 
-    public ReadingSettingCustomAdapter(Context context, ArrayList<TrackingDto> trackingDtos,// ArrayList<String> titles,
+    public ReadingSettingCustomAdapter(Context context, ArrayList<TrackingDto> trackingDtos,
                                        ArrayList<Boolean> selected, ArrayList<Integer> zoneIds) {
         this.trackingDtos = trackingDtos;
         this.zoneIds = zoneIds;
-//        this.titles = titles;
         this.selected = selected;
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

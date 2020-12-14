@@ -1,7 +1,6 @@
 package com.leon.counter_reading.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,7 +102,6 @@ public class ReadingFragment extends Fragment {
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
-                Log.e("selected", String.valueOf(i));
                 counterStatePosition = i;
                 counterStateCode = counterStateDtos.get(counterStatePosition).moshtarakinId;
                 CounterStateDto counterStateDto = counterStateDtos.get(counterStatePosition);
