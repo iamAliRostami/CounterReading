@@ -19,6 +19,7 @@ public enum BundleEnum {
     ZERO("zero"),
     HIGH("high"),
     LOW("low"),
+    Item("item"),
     NORMAL("normal"),
     READ_STATUS("read_status"),
     TYPE("type");

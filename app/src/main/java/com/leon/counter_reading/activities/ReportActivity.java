@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Debug;
+import android.util.Log;
 import android.view.View;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -18,6 +19,7 @@ import com.leon.counter_reading.enums.HighLowStateEnum;
 import com.leon.counter_reading.fragments.ReportNotReadingFragment;
 import com.leon.counter_reading.fragments.ReportTemporaryFragment;
 import com.leon.counter_reading.fragments.ReportTotalFragment;
+import com.leon.counter_reading.tables.CounterStateDto;
 import com.leon.counter_reading.tables.OnOffLoadDto;
 import com.leon.counter_reading.tables.ReadingConfigDefaultDto;
 import com.leon.counter_reading.tables.TrackingDto;
@@ -32,6 +34,8 @@ public class ReportActivity extends BaseActivity {
     Activity activity;
     int previousState, currentState;
     int zero, normal, high, low, unread, total;
+    ArrayList<String> items = new ArrayList<>();
+    ArrayList<CounterStateDto> counterStateDtos = new ArrayList<>();
     ArrayList<OnOffLoadDto> onOffLoadDtosReads = new ArrayList<>();
     ArrayList<TrackingDto> trackingDtos = new ArrayList<>();
     ArrayList<ReadingConfigDefaultDto> readingConfigDefaultDtos = new ArrayList<>();
@@ -109,7 +113,7 @@ public class ReportActivity extends BaseActivity {
         ViewPagerAdapterTab adapter = new ViewPagerAdapterTab(getSupportFragmentManager());
         adapter.addFragment(ReportTotalFragment.newInstance(zero, normal, high, low), "آمار کلی");
         adapter.addFragment(ReportNotReadingFragment.newInstance(total, unread), "قرائت نشده");
-        adapter.addFragment(new ReportTemporaryFragment(), "علی الحساب");
+        adapter.addFragment(ReportTemporaryFragment.newInstance(counterStateDtos, items), "علی الحساب");
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -194,6 +198,10 @@ public class ReportActivity extends BaseActivity {
                 total = MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().
                         getOnOffLoadCount(readingConfigDefaultDto.zoneId);
             }
+            counterStateDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
+                    counterStateDao().getCounterStateDtos());
+            for (CounterStateDto counterStateDto : counterStateDtos)
+                items.add(counterStateDto.title);
             runOnUiThread(ReportActivity.this::setupViewPager);
             return null;
         }
