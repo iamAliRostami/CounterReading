@@ -1,7 +1,9 @@
 package com.leon.counter_reading.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Debug;
 import android.view.View;
 
@@ -12,14 +14,27 @@ import com.leon.counter_reading.R;
 import com.leon.counter_reading.adapters.ViewPagerAdapterTab;
 import com.leon.counter_reading.base_items.BaseActivity;
 import com.leon.counter_reading.databinding.ActivityReportBinding;
+import com.leon.counter_reading.enums.HighLowStateEnum;
 import com.leon.counter_reading.fragments.ReportNotReadingFragment;
 import com.leon.counter_reading.fragments.ReportTemporaryFragment;
 import com.leon.counter_reading.fragments.ReportTotalFragment;
+import com.leon.counter_reading.tables.OnOffLoadDto;
+import com.leon.counter_reading.tables.ReadingConfigDefaultDto;
+import com.leon.counter_reading.tables.TrackingDto;
+import com.leon.counter_reading.utils.CustomProgressBar;
 import com.leon.counter_reading.utils.DepthPageTransformer;
+import com.leon.counter_reading.utils.MyDatabaseClient;
+
+import java.util.ArrayList;
 
 public class ReportActivity extends BaseActivity {
     ActivityReportBinding binding;
-    private int previousState, currentState;
+    Activity activity;
+    int previousState, currentState;
+    int zero, normal, high, low, unread, total;
+    ArrayList<OnOffLoadDto> onOffLoadDtosReads = new ArrayList<>();
+    ArrayList<TrackingDto> trackingDtos = new ArrayList<>();
+    ArrayList<ReadingConfigDefaultDto> readingConfigDefaultDtos = new ArrayList<>();
 
     @Override
     protected void initialize() {
@@ -27,7 +42,8 @@ public class ReportActivity extends BaseActivity {
         View childLayout = binding.getRoot();
         ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
-        setupViewPager();
+        activity = this;
+        new GetDBData().execute();
         initializeTextViews();
     }
 
@@ -67,7 +83,6 @@ public class ReportActivity extends BaseActivity {
         });
     }
 
-
     private void setColor() {
         binding.textViewNotRead.setBackgroundColor(Color.TRANSPARENT);
         binding.textViewNotRead.setTextColor(getResources().getColor(R.color.text_color_light));
@@ -92,8 +107,8 @@ public class ReportActivity extends BaseActivity {
     private void setupViewPager() {
         //TODO
         ViewPagerAdapterTab adapter = new ViewPagerAdapterTab(getSupportFragmentManager());
-        adapter.addFragment(new ReportTotalFragment(), "آمار کلی");
-        adapter.addFragment(new ReportNotReadingFragment(), "قرائت نشده");
+        adapter.addFragment(ReportTotalFragment.newInstance(zero, normal, high, low), "آمار کلی");
+        adapter.addFragment(ReportNotReadingFragment.newInstance(total, unread), "قرائت نشده");
         adapter.addFragment(new ReportTemporaryFragment(), "علی الحساب");
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -126,6 +141,62 @@ public class ReportActivity extends BaseActivity {
             }
         });
         binding.viewPager.setPageTransformer(true, new DepthPageTransformer());
+    }
+
+
+    @SuppressLint("StaticFieldLeak")
+    class GetDBData extends AsyncTask<Integer, Integer, Integer> {
+        CustomProgressBar customProgressBar;
+
+        public GetDBData() {
+            super();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            customProgressBar = new CustomProgressBar();
+            customProgressBar.show(activity, false);
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            customProgressBar.getDialog().dismiss();
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            trackingDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
+                    trackingDao().getTrackingDtos());
+            for (TrackingDto trackingDto : trackingDtos) {
+                readingConfigDefaultDtos.addAll(MyDatabaseClient.getInstance(activity).
+                        getMyDatabase().readingConfigDefaultDao().
+                        getActiveReadingConfigDefaultDtosByZoneId(true, trackingDto.zoneId));
+            }
+            for (ReadingConfigDefaultDto readingConfigDefaultDto : readingConfigDefaultDtos) {
+                onOffLoadDtosReads.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
+                        onOffLoadDao().getAllOnOffLoadRead(true, readingConfigDefaultDto.zoneId));
+                zero = MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().
+                        getOnOffLoadReadCountByStatus(true, readingConfigDefaultDto.zoneId,
+                                HighLowStateEnum.ZERO.getValue());
+                high = MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().
+                        getOnOffLoadReadCountByStatus(true, readingConfigDefaultDto.zoneId,
+                                HighLowStateEnum.HIGH.getValue());
+                low = MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().
+                        getOnOffLoadReadCountByStatus(true, readingConfigDefaultDto.zoneId,
+                                HighLowStateEnum.LOW.getValue());
+                normal = MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().
+                        getOnOffLoadReadCountByStatus(true, readingConfigDefaultDto.zoneId,
+                                HighLowStateEnum.NORMAL.getValue());
+                unread = MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().
+                        getOnOffLoadReadCount(false, readingConfigDefaultDto.zoneId);
+                total = MyDatabaseClient.getInstance(activity).getMyDatabase().onOffLoadDao().
+                        getOnOffLoadCount(readingConfigDefaultDto.zoneId);
+            }
+            runOnUiThread(ReportActivity.this::setupViewPager);
+            return null;
+        }
     }
 
     @Override

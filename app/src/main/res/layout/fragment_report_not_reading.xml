@@ -76,23 +76,16 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/button_continue"
+            style="@style/text_bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button_continue"
-                style="@style/text_bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/medium_dp"
-                android:layout_marginBottom="@dimen/medium_dp"
-                android:background="@drawable/border_yellow_3"
-                android:text="@string/continue_reading"
-                android:textColor="@color/text_color_light"
-                android:textSize="@dimen/text_size_large" />
-        </LinearLayout>
+            android:layout_marginTop="@dimen/medium_dp"
+            android:layout_marginBottom="@dimen/medium_dp"
+            android:background="@drawable/border_yellow_3"
+            android:text="@string/continue_reading"
+            android:textColor="@color/text_color_light"
+            android:textSize="@dimen/text_size_large" />
     </LinearLayout>
 </FrameLayout>

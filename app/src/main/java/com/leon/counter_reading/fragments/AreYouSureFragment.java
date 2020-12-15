@@ -76,8 +76,9 @@ public class AreYouSureFragment extends DialogFragment {
 
     void setOnButtonsClickListener() {
         binding.buttonSubmit.setOnClickListener(v -> {
-            ((ReadingActivity) getActivity()).updateOnOffLoadByCounterNumber(position,
-                    currentNumber, counterStateCode, counterStatePosition, type);
+            ((ReadingActivity) Objects.requireNonNull(getActivity())).
+                    updateOnOffLoadByCounterNumber(position, currentNumber, counterStateCode,
+                            counterStatePosition, type);
             dismiss();
         });
         binding.buttonClose.setOnClickListener(v -> dismiss());

@@ -25,8 +25,10 @@ import com.leon.counter_reading.R;
 import com.leon.counter_reading.adapters.ViewPagerAdapterReading;
 import com.leon.counter_reading.base_items.BaseActivity;
 import com.leon.counter_reading.databinding.ActivityReadingBinding;
+import com.leon.counter_reading.enums.BundleEnum;
 import com.leon.counter_reading.enums.DialogType;
 import com.leon.counter_reading.enums.OffloadStateEnum;
+import com.leon.counter_reading.enums.ReadStatusEnum;
 import com.leon.counter_reading.fragments.SearchFragment;
 import com.leon.counter_reading.infrastructure.IFlashLightManager;
 import com.leon.counter_reading.tables.OnOffLoadDto;
@@ -49,11 +51,12 @@ public class ReadingActivity extends BaseActivity {
     ActivityReadingBinding binding;
     Activity activity;
     IFlashLightManager flashLightManager;
-    boolean isFlashOn = false, isNight = false;
     ReadingData readingData;
     ReadingData readingDataTemp;
-    final int[] imageSrc = new int[12];
     ViewPagerAdapterReading viewPagerAdapterReading;
+    boolean isFlashOn = false, isNight = false;
+    int readStatus = 0, highLow = 1;
+    final int[] imageSrc = new int[12];
 
     @Override
     protected void initialize() {
@@ -265,10 +268,10 @@ public class ReadingActivity extends BaseActivity {
     }
 
     @SuppressLint("StaticFieldLeak")
-    class getDBData extends AsyncTask<Integer, Integer, Integer> {
+    class GetDBData extends AsyncTask<Integer, Integer, Integer> {
         CustomProgressBar customProgressBar;
 
-        public getDBData() {
+        public GetDBData() {
             super();
         }
 
@@ -304,8 +307,19 @@ public class ReadingActivity extends BaseActivity {
                         getActiveReadingConfigDefaultDtosByZoneId(true, trackingDto.zoneId));
             }
             for (ReadingConfigDefaultDto readingConfigDefaultDto : readingData.readingConfigDefaultDtos) {
-                readingData.onOffLoadDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
-                        onOffLoadDao().getAllOnOffLoadByZone(readingConfigDefaultDto.zoneId));
+                if (readStatus == ReadStatusEnum.ALL.getValue()) {
+                    readingData.onOffLoadDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
+                            onOffLoadDao().getAllOnOffLoadByZone(readingConfigDefaultDto.zoneId));
+                } else if (readStatus == ReadStatusEnum.STATE.getValue()) {
+                    readingData.onOffLoadDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
+                            onOffLoadDao().getAllOnOffLoadByZone(readingConfigDefaultDto.zoneId, highLow));
+                } else if (readStatus == ReadStatusEnum.UNREAD.getValue()) {
+                    readingData.onOffLoadDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
+                            onOffLoadDao().getAllOnOffLoadRead(false, readingConfigDefaultDto.zoneId));
+                } else if (readStatus == ReadStatusEnum.READ.getValue()) {
+                    readingData.onOffLoadDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
+                            onOffLoadDao().getAllOnOffLoadRead(true, readingConfigDefaultDto.zoneId));
+                }
             }
             if (readingData.onOffLoadDtos != null && readingData.onOffLoadDtos.size() > 0) {
                 readingDataTemp.onOffLoadDtos.addAll(readingData.onOffLoadDtos);
@@ -374,7 +388,12 @@ public class ReadingActivity extends BaseActivity {
                 askStoragePermission();
             } else {
                 setAboveIcons();
-                new getDBData().execute();
+                new GetDBData().execute();
+                if (getIntent().getExtras() != null) {
+                    //TODO
+                    readStatus = getIntent().getIntExtra(BundleEnum.READ_STATUS.getValue(), 0);
+                    highLow = getIntent().getIntExtra(BundleEnum.TYPE.getValue(), 1);
+                }
                 setOnImageViewsClickListener();
             }
     }

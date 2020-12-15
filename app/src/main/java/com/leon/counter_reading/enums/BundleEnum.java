@@ -14,6 +14,13 @@ public enum BundleEnum {
     TRACKING("tracking"),
     POSITION("position"),
     NUMBER("number"),
+    UNREAD("total"),
+    TOTAL("unread"),
+    ZERO("zero"),
+    HIGH("high"),
+    LOW("low"),
+    NORMAL("normal"),
+    READ_STATUS("read_status"),
     TYPE("type");
 
     private final String value;

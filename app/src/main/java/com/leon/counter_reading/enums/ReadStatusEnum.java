@@ -6,7 +6,8 @@ public enum ReadStatusEnum {
     ALL_MANE(2),
     CUSTOM_MANE(3),
     STATE(4),
-    TRACK_NUMBER(5);
+    TRACK_NUMBER(5),
+    READ(6);
 
     private final int value;
 
