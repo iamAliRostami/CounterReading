@@ -1,5 +1,6 @@
 package com.leon.counter_reading.adapters;
 
+import android.app.Activity;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -23,15 +24,17 @@ public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
     ReadingData readingData;
     ReadingData readingDataTemp;
     ArrayList<String> items = new ArrayList<>();
+    SpinnerCustomAdapter spinnerCustomAdapter;
 
     public ViewPagerAdapterReading(@NonNull FragmentManager fm, int behavior,
-                                   ReadingData readingData) {
+                                   ReadingData readingData, Activity activity) {
         super(fm, behavior);
         this.readingData = readingData;
         readingDataTemp = readingData;
         for (int i = 0; i < readingData.counterStateDtos.size(); i++) {
             items.add(readingData.counterStateDtos.get(i).title);
         }
+        spinnerCustomAdapter = new SpinnerCustomAdapter(activity, items);
     }
 
     @NotNull
@@ -58,7 +61,7 @@ public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
         }
         return ReadingFragment.newInstance(readingDataTemp.onOffLoadDtos.get(position),
                 readingConfigDefaultDtoTemp, karbariDtoTemp, qotrDictionaryTemp,
-                readingDataTemp.counterStateDtos, items, position);
+                readingDataTemp.counterStateDtos, items, spinnerCustomAdapter, position);
     }
 
     @Override

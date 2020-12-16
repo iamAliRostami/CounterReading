@@ -10,9 +10,10 @@ import android.widget.CheckedTextView;
 
 import com.leon.counter_reading.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SpinnerCustomAdapter extends BaseAdapter {
+public class SpinnerCustomAdapter extends BaseAdapter implements Serializable {
     Activity activity;
     ArrayList<String> items;
     LayoutInflater inflater;

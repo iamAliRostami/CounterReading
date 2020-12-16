@@ -35,7 +35,6 @@ public class ReadingFragment extends Fragment {
     KarbariDto karbariDto;
     QotrDictionary qotrDictionary;
     ArrayList<CounterStateDto> counterStateDtos = new ArrayList<>();
-    ArrayList<String> items = new ArrayList<>();
     FragmentReadingBinding binding;
     int position;
     int counterStateCode;
@@ -85,7 +84,6 @@ public class ReadingFragment extends Fragment {
     }
 
     void initializeSpinner() {
-        adapter = new SpinnerCustomAdapter(getActivity(), items);
         binding.spinner.setAdapter(adapter);
         if (onOffLoadDto.counterStatePosition != null)
             binding.spinner.setSelection(onOffLoadDto.counterStatePosition);
@@ -234,10 +232,11 @@ public class ReadingFragment extends Fragment {
             QotrDictionary qotrDictionary,
             ArrayList<CounterStateDto> counterStateDtos,
             ArrayList<String> items,
+            SpinnerCustomAdapter spinnerCustomAdapter,
             int position) {
         ReadingFragment fragment = new ReadingFragment();
         fragment.setArguments(putBundle(onOffLoadDto, readingConfigDefaultDto, karbariDto,
-                qotrDictionary, counterStateDtos, items, position));
+                qotrDictionary, counterStateDtos, items, spinnerCustomAdapter, position));
         return fragment;
     }
 
@@ -255,15 +254,13 @@ public class ReadingFragment extends Fragment {
             qotrDictionary = gson.fromJson(getArguments().getString(
                     BundleEnum.QOTR_DICTIONARY.getValue()),
                     QotrDictionary.class);
-
-            items = getArguments().getStringArrayList(
-                    BundleEnum.COUNTER_STATE_ADAPTER.getValue());
             ArrayList<String> json = getArguments().getStringArrayList(
                     BundleEnum.COUNTER_STATE.getValue());
             for (String s : json) {
                 counterStateDtos.add(gson.fromJson(s, CounterStateDto.class));
             }
             position = getArguments().getInt(BundleEnum.POSITION.getValue());
+            adapter = (SpinnerCustomAdapter) getArguments().getSerializable(BundleEnum.Item.getValue());
         }
     }
 
@@ -273,6 +270,7 @@ public class ReadingFragment extends Fragment {
                             QotrDictionary qotrDictionary,
                             ArrayList<CounterStateDto> counterStateDtos,
                             ArrayList<String> items,
+                            SpinnerCustomAdapter spinnerCustomAdapter,
                             int position) {
         Bundle args = new Bundle();
         Gson gson = new Gson();
@@ -289,6 +287,7 @@ public class ReadingFragment extends Fragment {
             String json = gson.toJson(counterStateDto);
             json5.add(json);
         }
+        args.putSerializable(BundleEnum.Item.getValue(), spinnerCustomAdapter);
         args.putStringArrayList(BundleEnum.COUNTER_STATE.getValue(), json5);
         args.putStringArrayList(BundleEnum.COUNTER_STATE_ADAPTER.getValue(), items);
         args.putInt(BundleEnum.POSITION.getValue(), position);
@@ -309,6 +308,5 @@ public class ReadingFragment extends Fragment {
         adapter = null;
         qotrDictionary = null;
         counterStateDtos = null;
-        items = null;
     }
 }
