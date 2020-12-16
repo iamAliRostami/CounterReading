@@ -5,13 +5,13 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Debug;
-import android.util.Log;
 import android.view.View;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.leon.counter_reading.R;
+import com.leon.counter_reading.adapters.SpinnerCustomAdapter;
 import com.leon.counter_reading.adapters.ViewPagerAdapterTab;
 import com.leon.counter_reading.base_items.BaseActivity;
 import com.leon.counter_reading.databinding.ActivityReportBinding;
@@ -34,7 +34,6 @@ public class ReportActivity extends BaseActivity {
     Activity activity;
     int previousState, currentState;
     int zero, normal, high, low, unread, total;
-    ArrayList<String> items = new ArrayList<>();
     ArrayList<CounterStateDto> counterStateDtos = new ArrayList<>();
     ArrayList<OnOffLoadDto> onOffLoadDtosReads = new ArrayList<>();
     ArrayList<TrackingDto> trackingDtos = new ArrayList<>();
@@ -110,10 +109,15 @@ public class ReportActivity extends BaseActivity {
 
     private void setupViewPager() {
         //TODO
+        ArrayList<String> items = new ArrayList<>();
+        for (CounterStateDto counterStateDto : counterStateDtos)
+            items.add(counterStateDto.title);
+        SpinnerCustomAdapter spinnerCustomAdapter = new SpinnerCustomAdapter(activity, items);
         ViewPagerAdapterTab adapter = new ViewPagerAdapterTab(getSupportFragmentManager());
         adapter.addFragment(ReportTotalFragment.newInstance(zero, normal, high, low), "آمار کلی");
         adapter.addFragment(ReportNotReadingFragment.newInstance(total, unread), "قرائت نشده");
-        adapter.addFragment(ReportTemporaryFragment.newInstance(counterStateDtos, items), "علی الحساب");
+
+        adapter.addFragment(ReportTemporaryFragment.newInstance(counterStateDtos, spinnerCustomAdapter), "علی الحساب");
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -200,8 +204,6 @@ public class ReportActivity extends BaseActivity {
             }
             counterStateDtos.addAll(MyDatabaseClient.getInstance(activity).getMyDatabase().
                     counterStateDao().getCounterStateDtos());
-            for (CounterStateDto counterStateDto : counterStateDtos)
-                items.add(counterStateDto.title);
             runOnUiThread(ReportActivity.this::setupViewPager);
             return null;
         }

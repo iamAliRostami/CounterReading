@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class ReportTemporaryFragment extends Fragment {
     FragmentReportTemporaryBinding binding;
     ArrayList<CounterStateDto> counterStateDtos = new ArrayList<>();
-    ArrayList<String> items = new ArrayList<>();
     SpinnerCustomAdapter adapter;
 
     public ReportTemporaryFragment() {
@@ -49,14 +48,13 @@ public class ReportTemporaryFragment extends Fragment {
     }
 
     void initializeSpinner() {
-        adapter = new SpinnerCustomAdapter(getActivity(), items);
         binding.spinner.setAdapter(adapter);
     }
 
     public static ReportTemporaryFragment newInstance(
-            ArrayList<CounterStateDto> counterStateDtos, ArrayList<String> items) {
+            ArrayList<CounterStateDto> counterStateDtos, SpinnerCustomAdapter spinnerCustomAdapter) {
         ReportTemporaryFragment fragment = new ReportTemporaryFragment();
-        fragment.setArguments(putBundle(counterStateDtos, items));
+        fragment.setArguments(putBundle(counterStateDtos, spinnerCustomAdapter));
         return fragment;
     }
 
@@ -68,15 +66,13 @@ public class ReportTemporaryFragment extends Fragment {
             for (String s : json1) {
                 counterStateDtos.add(gson.fromJson(s, CounterStateDto.class));
             }
-            ArrayList<String> json2 = getArguments().getStringArrayList(
+            adapter = (SpinnerCustomAdapter) getArguments().getSerializable(
                     BundleEnum.Item.getValue());
-            for (String s : json2) {
-                items.add(gson.fromJson(s, String.class));
-            }
         }
     }
 
-    static Bundle putBundle(ArrayList<CounterStateDto> counterStateDtos, ArrayList<String> items) {
+    static Bundle putBundle(ArrayList<CounterStateDto> counterStateDtos,
+                            SpinnerCustomAdapter spinnerCustomAdapter) {
         Bundle args = new Bundle();
         Gson gson = new Gson();
         ArrayList<String> json1 = new ArrayList<>();
@@ -86,15 +82,9 @@ public class ReportTemporaryFragment extends Fragment {
         }
         args.putStringArrayList(BundleEnum.COUNTER_STATE.getValue(), json1);
 
-        ArrayList<String> json2 = new ArrayList<>();
-        for (String s : items) {
-            String jsonTemp = gson.toJson(s);
-            json2.add(jsonTemp);
-        }
-        args.putStringArrayList(BundleEnum.Item.getValue(), json2);
+        args.putSerializable(BundleEnum.Item.getValue(), spinnerCustomAdapter);
         return args;
     }
-
 
     @Override
     public void onDestroyView() {
