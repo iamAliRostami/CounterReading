@@ -77,20 +77,25 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/low_dp"
-            android:background="@drawable/border_gray_1"
+            android:layout_marginTop="@dimen/low_dp"
+            android:layout_marginBottom="@dimen/low_dp"
+            android:background="@drawable/border_gray_5"
             android:gravity="center"
             android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/spinner"
+                style="@style/Widget.AppCompat.Spinner.DropDown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center" />
+                android:background="@drawable/background_spinner"
+                android:gravity="center"
+                android:popupBackground="@drawable/border_gray_5"
+                android:spinnerMode="dialog"
+                tools:listitem="@layout/item_dropdown_menu" />
 
         </LinearLayout>
     </LinearLayout>
