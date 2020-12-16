@@ -48,7 +48,7 @@ import java.util.List;
 public abstract class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
-    RelativeLayout linearLayoutReadingHeader;
+    RelativeLayout relativeLayout;
     NavigationDrawerAdapter adapter;
     List<NavigationDrawerAdapter.DrawerItem> dataList;
     BaseActivityBinding binding;
@@ -156,14 +156,14 @@ public abstract class BaseActivity extends AppCompatActivity
     private void initializeBase() {
         TextView textView = findViewById(R.id.text_view_title);
         textView.setText(sharedPreferenceManager.getStringData(
-                SharedReferenceKeys.DISPLAY_NAME.getValue()).concat(" (").concat(
-                sharedPreferenceManager.getStringData(
-                        SharedReferenceKeys.USER_CODE.getValue())).concat(")"));
+                SharedReferenceKeys.DISPLAY_NAME.getValue()).
+                concat(" (").concat(sharedPreferenceManager.getStringData(
+                SharedReferenceKeys.USER_CODE.getValue())).concat(")"));
         binding.textViewVersion.setText(getString(R.string.version).concat(" ")
                 .concat(BuildConfig.VERSION_NAME));
-        linearLayoutReadingHeader = findViewById(R.id.relative_layout_reading_header);
+        relativeLayout = findViewById(R.id.relative_layout_reading_header);
         if (MyApplication.POSITION == 1) {
-            linearLayoutReadingHeader.setVisibility(View.VISIBLE);
+            relativeLayout.setVisibility(View.VISIBLE);
         }
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);//TODO
@@ -186,8 +186,8 @@ public abstract class BaseActivity extends AppCompatActivity
 
     void fillDrawerListView() {
         dataList = NavigationDrawerAdapter.DrawerItem.createItemList(
-                getResources().getStringArray(R.array.menu), getResources().obtainTypedArray(
-                        R.array.icons));
+                getResources().getStringArray(R.array.menu),
+                getResources().obtainTypedArray(R.array.icons));
         adapter = new NavigationDrawerAdapter(this, dataList);
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(MyApplication.getContext()));
