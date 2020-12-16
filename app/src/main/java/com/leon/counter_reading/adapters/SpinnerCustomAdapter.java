@@ -14,13 +14,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SpinnerCustomAdapter extends BaseAdapter implements Serializable {
-    Activity activity;
     ArrayList<String> items;
     LayoutInflater inflater;
 
     public SpinnerCustomAdapter(Activity activity, ArrayList<String> items) {
         super();
-        this.activity = activity;
         this.items = items;
         inflater = (LayoutInflater.from(activity));
     }

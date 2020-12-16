@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.leon.counter_reading.fragments.ReadingFragment;
 import com.leon.counter_reading.tables.KarbariDto;
-import com.leon.counter_reading.tables.OnOffLoadDto;
 import com.leon.counter_reading.tables.QotrDictionary;
 import com.leon.counter_reading.tables.ReadingConfigDefaultDto;
 import com.leon.counter_reading.tables.ReadingData;
@@ -22,17 +21,32 @@ import java.util.ArrayList;
 
 public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
     ReadingData readingData;
-    ReadingData readingDataTemp;
-    ArrayList<String> items = new ArrayList<>();
     SpinnerCustomAdapter spinnerCustomAdapter;
+    ArrayList<ReadingConfigDefaultDto> readingConfigDefaultDtos = new ArrayList<>();
+    ArrayList<KarbariDto> karbariDtos = new ArrayList<>();
+    ArrayList<QotrDictionary> qotrDictionaries = new ArrayList<>();
 
     public ViewPagerAdapterReading(@NonNull FragmentManager fm, int behavior,
                                    ReadingData readingData, Activity activity) {
         super(fm, behavior);
         this.readingData = readingData;
-        readingDataTemp = readingData;
+        ArrayList<String> items = new ArrayList<>();
         for (int i = 0; i < readingData.counterStateDtos.size(); i++) {
             items.add(readingData.counterStateDtos.get(i).title);
+        }
+        for (int i = 0; i < readingData.onOffLoadDtos.size(); i++) {
+            for (ReadingConfigDefaultDto readingConfigDefaultDto : readingData.readingConfigDefaultDtos) {
+                if (readingData.onOffLoadDtos.get(i).zoneId == readingConfigDefaultDto.zoneId)
+                    readingConfigDefaultDtos.add(readingConfigDefaultDto);
+            }
+            for (KarbariDto karbariDto : readingData.karbariDtos) {
+                if (readingData.onOffLoadDtos.get(i).karbariCode == karbariDto.moshtarakinId)
+                    karbariDtos.add(karbariDto);
+            }
+            for (QotrDictionary qotrDictionary : readingData.qotrDictionary) {
+                if (readingData.onOffLoadDtos.get(i).qotrCode == qotrDictionary.id)
+                    qotrDictionaries.add(qotrDictionary);
+            }
         }
         spinnerCustomAdapter = new SpinnerCustomAdapter(activity, items);
     }
@@ -40,33 +54,37 @@ public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
     @NotNull
     @Override
     public Fragment getItem(int position) {
-        ReadingConfigDefaultDto readingConfigDefaultDtoTemp = null;
-        QotrDictionary qotrDictionaryTemp = null;
-        KarbariDto karbariDtoTemp = null;
-        for (ReadingConfigDefaultDto readingConfigDefaultDto :
-                readingDataTemp.readingConfigDefaultDtos
-        ) {
-            if (readingConfigDefaultDto.zoneId == readingDataTemp.onOffLoadDtos.get(position).zoneId)
-                readingConfigDefaultDtoTemp = readingConfigDefaultDto;
-        }
-        for (QotrDictionary qotrDictionary : readingDataTemp.qotrDictionary) {
-            if (qotrDictionary.id == readingDataTemp.onOffLoadDtos.get(position).qotrCode)
-                qotrDictionaryTemp = qotrDictionary;
-
-        }
-        for (KarbariDto karbariDto : readingDataTemp.karbariDtos) {
-            if (karbariDto.id == readingDataTemp.onOffLoadDtos.get(position).karbariCode)
-                karbariDtoTemp = karbariDto;
-
-        }
-        return ReadingFragment.newInstance(readingDataTemp.onOffLoadDtos.get(position),
-                readingConfigDefaultDtoTemp, karbariDtoTemp, qotrDictionaryTemp,
-                readingDataTemp.counterStateDtos, items, spinnerCustomAdapter, position);
+//        ReadingConfigDefaultDto readingConfigDefaultDtoTemp = null;
+//        QotrDictionary qotrDictionaryTemp = null;
+//        KarbariDto karbariDtoTemp = null;
+//        for (ReadingConfigDefaultDto readingConfigDefaultDto :
+//                readingData.readingConfigDefaultDtos
+//        ) {
+//            if (readingConfigDefaultDto.zoneId == readingData.onOffLoadDtos.get(position).zoneId)
+//                readingConfigDefaultDtoTemp = readingConfigDefaultDto;
+//        }
+//        for (QotrDictionary qotrDictionary : readingData.qotrDictionary) {
+//            if (qotrDictionary.id == readingData.onOffLoadDtos.get(position).qotrCode)
+//                qotrDictionaryTemp = qotrDictionary;
+//
+//        }
+//        for (KarbariDto karbariDto : readingData.karbariDtos) {
+//            if (karbariDto.id == readingData.onOffLoadDtos.get(position).karbariCode)
+//                karbariDtoTemp = karbariDto;
+//
+//        }
+//        return ReadingFragment.newInstance(readingData.onOffLoadDtos.get(position),
+//                readingConfigDefaultDtoTemp, karbariDtoTemp, qotrDictionaryTemp,
+//                readingData.counterStateDtos, spinnerCustomAdapter, position);
+        return ReadingFragment.newInstance(readingData.onOffLoadDtos.get(position),
+                readingConfigDefaultDtos.get(position), karbariDtos.get(position),
+                qotrDictionaries.get(position), readingData.counterStateDtos,
+                spinnerCustomAdapter, position);
     }
 
     @Override
     public int getCount() {
-        return readingDataTemp.onOffLoadDtos.size();
+        return readingData.onOffLoadDtos.size();
     }
 
     @Override
@@ -85,45 +103,5 @@ public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
             trans.commit();
         }
         super.destroyItem(container, position, object);
-    }
-
-    public void filter(int type, String key) {
-        switch (type) {
-            case 0:
-                readingDataTemp.onOffLoadDtos.clear();
-                for (OnOffLoadDto onOffLoadDto : readingData.onOffLoadDtos) {
-                    if (onOffLoadDto.eshterak.toLowerCase().contains(key))
-                        readingDataTemp.onOffLoadDtos.add(onOffLoadDto);
-                }
-                break;
-            case 1:
-                readingDataTemp.onOffLoadDtos.clear();
-                for (OnOffLoadDto onOffLoadDto : readingData.onOffLoadDtos) {
-                    if (onOffLoadDto.radif == Integer.parseInt(key))
-                        readingDataTemp.onOffLoadDtos.add(onOffLoadDto);
-                }
-                break;
-            case 2:
-                readingDataTemp.onOffLoadDtos.clear();
-                for (OnOffLoadDto onOffLoadDto : readingData.onOffLoadDtos) {
-                    if (onOffLoadDto.counterSerial.toLowerCase().contains(key))
-                        readingDataTemp.onOffLoadDtos.add(onOffLoadDto);
-                }
-                break;
-            case 3:
-                readingDataTemp.onOffLoadDtos.clear();
-                for (OnOffLoadDto onOffLoadDto : readingData.onOffLoadDtos) {
-                    if (onOffLoadDto.firstName.toLowerCase().contains(key))
-                        readingDataTemp.onOffLoadDtos.add(onOffLoadDto);
-                    if (onOffLoadDto.sureName.toLowerCase().contains(key))
-                        readingDataTemp.onOffLoadDtos.add(onOffLoadDto);
-                }
-                break;
-            case 5:
-                readingDataTemp.onOffLoadDtos.clear();
-                readingDataTemp.onOffLoadDtos = readingData.onOffLoadDtos;
-                break;
-        }
-        notifyDataSetChanged();
     }
 }

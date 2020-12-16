@@ -29,16 +29,14 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ReadingFragment extends Fragment {
+    FragmentReadingBinding binding;
     SpinnerCustomAdapter adapter;
     OnOffLoadDto onOffLoadDto;
     ReadingConfigDefaultDto readingConfigDefaultDto;
     KarbariDto karbariDto;
     QotrDictionary qotrDictionary;
     ArrayList<CounterStateDto> counterStateDtos = new ArrayList<>();
-    FragmentReadingBinding binding;
-    int position;
-    int counterStateCode;
-    int counterStatePosition;
+    int position, counterStateCode, counterStatePosition;
     boolean canBeEmpty, canLessThanPre;
 
     public ReadingFragment() {
@@ -231,12 +229,11 @@ public class ReadingFragment extends Fragment {
             KarbariDto karbariDto,
             QotrDictionary qotrDictionary,
             ArrayList<CounterStateDto> counterStateDtos,
-            ArrayList<String> items,
             SpinnerCustomAdapter spinnerCustomAdapter,
             int position) {
         ReadingFragment fragment = new ReadingFragment();
         fragment.setArguments(putBundle(onOffLoadDto, readingConfigDefaultDto, karbariDto,
-                qotrDictionary, counterStateDtos, items, spinnerCustomAdapter, position));
+                qotrDictionary, counterStateDtos, spinnerCustomAdapter, position));
         return fragment;
     }
 
@@ -269,7 +266,6 @@ public class ReadingFragment extends Fragment {
                             KarbariDto karbariDto,
                             QotrDictionary qotrDictionary,
                             ArrayList<CounterStateDto> counterStateDtos,
-                            ArrayList<String> items,
                             SpinnerCustomAdapter spinnerCustomAdapter,
                             int position) {
         Bundle args = new Bundle();
@@ -289,7 +285,6 @@ public class ReadingFragment extends Fragment {
         }
         args.putSerializable(BundleEnum.Item.getValue(), spinnerCustomAdapter);
         args.putStringArrayList(BundleEnum.COUNTER_STATE.getValue(), json5);
-        args.putStringArrayList(BundleEnum.COUNTER_STATE_ADAPTER.getValue(), items);
         args.putInt(BundleEnum.POSITION.getValue(), position);
         return args;
     }
