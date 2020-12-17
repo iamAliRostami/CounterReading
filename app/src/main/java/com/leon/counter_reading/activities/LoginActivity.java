@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.auth0.android.jwt.JWT;
 import com.leon.counter_reading.BuildConfig;
@@ -75,11 +76,14 @@ public class LoginActivity extends AppCompatActivity {
         binding.editTextUsername.setOnFocusChangeListener((view, b) -> {
             binding.editTextUsername.setHint("");
             if (b) {
-                binding.linearLayoutUsername.setBackground(getResources().getDrawable(R.drawable.border_black_2));
+                binding.linearLayoutUsername.setBackground(ContextCompat.getDrawable(
+                        getApplicationContext(), R.drawable.border_black_2));
                 binding.editTextPassword.setTextColor(getResources().getColor(R.color.black));
             } else {
-                binding.linearLayoutUsername.setBackground(getResources().getDrawable(R.drawable.border_gray_2));
-                binding.editTextPassword.setTextColor(getResources().getColor(R.color.gray));
+                binding.linearLayoutUsername.setBackground(ContextCompat.getDrawable(
+                        getApplicationContext(), R.drawable.border_gray_2));
+                binding.editTextPassword.setTextColor(
+                        ContextCompat.getColor(getApplicationContext(), R.color.gray));
             }
         });
     }
@@ -89,11 +93,15 @@ public class LoginActivity extends AppCompatActivity {
         binding.editTextPassword.setOnFocusChangeListener((view, b) -> {
             binding.editTextPassword.setHint("");
             if (b) {
-                binding.linearLayoutPassword.setBackground(getResources().getDrawable(R.drawable.border_black_2));
-                binding.editTextPassword.setTextColor(getResources().getColor(R.color.black));
+                binding.linearLayoutPassword.setBackground(
+                        ContextCompat.getDrawable(getApplicationContext(), R.drawable.border_black_2));
+                binding.editTextPassword.setTextColor(
+                        ContextCompat.getColor(getApplicationContext(), R.color.black));
             } else {
-                binding.linearLayoutPassword.setBackground(getResources().getDrawable(R.drawable.border_gray_2));
-                binding.editTextPassword.setTextColor(getResources().getColor(R.color.gray));
+                binding.linearLayoutPassword.setBackground(
+                        ContextCompat.getDrawable(getApplicationContext(), R.drawable.border_gray_2));
+                binding.editTextPassword.setTextColor(
+                        ContextCompat.getColor(getApplicationContext(), R.color.gray));
             }
         });
     }

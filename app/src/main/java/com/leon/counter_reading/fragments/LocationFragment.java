@@ -25,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -64,10 +65,11 @@ public class LocationFragment extends Fragment implements LocationListener {
 
     @SuppressLint("MissingPermission")
     void initializeMap() {
-        binding.mapView.setBuiltInZoomControls(true);
+        binding.mapView.getZoomController().
+                setVisibility(CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
         binding.mapView.setMultiTouchControls(true);
         IMapController mapController = binding.mapView.getController();
-        mapController.setZoom(19);
+        mapController.setZoom(19.0);
         locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         String bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true));

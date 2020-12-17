@@ -155,9 +155,7 @@ public class PermissionManager {
         alertDialog.setCancelable(false);
         alertDialog.setTitle(activity.getString(R.string.network_setting));
         alertDialog.setMessage(R.string.active_network);
-        alertDialog.setPositiveButton(R.string.setting, (dialog, which) -> {
-            setMobileDataEnabled(activity);
-        });
+        alertDialog.setPositiveButton(R.string.setting, (dialog, which) -> setMobileDataEnabled(activity));
         alertDialog.setNegativeButton(R.string.close, (dialog, which) -> {
             dialog.cancel();
             forceClose(activity);

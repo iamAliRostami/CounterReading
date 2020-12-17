@@ -77,7 +77,7 @@ public class ReadingSettingCustomAdapter extends BaseAdapter {
         return view;
     }
 
-    class CheckBoxViewHolder {
+    static class CheckBoxViewHolder {
         CheckedTextView checkBox;
         LinearLayout linearLayout;
         TextView textViewTrackNumber;

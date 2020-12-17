@@ -11,6 +11,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.gun0912.tedpermission.PermissionListener;
@@ -123,7 +124,8 @@ public class LocationActivity extends BaseActivity {
     void textViewPlace() {
         binding.textViewPlace.setOnClickListener(view -> {
             setColor();
-            binding.textViewPlace.setBackground(getResources().getDrawable(R.drawable.border_white_2));
+            binding.textViewPlace.setBackground(
+                    ContextCompat.getDrawable(getApplicationContext(), R.drawable.border_white_2));
             setPadding();
             binding.viewPager.setCurrentItem(3);
         });
@@ -133,7 +135,8 @@ public class LocationActivity extends BaseActivity {
     void textViewLocation() {
         binding.textViewLocation.setOnClickListener(view -> {
             setColor();
-            binding.textViewLocation.setBackground(getResources().getDrawable(R.drawable.border_white_2));
+            binding.textViewLocation.setBackground(
+                    ContextCompat.getDrawable(getApplicationContext(), R.drawable.border_white_2));
             setPadding();
             binding.viewPager.setCurrentItem(0);
         });
@@ -141,9 +144,11 @@ public class LocationActivity extends BaseActivity {
 
     private void setColor() {
         binding.textViewLocation.setBackgroundColor(Color.TRANSPARENT);
-        binding.textViewLocation.setTextColor(getResources().getColor(R.color.text_color_light));
+        binding.textViewLocation.setTextColor(
+                ContextCompat.getColor(getApplicationContext(), R.color.text_color_light));
         binding.textViewPlace.setBackgroundColor(Color.TRANSPARENT);
-        binding.textViewPlace.setTextColor(getResources().getColor(R.color.text_color_light));
+        binding.textViewPlace.setTextColor(
+                ContextCompat.getColor(getApplicationContext(), R.color.text_color_light));
     }
 
     private void setPadding() {

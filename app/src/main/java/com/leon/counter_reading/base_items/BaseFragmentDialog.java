@@ -10,9 +10,9 @@ import android.view.WindowManager;
 public abstract class BaseFragmentDialog extends DialogFragment {
     View view;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanseState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         getActivity().getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        view = FragmentDialogView(inflater, parent, savedInstanseState);
+        view = FragmentDialogView(inflater, parent, savedInstanceState);
         initialize();
         return view;
     }

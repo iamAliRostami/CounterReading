@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.core.content.ContextCompat;
+
 import com.leon.counter_reading.R;
 import com.leon.counter_reading.activities.HomeActivity;
 import com.leon.counter_reading.enums.DialogType;
@@ -42,7 +44,7 @@ public class CustomDialog {
     public static void CustomGreenDialogRedirect(final Context context, String ButtonText) {
         lovelyStandardDialog
                 .setTopColorRes(R.color.green)
-                .setTopTitleColor(context.getResources().getColor(R.color.text_color_light))
+                .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
                 .setButtonsBackground(R.drawable.border_green_1)
                 .setPositiveButton(ButtonText, v -> {
                     Intent intent = new Intent(context, HomeActivity.class);
@@ -53,7 +55,7 @@ public class CustomDialog {
 
     public static void CustomYellowDialogRedirect(final Context context, String buttonText) {
         lovelyStandardDialog
-                .setTopTitleColor(context.getResources().getColor(R.color.text_color_light))
+                .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
                 .setButtonsBackground(R.drawable.border_yellow_1)
                 .setTopColorRes(R.color.yellow)
                 .setPositiveButton(buttonText, v -> {
@@ -64,7 +66,7 @@ public class CustomDialog {
     public static void CustomRedDialogRedirect(final Context context, String buttonText) {
         lovelyStandardDialog
                 .setTopColorRes(R.color.red)
-                .setTopTitleColor(context.getResources().getColor(R.color.text_color_light))
+                .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
                 .setButtonsBackground(R.drawable.border_red_1)
                 .setPositiveButton(buttonText, v -> lovelyStandardDialog.dismiss())
                 .show();
@@ -73,7 +75,7 @@ public class CustomDialog {
     public static void CustomGreenDialog(final Context context, String ButtonText) {
         lovelyStandardDialog
                 .setTopColorRes(R.color.green)
-                .setTopTitleColor(context.getResources().getColor(R.color.text_color_light))
+                .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
                 .setButtonsBackground(R.drawable.border_green_1)
                 .setPositiveButton(ButtonText, v -> lovelyStandardDialog.dismiss())
                 .show();
@@ -81,7 +83,7 @@ public class CustomDialog {
 
     public static void CustomYellowDialog(final Context context, String buttonText) {
         lovelyStandardDialog
-                .setTopTitleColor(context.getResources().getColor(R.color.text_color_light))
+                .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
                 .setTopColorRes(R.color.yellow)
                 .setButtonsBackground(R.drawable.border_yellow_1)
                 .setPositiveButton(buttonText, v -> {
@@ -92,7 +94,7 @@ public class CustomDialog {
     public static void CustomRedDialog(final Context context, String buttonText) {
         lovelyStandardDialog
                 .setTopColorRes(R.color.red)
-                .setTopTitleColor(context.getResources().getColor(R.color.text_color_light))
+                .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
                 .setButtonsBackground(R.drawable.border_red_1)
                 .setPositiveButton(buttonText, v -> lovelyStandardDialog.dismiss())
                 .show();

@@ -26,7 +26,7 @@ public class SpinnerCustomAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         view = inflater.inflate(R.layout.item_dropdown_menu, null);
-        CheckedTextView item = (CheckedTextView) view.findViewById(R.id.checked_text_view);
+        CheckedTextView item = view.findViewById(R.id.checked_text_view);
         item.setText(items.get(position));
         return view;
     }
@@ -35,7 +35,7 @@ public class SpinnerCustomAdapter extends BaseAdapter {
     @Override
     public View getDropDownView(int position, View view, ViewGroup parent) {
         view = inflater.inflate(R.layout.item_dropdown_menu_popup, null);
-        CheckedTextView item = (CheckedTextView) view.findViewById(R.id.checked_text_view);
+        CheckedTextView item = view.findViewById(R.id.checked_text_view);
         item.setText(items.get(position));
         return view;
     }

@@ -9,6 +9,7 @@ import com.leon.counter_reading.infrastructure.ISharedPreferenceManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 import io.jsonwebtoken.io.IOException;
 import okhttp3.Interceptor;
@@ -32,7 +33,7 @@ public class ReceivedCookiesInterceptor implements Interceptor {
             e.printStackTrace();
             Log.e("error intercept", e.toString());
         }
-        if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+        if (!Objects.requireNonNull(originalResponse).headers("Set-Cookie").isEmpty()) {
             HashSet<String> cookies = new HashSet<>(originalResponse.headers("Set-Cookie"));
             // Save the cookies (I saved in SharedPrefrence), you save whereever you want to save
             Log.e("cookies", cookies.toString());

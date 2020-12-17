@@ -10,6 +10,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -156,15 +157,24 @@ public class HomeActivity extends BaseActivity {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     void initializeImageViews() {
-        binding.imageViewAppSetting.setImageDrawable(getResources().getDrawable(R.drawable.img_app_settings));
-        binding.imageViewDownload.setImageDrawable(getResources().getDrawable(R.drawable.img_download_information));
-        binding.imageViewUpload.setImageDrawable(getResources().getDrawable(R.drawable.img_upload));
-        binding.imageViewReadingSetting.setImageDrawable(getResources().getDrawable(R.drawable.img_reading_settings));
-        binding.imageViewHelp.setImageDrawable(getResources().getDrawable(R.drawable.img_help));
-        binding.imageViewExit.setImageDrawable(getResources().getDrawable(R.drawable.img_exit));
-        binding.imageViewReading.setImageDrawable(getResources().getDrawable(R.drawable.img_readings));
-        binding.imageViewReport.setImageDrawable(getResources().getDrawable(R.drawable.img_reading_report));
-        binding.imageViewLocation.setImageDrawable(getResources().getDrawable(R.drawable.img_location));
+        binding.imageViewAppSetting.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(),R.drawable.img_app_settings));
+        binding.imageViewDownload.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(),R.drawable.img_download_information));
+        binding.imageViewUpload.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(),R.drawable.img_upload));
+        binding.imageViewReadingSetting.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(),R.drawable.img_reading_settings));
+        binding.imageViewHelp.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(),R.drawable.img_help));
+        binding.imageViewExit.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(),R.drawable.img_exit));
+        binding.imageViewReading.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(),R.drawable.img_readings));
+        binding.imageViewReport.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(),R.drawable.img_reading_report));
+        binding.imageViewLocation.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(),R.drawable.img_location));
     }
 
     void setOnImageViewClickListener() {

@@ -53,7 +53,7 @@ public class CustomFile {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        RequestBody reqFile = RequestBody.create(MediaType.parse("image/jpeg"), f);
+        RequestBody reqFile = RequestBody.create(f, MediaType.parse("image/jpeg"));
         return MultipartBody.Part.createFormData("imageFile", f.getName(), reqFile);
     }
 
@@ -137,8 +137,8 @@ public class CustomFile {
                 text.append('\n');
             }
             br.close();
-        } catch (IOException ignored) {
-            Log.e("Error", ignored.toString());
+        } catch (IOException ioException) {
+            Log.e("Error", ioException.toString());
         }
         String json = text.toString();
 //        Log.e("json", json);

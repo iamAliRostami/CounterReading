@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 public class CalendarTool {
 
@@ -82,7 +83,7 @@ public class CalendarTool {
             e.printStackTrace();
         }
         Date date1 = new Date();
-        long difference = Math.abs(date1.getTime() - convertedDate.getTime());
+        long difference = Math.abs(date1.getTime() - Objects.requireNonNull(convertedDate).getTime());
         return difference / (24 * 60 * 60 * 1000);
     }
 

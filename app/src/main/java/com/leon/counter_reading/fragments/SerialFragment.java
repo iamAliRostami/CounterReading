@@ -67,7 +67,8 @@ public class SerialFragment extends DialogFragment {
                 binding.editTextSerial.setError(getString(R.string.error_empty));
                 view.requestFocus();
             } else {
-                ((ReadingActivity) getActivity()).updateOnOffLoadByCounterSerial(
+                ((ReadingActivity) Objects.requireNonNull(Objects.requireNonNull
+                        (getActivity()))).updateOnOffLoadByCounterSerial(
                         position, counterStatePosition, counterStateCode, number);
                 dismiss();
             }

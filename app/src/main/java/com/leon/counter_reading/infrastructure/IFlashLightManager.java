@@ -10,8 +10,4 @@ public interface IFlashLightManager {
     boolean turnOff();
 
     boolean toggleFlash();
-
-    void flashLightOn();
-
-    void flashLightOff();
 }

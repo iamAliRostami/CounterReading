@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.leon.counter_reading.MyApplication;
 import com.leon.counter_reading.R;
 import com.leon.counter_reading.activities.SettingActivity;
 import com.leon.counter_reading.databinding.FragmentSettingChangeThemeBinding;
@@ -20,6 +22,8 @@ import com.leon.counter_reading.utils.CustomToast;
 import com.leon.counter_reading.utils.SharedPreferenceManager;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class SettingChangeThemeFragment extends Fragment {
     static int theme;
@@ -45,11 +49,16 @@ public class SettingChangeThemeFragment extends Fragment {
     @SuppressLint("UseCompatLoadingForDrawables")
     void initialize() {
         sharedPreferenceManager = new SharedPreferenceManager(getActivity(), SharedReferenceNames.ACCOUNT.getValue());
-        binding.imageViewBlack.setImageDrawable(getResources().getDrawable(R.drawable.img_black));
-        binding.imageViewBlue.setImageDrawable(getResources().getDrawable(R.drawable.img_blue));
-        binding.imageViewLightBlue.setImageDrawable(getResources().getDrawable(R.drawable.img_pale_blue));
-        binding.imageViewGreen.setImageDrawable(getResources().getDrawable(R.drawable.img_green));
-        binding.imageViewTheme.setImageDrawable(getResources().getDrawable(R.drawable.img_change_theme));
+        binding.imageViewBlack.setImageDrawable(ContextCompat.getDrawable(
+                MyApplication.getContext(), R.drawable.img_black));
+        binding.imageViewBlue.setImageDrawable(ContextCompat.getDrawable(
+                MyApplication.getContext(), R.drawable.img_blue));
+        binding.imageViewLightBlue.setImageDrawable(ContextCompat.getDrawable(
+                MyApplication.getContext(), R.drawable.img_pale_blue));
+        binding.imageViewGreen.setImageDrawable(ContextCompat.getDrawable(
+                MyApplication.getContext(), R.drawable.img_green));
+        binding.imageViewTheme.setImageDrawable(ContextCompat.getDrawable(
+                MyApplication.getContext(), R.drawable.img_change_theme));
         setOnChangeThemeClickListener();
         setButtonChangeThemeClickListener();
     }
@@ -84,7 +93,7 @@ public class SettingChangeThemeFragment extends Fragment {
     void changeTheme() {
         Intent intent = new Intent(getActivity(), SettingActivity.class);
         intent.putExtra(BundleEnum.THEME.getValue(), theme);
-        getActivity().finish();
+        Objects.requireNonNull(Objects.requireNonNull(getActivity())).finish();
         startActivity(intent);
     }
 
