@@ -25,12 +25,12 @@ public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
     ArrayList<ReadingConfigDefaultDto> readingConfigDefaultDtos = new ArrayList<>();
     ArrayList<KarbariDto> karbariDtos = new ArrayList<>();
     ArrayList<QotrDictionary> qotrDictionaries = new ArrayList<>();
-
+    ArrayList<String> items = new ArrayList<>();
+    
     public ViewPagerAdapterReading(@NonNull FragmentManager fm, int behavior,
                                    ReadingData readingData, Activity activity) {
         super(fm, behavior);
         this.readingData = readingData;
-        ArrayList<String> items = new ArrayList<>();
         for (int i = 0; i < readingData.counterStateDtos.size(); i++) {
             items.add(readingData.counterStateDtos.get(i).title);
         }

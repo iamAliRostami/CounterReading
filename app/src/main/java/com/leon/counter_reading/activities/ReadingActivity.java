@@ -335,28 +335,6 @@ public class ReadingActivity extends BaseActivity {
         }
     }
 
-    void setOnPageChangeListener() {
-        binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset,
-                                       int positionOffsetPixels) {
-                final String number = (position + 1) + "/" + readingData.onOffLoadDtos.size();
-                runOnUiThread(() -> binding.textViewPageNumber.setText(number));
-                setAboveIconsSrc(position);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-    }
-
     void setupViewPager(boolean lastUnseen) {
         binding.textViewNotFound.setVisibility(!(readingData.onOffLoadDtos.size() > 0) ? View.VISIBLE : View.GONE);
         binding.linearLayoutAbove.setVisibility(readingData.onOffLoadDtos.size() > 0 ? View.VISIBLE : View.GONE);
@@ -380,6 +358,28 @@ public class ReadingActivity extends BaseActivity {
             binding.viewPager.setCurrentItem(0);
     }
 
+    void setOnPageChangeListener() {
+        binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
+                final String number = (position + 1) + "/" + readingData.onOffLoadDtos.size();
+                runOnUiThread(() -> binding.textViewPageNumber.setText(number));
+                setAboveIconsSrc(position);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
     void checkPermissions() {
         if (PermissionManager.gpsEnabled(this))
             if (!PermissionManager.checkLocationPermission(getApplicationContext())) {
@@ -387,13 +387,13 @@ public class ReadingActivity extends BaseActivity {
             } else if (!PermissionManager.checkStoragePermission(getApplicationContext())) {
                 askStoragePermission();
             } else {
-                setAboveIcons();
-                new GetDBData().execute();
                 if (getIntent().getExtras() != null) {
                     //TODO
                     readStatus = getIntent().getIntExtra(BundleEnum.READ_STATUS.getValue(), 0);
                     highLow = getIntent().getIntExtra(BundleEnum.TYPE.getValue(), 1);
                 }
+                setAboveIcons();
+                new GetDBData().execute();
                 setOnImageViewsClickListener();
             }
     }

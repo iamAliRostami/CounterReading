@@ -66,7 +66,7 @@ public class ReportTemporaryFragment extends Fragment {
             for (String s : json1) {
                 counterStateDtos.add(gson.fromJson(s, CounterStateDto.class));
             }
-            adapter = (SpinnerCustomAdapter) getArguments().getSerializable(
+            adapter = (SpinnerCustomAdapter) getArguments().getParcelable(
                     BundleEnum.Item.getValue());
         }
     }
@@ -82,7 +82,7 @@ public class ReportTemporaryFragment extends Fragment {
         }
         args.putStringArrayList(BundleEnum.COUNTER_STATE.getValue(), json1);
 
-        args.putSerializable(BundleEnum.Item.getValue(), spinnerCustomAdapter);
+        args.putParcelable(BundleEnum.Item.getValue(), spinnerCustomAdapter);
         return args;
     }
 

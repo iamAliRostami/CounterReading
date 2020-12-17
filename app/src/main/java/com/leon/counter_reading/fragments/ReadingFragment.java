@@ -257,7 +257,7 @@ public class ReadingFragment extends Fragment {
                 counterStateDtos.add(gson.fromJson(s, CounterStateDto.class));
             }
             position = getArguments().getInt(BundleEnum.POSITION.getValue());
-            adapter = (SpinnerCustomAdapter) getArguments().getSerializable(BundleEnum.Item.getValue());
+            adapter = (SpinnerCustomAdapter) getArguments().getParcelable(BundleEnum.Item.getValue());
         }
     }
 
@@ -283,8 +283,8 @@ public class ReadingFragment extends Fragment {
             String json = gson.toJson(counterStateDto);
             json5.add(json);
         }
-        args.putSerializable(BundleEnum.Item.getValue(), spinnerCustomAdapter);
         args.putStringArrayList(BundleEnum.COUNTER_STATE.getValue(), json5);
+        args.putParcelable(BundleEnum.Item.getValue(), spinnerCustomAdapter);
         args.putInt(BundleEnum.POSITION.getValue(), position);
         return args;
     }
