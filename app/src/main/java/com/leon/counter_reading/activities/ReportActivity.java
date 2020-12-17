@@ -108,13 +108,10 @@ public class ReportActivity extends BaseActivity {
 
     private void setupViewPager() {
         //TODO
-        ArrayList<String> items = new ArrayList<>();
-        for (CounterStateDto counterStateDto : counterStateDtos)
-            items.add(counterStateDto.title);
         ViewPagerAdapterTab adapter = new ViewPagerAdapterTab(getSupportFragmentManager());
         adapter.addFragment(ReportTotalFragment.newInstance(zero, normal, high, low), "آمار کلی");
         adapter.addFragment(ReportNotReadingFragment.newInstance(total, unread), "قرائت نشده");
-        adapter.addFragment(ReportTemporaryFragment.newInstance(counterStateDtos, items), "علی الحساب");
+        adapter.addFragment(new ReportTemporaryFragment(), "علی الحساب");
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

@@ -14,6 +14,7 @@ import com.leon.counter_reading.adapters.SpinnerCustomAdapter;
 import com.leon.counter_reading.databinding.FragmentReportTemporaryBinding;
 import com.leon.counter_reading.enums.BundleEnum;
 import com.leon.counter_reading.tables.CounterStateDto;
+import com.leon.counter_reading.utils.MyDatabaseClient;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -31,6 +32,10 @@ public class ReportTemporaryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        counterStateDtos.addAll(MyDatabaseClient.getInstance(getActivity()).getMyDatabase().
+                counterStateDao().getCounterStateDtos());
+        for (CounterStateDto counterStateDto : counterStateDtos)
+            items.add(counterStateDto.title);
         getBundle();
     }
 
@@ -68,8 +73,11 @@ public class ReportTemporaryFragment extends Fragment {
             for (String s : json1) {
                 counterStateDtos.add(gson.fromJson(s, CounterStateDto.class));
             }
-            adapter = (SpinnerCustomAdapter) getArguments().getParcelable(
+            ArrayList<String> json2 = getArguments().getStringArrayList(
                     BundleEnum.Item.getValue());
+            for (String s : json2) {
+                items.add(gson.fromJson(s, String.class));
+            }
         }
     }
 

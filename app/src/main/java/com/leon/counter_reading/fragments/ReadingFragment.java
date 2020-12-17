@@ -22,6 +22,7 @@ import com.leon.counter_reading.tables.OnOffLoadDto;
 import com.leon.counter_reading.tables.QotrDictionary;
 import com.leon.counter_reading.tables.ReadingConfigDefaultDto;
 import com.leon.counter_reading.utils.Counting;
+import com.leon.counter_reading.utils.MyDatabaseClient;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -230,12 +231,11 @@ public class ReadingFragment extends Fragment {
             ReadingConfigDefaultDto readingConfigDefaultDto,
             KarbariDto karbariDto,
             QotrDictionary qotrDictionary,
-            ArrayList<CounterStateDto> counterStateDtos,
             ArrayList<String> items,
             int position) {
         ReadingFragment fragment = new ReadingFragment();
         fragment.setArguments(putBundle(onOffLoadDto, readingConfigDefaultDto, karbariDto,
-                qotrDictionary, counterStateDtos, items, position));
+                qotrDictionary, items, position));
         return fragment;
     }
 
@@ -253,17 +253,13 @@ public class ReadingFragment extends Fragment {
             qotrDictionary = gson.fromJson(getArguments().getString(
                     BundleEnum.QOTR_DICTIONARY.getValue()),
                     QotrDictionary.class);
-            ArrayList<String> json1 = getArguments().getStringArrayList(
-                    BundleEnum.COUNTER_STATE.getValue());
-            for (String s : json1) {
-                counterStateDtos.add(gson.fromJson(s, CounterStateDto.class));
-            }
             ArrayList<String> json2 = getArguments().getStringArrayList(
                     BundleEnum.Item.getValue());
             for (String s : json2) {
                 items.add(gson.fromJson(s, String.class));
             }
-
+            counterStateDtos.addAll(MyDatabaseClient.getInstance(getActivity()).getMyDatabase().
+                    counterStateDao().getCounterStateDtos());
             position = getArguments().getInt(BundleEnum.POSITION.getValue());
 
         }
@@ -273,8 +269,7 @@ public class ReadingFragment extends Fragment {
                             ReadingConfigDefaultDto readingConfigDefaultDto,
                             KarbariDto karbariDto,
                             QotrDictionary qotrDictionary,
-                            ArrayList<CounterStateDto> counterStateDtos,
-                            ArrayList<String>  items,
+                            ArrayList<String> items,
                             int position) {
         Bundle args = new Bundle();
         Gson gson = new Gson();
@@ -286,12 +281,6 @@ public class ReadingFragment extends Fragment {
         args.putString(BundleEnum.KARBARI_DICTONARY.getValue(), json3);
         String json4 = gson.toJson(qotrDictionary);
         args.putString(BundleEnum.QOTR_DICTIONARY.getValue(), json4);
-        ArrayList<String> json5 = new ArrayList<>();
-        for (CounterStateDto counterStateDto : counterStateDtos) {
-            String json = gson.toJson(counterStateDto);
-            json5.add(json);
-        }
-        args.putStringArrayList(BundleEnum.COUNTER_STATE.getValue(), json5);
 
         ArrayList<String> json6 = new ArrayList<>();
         for (String s : items) {
