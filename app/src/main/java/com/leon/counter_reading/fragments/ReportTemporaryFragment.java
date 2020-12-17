@@ -23,6 +23,7 @@ public class ReportTemporaryFragment extends Fragment {
     FragmentReportTemporaryBinding binding;
     ArrayList<CounterStateDto> counterStateDtos = new ArrayList<>();
     SpinnerCustomAdapter adapter;
+    ArrayList<String> items = new ArrayList<>();
 
     public ReportTemporaryFragment() {
     }
@@ -48,13 +49,14 @@ public class ReportTemporaryFragment extends Fragment {
     }
 
     void initializeSpinner() {
+        adapter = new SpinnerCustomAdapter(getActivity(), items);
         binding.spinner.setAdapter(adapter);
     }
 
     public static ReportTemporaryFragment newInstance(
-            ArrayList<CounterStateDto> counterStateDtos, SpinnerCustomAdapter spinnerCustomAdapter) {
+            ArrayList<CounterStateDto> counterStateDtos, ArrayList<String> items) {
         ReportTemporaryFragment fragment = new ReportTemporaryFragment();
-        fragment.setArguments(putBundle(counterStateDtos, spinnerCustomAdapter));
+        fragment.setArguments(putBundle(counterStateDtos, items));
         return fragment;
     }
 
@@ -72,7 +74,7 @@ public class ReportTemporaryFragment extends Fragment {
     }
 
     static Bundle putBundle(ArrayList<CounterStateDto> counterStateDtos,
-                            SpinnerCustomAdapter spinnerCustomAdapter) {
+                            ArrayList<String> items) {
         Bundle args = new Bundle();
         Gson gson = new Gson();
         ArrayList<String> json1 = new ArrayList<>();
@@ -82,7 +84,12 @@ public class ReportTemporaryFragment extends Fragment {
         }
         args.putStringArrayList(BundleEnum.COUNTER_STATE.getValue(), json1);
 
-        args.putParcelable(BundleEnum.Item.getValue(), spinnerCustomAdapter);
+        ArrayList<String> json2 = new ArrayList<>();
+        for (String counterStateDto : items) {
+            String jsonTemp = gson.toJson(counterStateDto);
+            json2.add(jsonTemp);
+        }
+        args.putStringArrayList(BundleEnum.Item.getValue(), json2);
         return args;
     }
 

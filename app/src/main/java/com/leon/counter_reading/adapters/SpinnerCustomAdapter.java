@@ -2,8 +2,6 @@ package com.leon.counter_reading.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,7 @@ import com.leon.counter_reading.R;
 
 import java.util.ArrayList;
 
-public class SpinnerCustomAdapter extends BaseAdapter implements Parcelable {
+public class SpinnerCustomAdapter extends BaseAdapter {
     ArrayList<String> items;
     LayoutInflater inflater;
 
@@ -23,22 +21,6 @@ public class SpinnerCustomAdapter extends BaseAdapter implements Parcelable {
         this.items = items;
         inflater = (LayoutInflater.from(activity));
     }
-
-    protected SpinnerCustomAdapter(Parcel in) {
-        items = in.createStringArrayList();
-    }
-
-    public static final Creator<SpinnerCustomAdapter> CREATOR = new Creator<SpinnerCustomAdapter>() {
-        @Override
-        public SpinnerCustomAdapter createFromParcel(Parcel in) {
-            return new SpinnerCustomAdapter(in);
-        }
-
-        @Override
-        public SpinnerCustomAdapter[] newArray(int size) {
-            return new SpinnerCustomAdapter[size];
-        }
-    };
 
     @SuppressLint({"ViewHolder", "InflateParams"})
     @Override
@@ -71,15 +53,5 @@ public class SpinnerCustomAdapter extends BaseAdapter implements Parcelable {
     @Override
     public long getItemId(int position) {
         return position;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringList(items);
     }
 }

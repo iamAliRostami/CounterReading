@@ -21,12 +21,11 @@ import java.util.ArrayList;
 
 public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
     ReadingData readingData;
-    SpinnerCustomAdapter spinnerCustomAdapter;
     ArrayList<ReadingConfigDefaultDto> readingConfigDefaultDtos = new ArrayList<>();
     ArrayList<KarbariDto> karbariDtos = new ArrayList<>();
     ArrayList<QotrDictionary> qotrDictionaries = new ArrayList<>();
     ArrayList<String> items = new ArrayList<>();
-    
+
     public ViewPagerAdapterReading(@NonNull FragmentManager fm, int behavior,
                                    ReadingData readingData, Activity activity) {
         super(fm, behavior);
@@ -48,7 +47,6 @@ public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
                     qotrDictionaries.add(qotrDictionary);
             }
         }
-        spinnerCustomAdapter = new SpinnerCustomAdapter(activity, items);
     }
 
     @NotNull
@@ -79,7 +77,7 @@ public class ViewPagerAdapterReading extends FragmentStatePagerAdapter {
         return ReadingFragment.newInstance(readingData.onOffLoadDtos.get(position),
                 readingConfigDefaultDtos.get(position), karbariDtos.get(position),
                 qotrDictionaries.get(position), readingData.counterStateDtos,
-                spinnerCustomAdapter, position);
+                items, position);
     }
 
     @Override
