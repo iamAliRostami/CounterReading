@@ -200,6 +200,11 @@ public class LocationActivity extends BaseActivity {
             if (requestCode == MyApplication.REQUEST_NETWORK_CODE) {
                 if (isNetworkAvailable(getApplicationContext()))
                     checkPermissions();
+                else PermissionManager.setMobileWifiEnabled(this);
+            }
+            if (requestCode == MyApplication.REQUEST_WIFI_CODE) {
+                if (isNetworkAvailable(getApplicationContext()))
+                    checkPermissions();
                 else PermissionManager.enableNetwork(this);
             }
         }

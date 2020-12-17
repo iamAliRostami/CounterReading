@@ -11,18 +11,19 @@ import androidx.multidex.MultiDex;
 import es.dmoral.toasty.Toasty;
 
 public class MyApplication extends Application {
+    public static Bitmap bitmapSelectedImage;
+    public static int POSITION = -1;
+    public static String fileName;
+    public static final String FONT_NAME = "font/font_1.ttf";
     public static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     public static final long MIN_TIME_BW_UPDATES = 10000;
     public static final long FASTEST_INTERVAL = 5;
-    public static final int REQUEST_NETWORK_CODE = 1234;
+    public static final int GPS_CODE = 1231;
+    public static final int REQUEST_NETWORK_CODE = 1232;
+    public static final int REQUEST_WIFI_CODE = 1233;
     public static final int CAMERA_REQUEST = 1888;
     public static final int GALLERY_REQUEST = 1889;
-    public static final int GPS_CODE = 1235;
     public static final int TOAST_TEXT_SIZE = 20;
-    public static final String FONT_NAME = "font/font_1.ttf";
-    public static int POSITION = -1;
-    public static Bitmap bitmapSelectedImage;
-    public static String fileName;
 
     public static Context getContext() {
         return appContext;

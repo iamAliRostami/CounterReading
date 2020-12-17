@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
-import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.provider.Settings;
 
 import androidx.core.app.ActivityCompat;
@@ -168,18 +166,13 @@ public class PermissionManager {
     }
 
     public static void setMobileDataEnabled(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            Intent intent = new Intent(Settings.Panel.ACTION_INTERNET_CONNECTIVITY);
-            activity.startActivityForResult(intent, 0);
-        } else {
-            WifiManager wifi = (WifiManager) activity.getApplicationContext()
-                    .getSystemService(Context.WIFI_SERVICE);
-            wifi.setWifiEnabled(true);
-            activity.finish();
-            activity.startActivity(activity.getIntent());
-        }
+        activity.startActivityForResult(
+                new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS), MyApplication.REQUEST_NETWORK_CODE);
     }
-
+    public static void setMobileWifiEnabled(Activity activity) {
+        activity.startActivityForResult(
+                new Intent(Settings.ACTION_WIFI_SETTINGS), MyApplication.REQUEST_WIFI_CODE);
+    }
     public static void forceClose(Activity activity) {
         CustomToast customToast = new CustomToast();
         customToast.error(activity.getString(R.string.permission_not_completed));
