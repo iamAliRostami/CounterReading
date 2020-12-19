@@ -23,7 +23,7 @@ import com.leon.counter_reading.tables.TrackingDto;
 @Database(entities = {SavedLocation.class, KarbariDto.class, OnOffLoadDto.class,
         QotrDictionary.class, ReadingConfigDefaultDto.class, TrackingDto.class,
         CounterStateDto.class},
-        version = 4, exportSchema = false)
+        version = 8, exportSchema = false)
 public abstract class MyDatabase extends RoomDatabase {
     public abstract KarbariDao karbariDao();
 
@@ -39,7 +39,7 @@ public abstract class MyDatabase extends RoomDatabase {
 
     public abstract TrackingDao trackingDao();
 
-    public static final Migration MIGRATION_1_2 = new Migration(2, 3) {
+    public static final Migration MIGRATION_4_5 = new Migration(4, 5) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE t1_backup AS SELECT * FROM KarbariDto");
@@ -80,7 +80,6 @@ public abstract class MyDatabase extends RoomDatabase {
         }
     };
 
-
     public static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
@@ -88,6 +87,18 @@ public abstract class MyDatabase extends RoomDatabase {
             database.execSQL("DROP TABLE TrackingDto");
             database.execSQL("ALTER TABLE t1_backup RENAME TO TrackingDto");
             database.execSQL("DROP TABLE t1_backup");
+        }
+    };
+
+    public static final Migration MIGRATION_6_7 = new Migration(7, 8) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE UNIQUE INDEX 'id' ON TrackingDto(id);");
+            database.execSQL("CREATE UNIQUE INDEX 'id' ON KarbariDto(id);");
+            database.execSQL("CREATE UNIQUE INDEX 'id' ON OnOffLoadDto(id);");
+            database.execSQL("CREATE UNIQUE INDEX 'id' ON QotrDictionary(id);");
+            database.execSQL("CREATE UNIQUE INDEX 'id' ON ReadingConfigDefaultDto(id);");
+            database.execSQL("CREATE UNIQUE INDEX 'id' ON CounterStateDto(id);");
         }
     };
 }

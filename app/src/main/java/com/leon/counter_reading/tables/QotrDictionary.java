@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "QotrDictionary", indices = @Index(value = "customId", unique = true))
+@Entity(tableName = "QotrDictionary", indices = @Index(value = {"id"}, unique = true))
 public class QotrDictionary {
     @PrimaryKey(autoGenerate = true)
     public int customId;

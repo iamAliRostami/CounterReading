@@ -32,7 +32,7 @@ public class MyDatabaseClient {
         Room.databaseBuilder(context, MyDatabase.class,
                 MyApplication.getDBName()).
                 fallbackToDestructiveMigration().
-                addMigrations(MyDatabase.MIGRATION_3_4).
+                addMigrations(MyDatabase.MIGRATION_6_7).
                 allowMainThreadQueries().
                 build();
     }

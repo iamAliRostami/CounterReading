@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "OnOffLoadDto", indices = @Index(value = "customId", unique = true))
+@Entity(tableName = "OnOffLoadDto", indices = @Index(value = {"id"}, unique = true))
 public class OnOffLoadDto {
     @PrimaryKey(autoGenerate = true)
     public int customId;

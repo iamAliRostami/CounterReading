@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "CounterStateDto", indices = @Index(value = "customId", unique = true))
+@Entity(tableName = "CounterStateDto", indices = @Index(value = {"id"}, unique = true))
 public class CounterStateDto {
     @PrimaryKey(autoGenerate = true)
     public int customId;

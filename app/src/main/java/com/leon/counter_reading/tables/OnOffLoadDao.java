@@ -37,7 +37,7 @@ public interface OnOffLoadDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertOnOffLoad(OnOffLoadDto onOffLoadDto);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertAllOnOffLoad(List<OnOffLoadDto> onOffLoadDtos);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
